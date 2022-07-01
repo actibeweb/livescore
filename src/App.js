@@ -4,6 +4,7 @@ import "./index.css";
 import Home from "./components/Home";
 import TopNavbar from "./components/Navbar/TopNavbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import BottomNavbar from "./components/Navbar/BottomNavbar";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
+        <BottomNavbar />
       </div>
     </>
   );
