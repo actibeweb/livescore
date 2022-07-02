@@ -1,7 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import "./index.css";
-import Home from "./components/Home";
+import Home from "./components/Home/Home";
 import TopNavbar from "./components/Navbar/TopNavbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BottomNavbar from "./components/Navbar/BottomNavbar";
