@@ -718,12 +718,227 @@ const FootballDetails = () => {
           </div>
         </div>
       )}
-      {activeTab==="Table" &&(
-        <div className="px-2.5" >
-            <div class="px-1 pb-2 flex items-center gap-2">
-                
+      {activeTab === "Table" && (
+        <div className="px-2.5">
+          <div className="px-1 pb-2 flex items-center gap-2">
+            {tableTabs.map((tab, index) => {
+              return (
+                <p
+                  onClick={() => setActiveSubTab(tab)}
+                  key={index}
+                  className={
+                    activeTableSubTab === tab
+                      ? "uppercase text-11px py-1 px-2 rounded-2xl cursor-pointer bg-n-white text-n-black"
+                      : "uppercase text-11px py-1 px-2 rounded-2xl cursor-pointer bg-transparent border-pry border"
+                  }
+                >
+                  {tab}
+                </p>
+              );
+            })}
+          </div>
+          <div className="mt-3 border-n-bg-gray border rounded-xl">
+            <table className="w-full">
+              <thead className="border-n-bg-gray border-b">
+                <tr>
+                  <th className="sm:w-12 h-7 text-center pl-2 text-xxs uppercase">
+                    #
+                  </th>
+                  <th className="h-7 text-left px-1 w-2/3 sm:w-[300px] text-xxs uppercase">
+                    team
+                  </th>
+                  <th className="h-7 text-center px-1 text-xxs uppercase">p</th>
+                  <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                    w
+                  </th>
+                  <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                    d
+                  </th>
+                  <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                    l
+                  </th>
+                  <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                    f
+                  </th>
+                  <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                    a
+                  </th>
+                  <th className="h-7 text-center px-1 text-xxs uppercase">
+                    gd
+                  </th>
+                  <th className="h-7 text-center pr-2 text-xxs uppercase">
+                    pts
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {leagueTable.map((club, idx) => {
+                  return (
+                    <>
+                      <tr
+                        key={idx}
+                        className="py-1 h-8 border-n-bg-gray border-b"
+                      >
+                        <td className="sm:w-12 text-center pl-2 text-xxs">
+                          <div className="flex flex-col justify-center relative">
+                            <span> {idx + 1}</span>
+                            <div
+                              className={
+                                idx === 0
+                                  ? "bg-n-blue h-1 rounded-t -mb-2"
+                                  : idx === 1
+                                  ? "bg-n-blue h-1 rounded-t -mb-2"
+                                  : idx === 2
+                                  ? "bg-n-blue h-1 rounded-t -mb-2"
+                                  : idx === 3
+                                  ? "bg-n-blue h-1 rounded-t -mb-2"
+                                  : idx === 4
+                                  ? "bg-n-dark-orange h-1 rounded-t -mb-2"
+                                  : idx === 5
+                                  ? "bg-n-dark-orange h-1 rounded-t -mb-2"
+                                  : idx === 6
+                                  ? "bg-n-light-green h-1 rounded-t -mb-2"
+                                  : idx === leagueTable.length - 3
+                                  ? "bg-n-dark-red h-1 rounded-t -mb-2"
+                                  : idx === leagueTable.length - 2
+                                  ? "bg-n-dark-red h-1 rounded-t -mb-2"
+                                  : idx === leagueTable.length - 1
+                                  ? "bg-n-dark-red h-1 rounded-t -mb-2"
+                                  : ""
+                              }
+                            ></div>
+                          </div>
+                        </td>
+                        <td className="text-left px-1 w-2/3 sm:w-[300px] text-xxs capitalize">
+                          <div className="flex items-center gap-1 text-n-white">
+                            <span>
+                              <img src={club.teamLogo} className="w-5 h-5" />
+                            </span>
+                            <span>{club.team}</span>
+                          </div>
+                        </td>
+                        <td className="text-center px-1 text-xxs">
+                          {club.matchesPlayed}
+                        </td>
+                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                          {club.matchesWon}
+                        </td>
+                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                          {club.matchesDrawn}
+                        </td>
+                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                          {club.matchesLost}
+                        </td>
+                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                          {club.matchesF}
+                        </td>
+                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                          {club.matchesA}
+                        </td>
+                        <td className="text-center px-1 text-xxs">
+                          {club.goalDifference}
+                        </td>
+                        <td className="text-center pr-2 text-xxs">
+                          {club.points}
+                        </td>
+                      </tr>
+                   
+                    </>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <div className="mt-3 bg-n-bg-gray rounded-md p-1 text-pry flex justify-center items-center relative sm:hidden">
+            <span className="absolute left-1">
+              {" "}
+              <i className="fa fa-refresh"></i>
+            </span>
+
+            <p className="text-11px">Rotate to view expanded table</p>
+          </div>
+          <div className="mt-3 grid gap-1">
+            <div className="flex items-center gap-4">
+              <div className="w-2 h-2 rounded-full bg-n-dark-blue"></div>
+              <p className="text-11px text-n-white">Champions League</p>
             </div>
+            <div className="flex items-center gap-4">
+              <div className="w-2 h-2 rounded-full bg-n-dark-orange"></div>
+              <p className="text-11px text-n-white">Europa League</p>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="w-2 h-2 rounded-full bg-n-light-green"></div>
+              <p className="text-11px text-n-white">
+                Europa Conference League qualification
+              </p>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="w-2 h-2 rounded-full bg-n-dark-red"></div>
+              <p className="text-11px text-n-white">Relegation</p>
+            </div>
+          </div>
         </div>
+      )}
+      {activeTab === "H2H" && (
+        <div className="px-2.5">
+          <div className="px-1 pb-2 flex items-center gap-2">
+            {H2HTabs.map((tab, index) => {
+              <p
+                onClick={() => {
+                  setActiveH2HSubTab(tab);
+                }}
+                key={index}
+                className={
+                  activeH2HSubTab === tab
+                    ? "bg-n-white text-n-black uppercase text-11px py-1 px-2 rounded-2xl cursor-pointer "
+                    : "bg-transparent border-pry border uppercase text-11px py-1 px-2 rounded-2xl cursor-pointer"
+                }
+              >
+                {tab}
+              </p>;
+            })}
+          </div>
+          {h2hGames.map((game, index) => {
+            <div key={index} className="mt-2">
+              <div className="flex items-center gap-2 mb-2">
+                <img src={game.leagueFlag} alt="game" className="w-5 h-3" />
+                <div className="grid">
+                  <p className="capitalize text-sm font-bold">{game.game}</p>
+                  <p className="capitalize text-11px text-pry">{game.venue}</p>
+                </div>
+              </div>
+              <div className="bg-n-bg-gray rounded-lg p-3 flex justify-between items-center">
+                <div className="flex gap-2">
+                  <div className="grid gap-2">
+                    <p className="text-xxs text-center text-pry font-thin">
+                      {game.year}
+                    </p>
+                    <p className="text-11px text-center text-pry font-thin">
+                      FT
+                    </p>
+                  </div>
+                  <div class="grid gap-1">
+                    <div class="flex items-center gap-2">
+                      <img src={game.homeFlag} alt="game" className="w-5 h-5" />
+                      <p class="text-sm text-pry">{game.homeTeam}</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <img src={game.awayFlag} alt="game" className="w-5 h-5" />
+                      <p class="text-sm text-pry">{game.awayTeam}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <div class="flex flex-col gap-2">
+                    <p class="text-n-white text-sm">{game.homeScore}</p>
+                    <p class="text-n-white text-sm">{game.awayScore}</p>
+                  </div>
+                </div>
+              </div>
+            </div>;
+          })}
+        </div>
+
       )}
     </div>
   );
