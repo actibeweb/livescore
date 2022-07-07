@@ -9,7 +9,7 @@ const tabs = [
   { name: "Hockey", link: "/", linkName: "Home" },
   { name: "Basketball", link: "/", linkName: "Home" },
   { name: "Tennis", link: "/", linkName: "Home" },
-  { name: "Cricket", link: "/", linkName: "Home" },
+  { name: "Cricket", link: "/", linkName: "cricket" },
 ];
 
 const TopNavbar = () => {
