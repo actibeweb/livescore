@@ -14,7 +14,7 @@ const FootballDetails = () => {
   const [activeSubTab, setActiveSubTab] = useState("Events");
   const [activeTableSubTab, setActiveTableSubTab] = useState("All");
   const [activeH2HSubTab, setActiveH2HSubTab] = useState("H2H");
-  const [fixture, setFixture] = useState({});
+  const [fixtures, setFixtures] = useState(undefined);
   const tabs = ["Info", "Summary", "Stats", "Line-ups", "Table", "H2H"];
   const subTabs = ["Events", "Commentary"];
   const tableTabs = ["All", "Home", "Away"];
@@ -34,7 +34,7 @@ const FootballDetails = () => {
       const data = await getFixtureById(id);
       console.log(data);
       console.log(data.response[0]);
-      setFixture(data.response[0]);
+      setFixtures(data.response[0]);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -363,24 +363,24 @@ const FootballDetails = () => {
 
   return (
     <>
-      {loading ? (
+      {!fixtures ? (
         <Loader />
       ) : (
         <div className="text-n-white py-1 lg:w-[50%] lg:mx-auto">
           <div className="px-2.5 mb-2 flex justify-between items-center">
             <div className="flex items-center gap-2 mb-2">
               <img
-                src={fixture && fixture.league.flag}
-                alt={fixture && fixture.league.name}
+                src={fixtures && fixtures.league.flag}
+                alt={fixtures && fixtures.league.name}
                 className="w-5 h-3"
               />
 
               <div className="grid">
                 <p className="capitalize text-sm font-bold">
-                  {fixture && fixture.league.name}
+                  {fixtures && fixtures.league.name}
                 </p>
                 <p className="capitalize text-11px text-pry">
-                  {fixture && fixture.league.country}
+                  {fixtures && fixtures.league.country}
                 </p>
               </div>
             </div>
@@ -403,7 +403,7 @@ const FootballDetails = () => {
             </div>
           </div>
           <div className="mx-2.5 h-20 py-3 relative flex justify-center items-center bg-n-bg-gray rounded-lg">
-            {fixture.status.short !== "FT" && (
+            {/* { fixtures && fixtures.fixtures.status.short !== "FT" && (
               <div className="grid gap-[6px] mr-10 w-10">
                 <div className="flex items-center">
                   <i className="fa fa-play border border-n-white rounded"></i>
@@ -411,45 +411,45 @@ const FootballDetails = () => {
                 </div>
                 <p className="text-11px text-center font-thin">16:30</p>
               </div>
-            )}
-            {fixture.status.short !== "FT" ? (
-              <div className="flex justify-center items-center w-10 mr-10">
+            )} */}
+            {/* {fixtures.status.short !== "FT" ? ( */}
+            {/* <div className="flex justify-center items-center w-10 mr-10">
                 <div className="absolute top-[5px] bottom-[5px] left-0 rounded-tr-xl rounded-br-xl w-1 bg-n-orange"></div>
                 <p className="absolute left-5 text-11px text-center font-thin text-n-orange">
-                  {fixture && fixture.status.short}
+                  {fixtures && fixtures.status.short}
                 </p>
-              </div>
-            ) : (
-              <div className="mr-10 flex justify-center items-center w-10">
-                <p className="text-11px text-center font-thin">FT</p>
-              </div>
-            )}
+              </div> */}
+            {/* ) : ( */}
+            <div className="mr-10 flex justify-center items-center w-10">
+              <p className="text-11px text-center font-thin">FT</p>
+            </div>
+            {/* )} */}
             <div className="flex justify-between items-center gap-10 w-64">
               <div className="flex flex-col justify-center gap-3">
                 <img
-                  src={fixture.teams.home.logo}
-                  alt={fixture.teams.home.name}
+                  src={fixtures.teams.home.logo}
+                  alt={fixtures.teams.home.name}
                   className="w-6 h-6 mx-auto"
                 />
                 <p className="text-11px text-center">
-                  {fixture.teams.home.name}
+                  {fixtures.teams.home.name}
                 </p>
               </div>
               <div>
                 <p className="text-[22px] flex items-center gap-1 font-bold">
-                  <span> {fixture.score.fulltime.home}</span> -{" "}
-                  <span> {fixture.score.fulltime.away}</span>
+                  <span> {fixtures.score.fulltime.home}</span> -{" "}
+                  <span> {fixtures.score.fulltime.away}</span>
                 </p>
               </div>
               <div className="flex flex-col justify-center gap-3">
                 <img
-                  src={fixture.teams.away.logo}
-                  alt={fixture.teams.away.name}
+                  src={fixtures.teams.away.logo}
+                  alt={fixtures.teams.away.name}
                   className="w-6 h-6 mx-auto"
                 />
 
                 <p className="text-11px text-center">
-                  {fixture.teams.away.name}
+                  {fixtures.teams.away.name}
                 </p>
               </div>
             </div>
@@ -477,7 +477,9 @@ const FootballDetails = () => {
                 <div className="px-2 py-3 flex gap-3 border-n-bg-gray border-b">
                   <i className="fa fa-calendar"></i>
                   <div>
-                    <p className="capitalize text-11px">15 May 2022</p>
+                    <p className="capitalize text-11px">
+                      {fixtures.fixture.timestamp}
+                    </p>
                     <p className="capitalize text-9px">Date</p>
                   </div>
                 </div>
@@ -485,7 +487,7 @@ const FootballDetails = () => {
                   <i className="fa fa-whistle"></i>
                   <div>
                     <p className="capitalize text-11px">
-                      Chris Kavanagh (England)
+                      {fixtures.fixture.referee}
                     </p>
                     <p className="capitalize text-9px">referee</p>
                   </div>
@@ -493,7 +495,9 @@ const FootballDetails = () => {
                 <div className="px-2 py-3 flex gap-3">
                   <i className="fa fa-stadium"></i>
                   <div>
-                    <p className="capitalize text-11px">Villa Park</p>
+                    <p className="capitalize text-11px">
+                      {fixtures.fixture.venue.city}
+                    </p>
                     <p className="capitalize text-9px">venue</p>
                   </div>
                 </div>
@@ -527,62 +531,37 @@ const FootballDetails = () => {
               </div>
               {activeSubTab === "Events" ? (
                 <div className="mx-1 border border-n-bg-gray rounded-md">
-                  <div className="px-2 py-3 flex justify-start items-center border-n-bg-gray border-b">
-                    <p className="mr-2 text-py text-11px">8'</p>
-                    <div className="text-11px flex items-center">
-                      <p className="text-n-white">Van Djick</p>
-                      <div className="ml-2 h-3 w-2 bg-yellow-300 rounded-sm"></div>
-                    </div>
-                  </div>
-                  <div className="px-2 py-3 flex justify-between items-center border-n-bg-gray border-b">
-                    <p className="mr-2 text-py text-11px">15'</p>
-                    <div className="text-11px flex items-center">
-                      <p className="text-n-white">Phil Phoden</p>
-                      <div className="ml-2 h-3 w-2 bg-yellow-300 rounded-sm"></div>
-                    </div>
-                  </div>
-                  <div className="px-2 py-3 flex justify-start items-center border-n-bg-gray border-b">
-                    <p className="mr-2 text-py text-11px">8'</p>
-                    <div className="text-11px flex items-center">
-                      <p className="text-n-white">Van Djick</p>
-                      <div className="ml-2 h-3 w-2 bg-yellow-300 rounded-sm"></div>
-                    </div>
-                  </div>
-                  <div className="px-2 py-3 flex justify-between items-center border-n-bg-gray border-b">
-                    <p className="mr-2 text-py text-11px">15'</p>
-                    <div className="text-11px flex items-center">
-                      <p className="text-n-white">Phil Phoden</p>
-                      <div className="ml-2 h-3 w-2 bg-yellow-300 rounded-sm"></div>
-                    </div>
-                  </div>
-                  <div className="px-2 py-3 flex justify-start items-center border-n-bg-gray border-b">
-                    <p className="mr-2 text-py text-11px">8'</p>
-                    <div className="text-11px flex items-center">
-                      <p className="text-n-white">Van Djick</p>
-                      <div className="ml-2 h-3 w-2 bg-yellow-300 rounded-sm"></div>
-                    </div>
-                  </div>
-                  <div className="px-2 py-3 flex justify-between items-center border-n-bg-gray border-b">
-                    <p className="mr-2 text-py text-11px">15'</p>
-                    <div className="text-11px flex items-center">
-                      <p className="text-n-white">Phil Phoden</p>
-                      <div className="ml-2 h-3 w-2 bg-yellow-300 rounded-sm"></div>
-                    </div>
-                  </div>
-                  <div className="px-2 py-3 flex justify-start items-center border-n-bg-gray border-b">
-                    <p className="mr-2 text-py text-11px">8'</p>
-                    <div className="text-11px flex items-center">
-                      <p className="text-n-white">Van Djick</p>
-                      <div className="ml-2 h-3 w-2 bg-yellow-300 rounded-sm"></div>
-                    </div>
-                  </div>
-                  <div className="px-2 py-3 flex justify-between items-center border-n-bg-gray border-b">
-                    <p className="mr-2 text-py text-11px">15'</p>
-                    <div className="text-11px flex items-center">
-                      <p className="text-n-white">Phil Phoden</p>
-                      <div className="ml-2 h-3 w-2 bg-yellow-300 rounded-sm"></div>
-                    </div>
-                  </div>
+                  {fixtures.events &&
+                    fixtures.events.map((event, index) => {
+                      return (
+                        <>
+                          {event.team.name === fixtures.teams.home.name ? (
+                            <div className="px-2 py-3 flex justify-start items-center border-n-bg-gray border-b">
+                              <p className="mr-2 text-py text-11px">{`${event.time.elapsed}'`}</p>
+                              <div className="text-11px flex items-center">
+                                <p className="text-n-white">
+                                  {event.player.name}
+                                </p>
+                                <div className="ml-2 h-3 w-2">{event.type}</div>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="px-2 py-3 flex justify-between items-center border-n-bg-gray border-b">
+                              <p className="mr-2 text-py text-11px">{`${event.time.elapsed}'`}</p>
+                              <div className="text-11px flex items-center">
+                                <p className="text-n-white">
+                                  {event.player.name}
+                                </p>
+                                <div className="ml-2 h-3 w-2 mr-3">
+                                  {event.type}
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                          ;
+                        </>
+                      );
+                    })}
                 </div>
               ) : (
                 <div className="mx-1 border border-n-bg-gray rounded-md">
@@ -661,6 +640,7 @@ const FootballDetails = () => {
           )}
           {activeTab === "Stats" && (
             <div className="px-2.5 text-pry">
+              {}
               <div className="grid">
                 <div className="flex justify-between items-center text-11px text-pry">
                   <p>2</p>
@@ -677,59 +657,12 @@ const FootballDetails = () => {
                   </div>
                 </div>
               </div>
-              <div className="grid my-2">
-                <div className="flex justify-between items-center text-11px text-pry">
-                  <p className="text-n-white">4</p>
-                  <p>Shots off target</p>
-                  <p>2</p>
-                </div>
-                <div className="flex justify-between items-center gap-2">
-                  <div className="bg-n-bg-gray flex justify-end w-1/2 h-[10px] rounded-l-lg">
-                    <div className="w-3/4 h-[10px] bg-n-orange"></div>
-                  </div>
-
-                  <div className="bg-n-bg-gray flex justify-start w-1/2 h-[10px] rounded-r-lg">
-                    <div className="w-1/3 h-[10px] bg-n-gray"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid mb-2">
-                <div className="flex justify-between items-center text-11px text-pry">
-                  <p>0</p>
-                  <p>Blocked Shots</p>
-                  <p className="text-n-white">2</p>
-                </div>
-                <div className="flex justify-between items-center gap-2">
-                  <div className="bg-n-bg-gray flex justify-end w-1/2 h-[10px] rounded-l-lg">
-                    <div className="w-0 h-[10px]"></div>
-                  </div>
-
-                  <div className="bg-n-bg-gray flex justify-start w-1/2 h-[10px] rounded-r-lg">
-                    <div className="w-full h-[10px] bg-n-orange rounded-r-lg"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid mb-2">
-                <div className="flex justify-between items-center text-11px text-pry">
-                  <p>48</p>
-                  <p>Possession (%)</p>
-                  <p className="text-n-white">52</p>
-                </div>
-                <div className="flex justify-between items-center gap-2">
-                  <div className="bg-n-bg-gray flex justify-end w-1/2 h-[10px] rounded-l-lg">
-                    <div className="w-[48%] h-[10px] bg-n-gray"></div>
-                  </div>
-
-                  <div className="bg-n-bg-gray flex justify-start w-1/2 h-[10px] rounded-r-lg">
-                    <div className="w-[52%] h-[10px] bg-n-orange"></div>
-                  </div>
-                </div>
-              </div>
+           
             </div>
           )}
           {activeTab === "Line-ups" && (
             <div className="px-2.5 text-pry">
-              <p className="uppercase text-11px">substitute players</p>
+              <p className="uppercase tex t-11px">substitute players</p>
               <div className="mt-2 border-n-bg-gray border rounded-md">
                 <div className="px-2 py-3 flex justify-around gap-3 border-n-bg-gray border-b">
                   <p className="capitalize text-11px">Sub 1</p>
