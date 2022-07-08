@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getRandomScore } from "../../utils/randomScore";
 
 import { useNavigate } from "react-router";
+import { getFixturesByDate } from "../../api/cricket";
 
 const Cricket = () => {
   const navigate = useNavigate();
