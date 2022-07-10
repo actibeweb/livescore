@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BottomNavbar from "./components/Navbar/BottomNavbar";
 import FootballDetails from "./components/GameDetails/FootballDetails";
 import Cricket from "./components/Home/Cricket";
+import CricketDetails from "./components/GameDetails/CricketDetails";
 function App() {
   return (
     <>
@@ -15,7 +16,8 @@ function App() {
         <Routes>
           <Route path="/Home" element={<Home />} />
           <Route path="/cricket" element={<Cricket />} />
-          <Route path="/games/:id" element={<FootballDetails />} />
+          <Route path="/football/:id" element={<FootballDetails />} />
+          <Route path="/cricket/:id" element={<CricketDetails />} />
         </Routes>
         <BottomNavbar />
       </div>
