@@ -3,6 +3,7 @@ import { getRandomScore } from "../../utils/randomScore";
 
 import { useNavigate } from "react-router";
 import { getFixturesByDate } from "../../api/cricket";
+import Loader from "../Common/Loader";
 
 const Cricket = () => {
   const navigate = useNavigate();
@@ -28,8 +29,9 @@ const Cricket = () => {
   );
   const dates = [twoDaysAgo, yesterday, today, tomorrow, twoDaysTime];
   const [activeDateIndex, setActiveDateIndex] = useState(2);
-
+  const [loading, setLoading] = useState(false);
   const [gameDates, setGameDates] = useState([]);
+  const [games, setGames] = useState([]);
   const formatDate = (date) => {
     const newDate = new Intl.DateTimeFormat("en-ng", {
       day: "2-digit",
@@ -152,6 +154,28 @@ const Cricket = () => {
     },
   ]);
 
+  const getFixtureHandler = async (date) => {
+    try {
+      setLoading(true);
+      const data = await getFixturesByDate(date);
+      console.log(data);
+      // setGameFixtures(data);
+      setLoading(false);
+      setGames(data.results);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    console.log(activeDateIndex);
+    const date = new Date(dates[activeDateIndex]);
+    const date1 = date.toISOString().split("T")[0];
+    console.log(date1);
+    getFixtureHandler(date1);
+  }, [activeDateIndex]);
+
   const liveGame = () => {
     gameFixtures.forEach((fixture) => {
       fixture.fixtures.map((game) => {
@@ -193,92 +217,91 @@ const Cricket = () => {
   };
 
   return (
-    <div className="text-pry lg:w-[50%] lg:mx-auto">
-      <div className="px-2.5 flex justify-between items-center">
-        <p className="font-bold w-10 py-[2px] flex justify-center bg-n-white text-n-black text-11px uppercase rounded">
-          Live
-        </p>
-        {dates.map((date, index) => {
-          return (
-            <div
-              key={index}
-              className="cursor-pointer"
-              onClick={() => setActiveDateIndex(index)}
-            >
-              <p
-                className={
-                  index === activeDateIndex
-                    ? "text-n-orange font-bold flex justify-center text-11px uppercase"
-                    : "font-bold flex justify-center text-11px uppercase"
-                }
-              >
-                {date === today ? "TODAY" : formatDate(date).slice(0, 3)}
-              </p>
-              <p
-                className={
-                  index === activeDateIndex
-                    ? "text-n-orange font-bold flex justify-center text-11px uppercase"
-                    : "font-bold flex justify-center text-11px uppercase"
-                }
-              >
-                {formatDate(date).slice(4)}
-              </p>
-            </div>
-          );
-        })}
-        <div
-          onMouseOver={() => {
-            setShowCalendar(true);
-          }}
-          onMouseOut={() => {
-            setShowCalendar(false);
-          }}
-          className="relative cursor-pointer"
-        >
-          <i className="fa fa-calendar"></i>
-          <div className="absolute right-1">
-            {showCalendar && <input type="date" name="" id="" />}
-          </div>
-        </div>
-      </div>
-      <div className="px-2.5">
-        {gameFixtures.map((match, index) => {
-          return (
-            <div key={index} className="grid mb-2">
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-2 mb-2">
-                  <img
-                    src={match.flagUrl}
-                    alt={match.country}
-                    className="w-5 h-3"
-                  />
-                  <div className="grid">
-                    <p className="capitalize text-sm font-bold text-n-white">
-                      {match.league}
-                    </p>
-                    <p className="capitalize text-11px text-pry">
-                      {match.country}
-                    </p>
-                  </div>
-                </div>
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="text-pry lg:w-[50%] lg:mx-auto">
+          <div className="px-2.5 flex justify-between items-center">
+            <p className="font-bold w-10 py-[2px] flex justify-center bg-n-white text-n-black text-11px uppercase rounded">
+              Live
+            </p>
+            {dates.map((date, index) => {
+              return (
                 <div
-                  onClick={() => goToGame(56)}
-                  className="text-white cursor-pointer"
+                  key={index}
+                  className="cursor-pointer"
+                  onClick={() => setActiveDateIndex(index)}
                 >
-                  <i className="fa fa-chevron-right font-thin"></i>
-                </div>
-              </div>
-              {match.fixtures.map((fixture, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center"
+                  <p
+                    className={
+                      index === activeDateIndex
+                        ? "text-n-orange font-bold flex justify-center text-11px uppercase"
+                        : "font-bold flex justify-center text-11px uppercase"
+                    }
                   >
+                    {date === today ? "TODAY" : formatDate(date).slice(0, 3)}
+                  </p>
+                  <p
+                    className={
+                      index === activeDateIndex
+                        ? "text-n-orange font-bold flex justify-center text-11px uppercase"
+                        : "font-bold flex justify-center text-11px uppercase"
+                    }
+                  >
+                    {formatDate(date).slice(4)}
+                  </p>
+                </div>
+              );
+            })}
+            <div
+              onMouseOver={() => {
+                setShowCalendar(true);
+              }}
+              onMouseOut={() => {
+                setShowCalendar(false);
+              }}
+              className="relative cursor-pointer"
+            >
+              <i className="fa fa-calendar"></i>
+              <div className="absolute right-1">
+                {showCalendar && <input type="date" name="" id="" />}
+              </div>
+            </div>
+          </div>
+          <div className="px-2.5">
+            { games?.map((game, index) => {
+              return (
+                <div key={index} className="grid mb-2">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2 mb-2">
+                      
+                      <div className="grid">
+                        <p className="capitalize text-sm font-bold text-n-white">
+                          {game.match_title}
+                        </p>
+                        <p className="capitalize text-11px text-pry">
+                          {game.match_subtitle}
+                        </p>
+                      </div>
+                    </div>
                     <div
-                      onClick={() => goToGame(56)}
-                      className="flex flex-grow items-center gap-2"
+                      onClick={() => goToGame(game.id)}
+                      className="text-white cursor-pointer"
                     >
-                      {/* {fixture.hasStarted === false &&
+                      <i className="fa fa-chevron-right font-thin"></i>
+                    </div>
+                  </div>
+                 
+                      <div
+                        
+                        className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center"
+                      >
+                        <div
+                          onClick={() => goToGame(game.id)}
+                          className="flex flex-grow items-center gap-2"
+                        >
+                          {/* {fixture.hasStarted === false &&
                         fixture.hasEnded === false && (
                           <div className="grid gap-[6px] w-10">
                             <div className="grid gap-[6px] w-10">
@@ -291,63 +314,56 @@ const Cricket = () => {
                             </div>
                           </div>
                         )} */}
-                      {fixture.hasEnded === false ? (
-                        <div className="flex justify-center items-center relative w-10">
-                          <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
-                          <p className="text-11px text-center font-thin text-n-orange">
-                            {fixture.time + "'"}
-                          </p>
+                          {game.status !== "Complete" ? (
+                            <div className="flex justify-center items-center relative w-10">
+                              <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
+                              <p className="text-11px text-center font-thin text-n-orange">
+                                {game.status}
+                              </p>
+                            </div>
+                          ) : (
+                            <div className="flex justify-center items-center w-10">
+                              <p className="text-11px text-center font-thin">
+                                {game.status}
+                              </p>
+                            </div>
+                          )}
+                          <div className="grid gap-1">
+                            <div
+                              onClick={() => goToGame(game.id)}
+                              className="flex items-center gap-2 cursor-pointer"
+                            >
+                             
+                              <p className="text-sm">{game.home.name}</p>
+                            </div>
+                            <div
+                              onClick={() => goToGame(56)}
+                              className="flex items-center gap-2 cursor-pointer"
+                            >
+                             
+                              <p className="text-sm">{game.away.name}</p>
+                            </div>
+                          </div>
                         </div>
-                      ) : (
-                        <div className="flex justify-center items-center w-10">
-                          <p className="text-11px text-center font-thin">FT</p>
-                        </div>
-                      )}
-                      <div className="grid gap-1">
-                        <div
-                          onClick={() => goToGame(56)}
-                          className="flex items-center gap-2 cursor-pointer"
-                        >
-                          <img
-                            src={fixture.homeFlag}
-                            alt={fixture.homeTeam}
-                            className="w-5 h-5"
-                          />
-                          <p className="text-sm">{fixture.homeTeam}</p>
-                        </div>
-                        <div
-                          onClick={() => goToGame(56)}
-                          className="flex items-center gap-2 cursor-pointer"
-                        >
-                          <img
-                            src={fixture.awayFlag}
-                            alt={fixture.awayTeam}
-                            className="w-5 h-5"
-                          />
-                          <p className="text-sm">{fixture.awayTeam}</p>
+                        <div className="flex items-center gap-3">
+                         
+                          <div className="flex flex-col gap-1">
+                            <p className="text-n-white text-sm">
+                              {game.result}
+                            </p>
+                           
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      {fixture.hasStarted === false &&
-                        fixture.hasEnded === false && <div></div>}
-                      <div className="flex flex-col gap-1">
-                        <p className="text-n-white text-sm">
-                          {fixture.homeScore}
-                        </p>
-                        <p className="text-n-white text-sm">
-                          {fixture.awayScore}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
-      </div>
-    </div>
+                    
+                
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
