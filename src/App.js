@@ -8,6 +8,7 @@ import BottomNavbar from "./components/Navbar/BottomNavbar";
 import FootballDetails from "./components/GameDetails/FootballDetails";
 import Cricket from "./components/Home/Cricket";
 import CricketDetails from "./components/GameDetails/CricketDetails";
+import Basketball from "./components/Home/BasketBall";
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/Home" element={<Home />} />
           <Route path="/cricket" element={<Cricket />} />
+          <Route path="/basketball" element={<Basketball />} />
           <Route path="/football/:id" element={<FootballDetails />} />
           <Route path="/cricket/:id" element={<CricketDetails />} />
         </Routes>

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const tabs = [
   { name: "Football", link: "/", linkName: "Home" },
   { name: "Hockey", link: "/", linkName: "Home" },
-  { name: "Basketball", link: "/", linkName: "Home" },
+  { name: "Basketball", link: "/", linkName: "basketball" },
   { name: "Tennis", link: "/", linkName: "Home" },
   { name: "Cricket", link: "/", linkName: "cricket" },
 ];
