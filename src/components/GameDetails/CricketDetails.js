@@ -6,17 +6,16 @@ import Loader from "../Common/Loader";
 import { useParams } from "react-router";
 const CricketDetails = () => {
   const [markAsFavourite, setMarkAsFavourite] = useState(false);
-  const [homeScore, setHomeScore] = useState(3);
-  const [awayScore, setAwayScore] = useState(2);
-  const [gameStatus, setGameStatus] = useState("NotStarted");
-  const [activeTab, setActiveTab] = useState("Summary");
-  const [activeSubTab, setActiveSubTab] = useState("Events");
+  
+ 
+  const [activeTab, setActiveTab] = useState("Scorecard");
+  const [activeSubTab, setActiveSubTab] = useState("");
   const [activeTableSubTab, setActiveTableSubTab] = useState("All");
   const [activeH2HSubTab, setActiveH2HSubTab] = useState("H2H");
   const [game, setGame] = useState(undefined);
   const [details, setDetails] = useState(undefined);
   const [loading, setLoading] = useState(false);
-  const tabs = ["Info", "Scorecard", "Summary", "Teams"];
+  const tabs = ["Info", "Scorecard", "Teams"];
   const [subTabs, setSubTabs] = useState([]);
   //   const subTabs = ["Events", "Commentary"];
   const tableTabs = ["All", "Home", "Away"];
@@ -39,6 +38,7 @@ const CricketDetails = () => {
         tabs.push(data.results.live_details.scorecard[i].title);
       }
       setSubTabs(tabs);
+      setActiveSubTab(data.results.live_details.scorecard[0].title)
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -714,108 +714,37 @@ const CricketDetails = () => {
               </div>
             </div>
           )}
-          {activeTab === "Stats" && (
+         
+          {activeTab === "Teams" && (
             <div className="px-2.5 text-pry">
-              <div className="grid">
-                <div className="flex justify-between items-center text-11px text-pry">
-                  <p>2</p>
-                  <p>Shots on target</p>
-                  <p className="text-n-white">3</p>
-                </div>
-                <div className="flex justify-between items-center gap-2">
-                  <div className="bg-n-bg-gray flex justify-end w-1/2 h-[10px] rounded-l-lg">
-                    <div className="w-0 h-[10px] rounded-l-lg"></div>
-                  </div>
-
-                  <div className="bg-n-bg-gray flex justify-start w-1/2 h-[10px] rounded-r-lg">
-                    <div className="w-full h-[10px] bg-n-orange rounded-r-lg"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid my-2">
-                <div className="flex justify-between items-center text-11px text-pry">
-                  <p className="text-n-white">4</p>
-                  <p>Shots off target</p>
-                  <p>2</p>
-                </div>
-                <div className="flex justify-between items-center gap-2">
-                  <div className="bg-n-bg-gray flex justify-end w-1/2 h-[10px] rounded-l-lg">
-                    <div className="w-3/4 h-[10px] bg-n-orange"></div>
-                  </div>
-
-                  <div className="bg-n-bg-gray flex justify-start w-1/2 h-[10px] rounded-r-lg">
-                    <div className="w-1/3 h-[10px] bg-n-gray"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid mb-2">
-                <div className="flex justify-between items-center text-11px text-pry">
-                  <p>0</p>
-                  <p>Blocked Shots</p>
-                  <p className="text-n-white">2</p>
-                </div>
-                <div className="flex justify-between items-center gap-2">
-                  <div className="bg-n-bg-gray flex justify-end w-1/2 h-[10px] rounded-l-lg">
-                    <div className="w-0 h-[10px]"></div>
-                  </div>
-
-                  <div className="bg-n-bg-gray flex justify-start w-1/2 h-[10px] rounded-r-lg">
-                    <div className="w-full h-[10px] bg-n-orange rounded-r-lg"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid mb-2">
-                <div className="flex justify-between items-center text-11px text-pry">
-                  <p>48</p>
-                  <p>Possession (%)</p>
-                  <p className="text-n-white">52</p>
-                </div>
-                <div className="flex justify-between items-center gap-2">
-                  <div className="bg-n-bg-gray flex justify-end w-1/2 h-[10px] rounded-l-lg">
-                    <div className="w-[48%] h-[10px] bg-n-gray"></div>
-                  </div>
-
-                  <div className="bg-n-bg-gray flex justify-start w-1/2 h-[10px] rounded-r-lg">
-                    <div className="w-[52%] h-[10px] bg-n-orange"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-          {activeTab === "Line-ups" && (
-            <div className="px-2.5 text-pry">
-              <p className="uppercase text-11px">substitute players</p>
+              <p className="uppercase text-11px">Playing</p>
               <div className="mt-2 border-n-bg-gray border rounded-md">
-                <div className="px-2 py-3 flex justify-around gap-3 border-n-bg-gray border-b">
-                  <p className="capitalize text-11px">Sub 1</p>
-                  <p className="capitalize text-11px">Sub 1</p>
-                </div>
-                <div className="px-2 py-3 flex justify-around gap-3 border-n-bg-gray border-b">
-                  <p className="capitalize text-11px">Sub 2</p>
-                  <p className="capitalize text-11px">Sub 2</p>
-                </div>
-                <div className="px-2 py-3 flex justify-around gap-3 border-n-bg-gray border-b">
-                  <p className="capitalize text-11px">Sub 3</p>
-                  <p className="capitalize text-11px">Sub 3</p>
-                </div>
+                <div className="px-2 py-3 flex flex-row justify-around gap-3 border-n-bg-gray border-b" >
+                    <div className="flex flex-col" >
+                    {details.teamsheets.home.map((player,index)=>{
+                        return(
+                            <p key={index}>
+                                {player.player_name}
+                            </p>
+                        )
+                    })}
 
-                <div className="px-2 py-3 flex justify-around gap-3 border-n-bg-gray border-b">
-                  <p className="capitalize text-11px">Sub 4</p>
-                  <p className="capitalize text-11px">Sub 4</p>
-                </div>
+                    </div>
+                    <div className="flex flex-col" >
+                    {details.teamsheets.away.map((player,index)=>{
+                        return(
+                            <p key={index}>
+                                {player.player_name}
+                            </p>
+                        )
+                    })}
 
-                <div className="px-2 py-3 flex justify-around gap-3">
-                  <p className="capitalize text-11px">Sub 5</p>
-                  <p className="capitalize text-11px">Sub 5</p>
+                    </div>
                 </div>
+            
+             
               </div>
-              <p className="mt-3 uppercase text-11px">Coaches</p>
-              <div className="mt-2 border-n-bg-gray border rounded-md">
-                <div className="px-2 py-3 flex justify-around gap-3">
-                  <p className="capitalize text-11px">Jurgen Klopp</p>
-                  <p className="capitalize text-11px">Pep Guadiola</p>
-                </div>
-              </div>
+           
             </div>
           )}
           {activeTab === "Table" && (
