@@ -213,7 +213,7 @@ const Basketball = () => {
   const setDates = () => {};
 
   const goToGame = (id) => {
-    navigate(`/football/${id}`);
+    navigate(`/basketball/${id}`);
   };
 
   return (
@@ -291,7 +291,7 @@ const Basketball = () => {
                         </div>
                       </div>
                       <div
-                        onClick={() => goToGame(match.fixture.id)}
+                        onClick={() => goToGame(match.id)}
                         className="text-white cursor-pointer"
                       >
                         <i className="fa fa-chevron-right font-thin"></i>
@@ -300,7 +300,7 @@ const Basketball = () => {
 
                     <div className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center">
                       <div
-                        onClick={() => goToGame(match.fixture.id)}
+                        onClick={() => goToGame(match.id)}
                         className="flex flex-grow items-center gap-2"
                       >
                         {/* {fixture.hasStarted === false &&
@@ -332,7 +332,7 @@ const Basketball = () => {
                         )}
                         <div className="grid gap-1">
                           <div
-                            onClick={() => goToGame(match.fixture.id)}
+                            onClick={() => goToGame(match.id)}
                             className="flex items-center gap-2 cursor-pointer"
                           >
                             <img
