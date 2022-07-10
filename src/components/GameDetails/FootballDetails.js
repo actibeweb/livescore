@@ -15,8 +15,8 @@ const FootballDetails = () => {
   const [activeTableSubTab, setActiveTableSubTab] = useState("All");
   const [activeH2HSubTab, setActiveH2HSubTab] = useState("H2H");
   const [fixtures, setFixtures] = useState(undefined);
-  const tabs = ["Info", "Summary", "Stats", "Line-ups", "Table", "H2H"];
-  const subTabs = ["Events", "Commentary"];
+  const tabs = ["Info", "Summary", "Stats", "Line-ups"];
+  const subTabs = ["Events"];
   const tableTabs = ["All", "Home", "Away"];
   const H2HTabs = ["H2H", "Team A", "Team B"];
   const [loading, setLoading] = useState(false);
@@ -361,8 +361,6 @@ const FootballDetails = () => {
     "corporate",
   ];
 
-
-
   return (
     <>
       {!fixtures ? (
@@ -560,7 +558,6 @@ const FootballDetails = () => {
                               </div>
                             </div>
                           )}
-                          ;
                         </>
                       );
                     })}
@@ -641,62 +638,143 @@ const FootballDetails = () => {
             </div>
           )}
           {activeTab === "Stats" && (
-            <div className="px-2.5 text-pry">
-              {}
-              <div className="grid">
-                <div className="flex justify-between items-center text-11px text-pry">
-                  <p>2</p>
-                  <p>Shots on target</p>
-                  <p className="text-n-white">3</p>
-                </div>
-                <div className="flex justify-between items-center gap-2">
-                  <div className="bg-n-bg-gray flex justify-end w-1/2 h-[10px] rounded-l-lg">
-                    <div className="w-0 h-[10px] rounded-l-lg"></div>
+            <>
+              {fixtures.statistics.length > 0 ? (
+                <div className="px-2.5 text-pry">
+                  <div className="flex flex-row justify-between">
+                    <div className="flex flex-col">
+                      {fixtures.statistics[0].statistics.map((stats, index) => {
+                        return (
+                          <div key={index}>
+                            <span className="text-sm">
+                              {stats.type + "" + ":"}
+                            </span>
+                            <span className="text-lg text-pry mx-4">
+                              {stats.value}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="flex flex-col">
+                      {fixtures.statistics[0].statistics.map((stats, index) => {
+                        return (
+                          <div key={index}>
+                            <span className="text-sm">
+                              {stats.type + "" + ":"}
+                            </span>
+                            <span className="text-lg text-pry mx-4">
+                              {stats.value}
+                            </span>
+                          </div>
+                        );
+                      })}{" "}
+                      {fixtures.statistics[1].statistics.map((stats, index) => {
+                        return (
+                          <div key={index}>
+                            <span className="text-sm">
+                              {stats.type + "" + ":"}
+                            </span>
+                            <span className="text-lg text-pry mx-4">
+                              {stats.value}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-
-                  <div className="bg-n-bg-gray flex justify-start w-1/2 h-[10px] rounded-r-lg">
-                    <div className="w-full h-[10px] bg-n-orange rounded-r-lg"></div>
-                  </div>
                 </div>
-              </div>
-           
-            </div>
+              ) : (
+                <p className="text-lg">Match Starts Soon.</p>
+              )}
+            </>
           )}
           {activeTab === "Line-ups" && (
-            <div className="px-2.5 text-pry">
-              <p className="uppercase tex t-11px">substitute players</p>
-              <div className="mt-2 border-n-bg-gray border rounded-md">
-                <div className="px-2 py-3 flex justify-around gap-3 border-n-bg-gray border-b">
-                  <p className="capitalize text-11px">Sub 1</p>
-                  <p className="capitalize text-11px">Sub 1</p>
+            <>
+              {fixtures.lineups.length > 0 ? (
+                <div className="px-2.5 text-pry">
+                  <p className="uppercase tex t-11px">Starting XI</p>
+                  <div className="mt-2 border-n-bg-gray border rounded-md">
+                    <div className="px-2 py-3 flex flex-row justify-around gap-3 border-n-bg-gray border-b">
+                      <div className="flex flex-col">
+                        {fixtures.lineups[0].startXI.map((player, index) => {
+                          return (
+                            <p key={index}>
+                              {player.player.number +
+                                ". " +
+                                player.player.name +
+                                " - " +
+                                player.player.pos}
+                            </p>
+                          );
+                        })}
+                      </div>
+                      <div className="flex flex-col">
+                        {fixtures.lineups[1].startXI.map((player, index) => {
+                          return (
+                            <p key={index}>
+                              {player.player.number +
+                                ". " +
+                                player.player.name +
+                                " - " +
+                                player.player.pos}
+                            </p>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                  <p className="uppercase tex t-11px">Substitutes</p>
+                  <div className="mt-2 border-n-bg-gray border rounded-md">
+                    <div className="px-2 py-3 flex flex-row justify-around gap-3 border-n-bg-gray border-b">
+                      <div className="flex flex-col">
+                        {fixtures.lineups[0].substitutes.map(
+                          (player, index) => {
+                            return (
+                              <p key={index}>
+                                {player.player.number +
+                                  ". " +
+                                  player.player.name +
+                                  " - " +
+                                  player.player.pos}
+                              </p>
+                            );
+                          }
+                        )}
+                      </div>
+                      <div className="flex flex-col">
+                        {fixtures.lineups[1].substitutes.map(
+                          (player, index) => {
+                            return (
+                              <p key={index}>
+                                {player.player.number +
+                                  ". " +
+                                  player.player.name +
+                                  " - " +
+                                  player.player.pos}
+                              </p>
+                            );
+                          }
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <p className="mt-3 uppercase text-11px">Coaches</p>
+                  <div className="mt-2 border-n-bg-gray border rounded-md">
+                    <div className="px-2 py-3 flex justify-around gap-3">
+                      <p className="capitalize text-11px">
+                        {fixtures.lineups[0].coach.name}
+                      </p>
+                      <p className="capitalize text-11px">
+                        {fixtures.lineups[1].coach.name}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div className="px-2 py-3 flex justify-around gap-3 border-n-bg-gray border-b">
-                  <p className="capitalize text-11px">Sub 2</p>
-                  <p className="capitalize text-11px">Sub 2</p>
-                </div>
-                <div className="px-2 py-3 flex justify-around gap-3 border-n-bg-gray border-b">
-                  <p className="capitalize text-11px">Sub 3</p>
-                  <p className="capitalize text-11px">Sub 3</p>
-                </div>
-
-                <div className="px-2 py-3 flex justify-around gap-3 border-n-bg-gray border-b">
-                  <p className="capitalize text-11px">Sub 4</p>
-                  <p className="capitalize text-11px">Sub 4</p>
-                </div>
-
-                <div className="px-2 py-3 flex justify-around gap-3">
-                  <p className="capitalize text-11px">Sub 5</p>
-                  <p className="capitalize text-11px">Sub 5</p>
-                </div>
-              </div>
-              <p className="mt-3 uppercase text-11px">Coaches</p>
-              <div className="mt-2 border-n-bg-gray border rounded-md">
-                <div className="px-2 py-3 flex justify-around gap-3">
-                  <p className="capitalize text-11px">Jurgen Klopp</p>
-                  <p className="capitalize text-11px">Pep Guadiola</p>
-                </div>
-              </div>
-            </div>
+              ) : (
+                <p className="text-lg">Lineups Not Announced yet</p>
+              )}
+            </>
           )}
           {activeTab === "Table" && (
             <div className="px-2.5">
