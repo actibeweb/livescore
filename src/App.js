@@ -13,13 +13,14 @@ import BasketballDetails from "./components/GameDetails/BasketballDetails";
 import Tennis from "./components/Home/Tennis";
 import TennisDetails from "./components/GameDetails/TennisDetails";
 import Hockey from "./components/Home/Hockey";
+import HockeyDetails from "./components/GameDetails/HockeyDetails";
 function App() {
   return (
     <>
       <div className="bg-n-black h-screen overflow-auto hide-scrollbar">
         <TopNavbar />
         <Routes>
-          <Route path="/Home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/cricket" element={<Cricket />} />
           <Route path="/basketball" element={<Basketball />} />
           <Route path="/tennis" element={<Tennis />} />
@@ -28,6 +29,7 @@ function App() {
           <Route path="/cricket/:id" element={<CricketDetails />} />
           <Route path="/basketball/:id" element={<BasketballDetails />} />
           <Route path="/tennis/:id" element={<TennisDetails />} />    
+          <Route path="/hockey/:id" element={<HockeyDetails />} />    
         </Routes>
         <BottomNavbar />
       </div>

@@ -213,7 +213,7 @@ const Hockey = () => {
   const setDates = () => {};
 
   const goToGame = (id) => {
-    navigate(`/football/${id}`);
+    navigate(`/hockey/${id}`);
   };
 
   return (
