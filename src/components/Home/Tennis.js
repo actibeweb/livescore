@@ -1,0 +1,307 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+import { getFixtures } from "../../api/tennis";
+import Loader from "../Common/Loader";
+
+const Tennis = () => {
+  const navigate = useNavigate();
+  const [gameDate, setGameDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
+  const [twoDaysAgo, setTwoDaysAgo] = useState(
+    new Date().getTime() - 48 * 60 * 60 * 1000
+  );
+  const [yesterday, setYesterday] = useState(
+    new Date().getTime() - 24 * 60 * 60 * 1000
+  );
+  const [today, setToday] = useState(new Date());
+  const [tomorrow, setTomorrow] = useState(
+    new Date().getTime() + 24 * 60 * 60 * 1000
+  );
+  const [twoDaysTime, setTwoDaysTime] = useState(
+    new Date().getTime() + 48 * 60 * 60 * 1000
+  );
+  const [showCalendar, setShowCalendar] = useState(false);
+  const dates = [twoDaysAgo, yesterday, today, tomorrow, twoDaysTime];
+  const [activeDateIndex, setActiveDateIndex] = useState(2);
+  const [loading, setLoading] = useState(false);
+  const [gameDates, setGameDates] = useState([]);
+  const [games, setGames] = useState([]);
+
+  const formatDate = (date) => {
+    const newDate = new Intl.DateTimeFormat("en-ng", {
+      day: "2-digit",
+      weekday: "short",
+      month: "short",
+    }).format(new Date(date));
+    return newDate;
+  };
+  const goToGame = (id) => {
+    navigate(`/tennis/${id}`);
+  };
+  const getFixtureHandler = async (date) => {
+    try {
+      setLoading(true);
+      const data = await getFixtures(date);
+      console.log(data.results);
+      // setGameFixtures(data);
+      setLoading(false);
+      setGames(data.results);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    console.log(activeDateIndex);
+    const date = new Date(dates[activeDateIndex]);
+    const date1 = date.toISOString().split("T")[0];
+    console.log(date1);
+    getFixtureHandler(date1);
+  }, [activeDateIndex]);
+
+  return (
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="text-pry lg:w-[50%] lg:mx-auto">
+          <div className="px-2.5 flex justify-between items-center">
+            <p className="font-bold w-10 py-[2px] flex justify-center bg-n-white text-n-black text-11px uppercase rounded">
+              Live
+            </p>
+            {dates.map((date, index) => {
+              return (
+                <div
+                  key={index}
+                  className="cursor-pointer"
+                  onClick={() => setActiveDateIndex(index)}
+                >
+                  <p
+                    className={
+                      index === activeDateIndex
+                        ? "text-n-orange font-bold flex justify-center text-11px uppercase"
+                        : "font-bold flex justify-center text-11px uppercase"
+                    }
+                  >
+                    {date === today ? "TODAY" : formatDate(date).slice(0, 3)}
+                  </p>
+                  <p
+                    className={
+                      index === activeDateIndex
+                        ? "text-n-orange font-bold flex justify-center text-11px uppercase"
+                        : "font-bold flex justify-center text-11px uppercase"
+                    }
+                  >
+                    {formatDate(date).slice(4)}
+                  </p>
+                </div>
+              );
+            })}
+            <div
+              onMouseOver={() => {
+                setShowCalendar(true);
+              }}
+              onMouseOut={() => {
+                setShowCalendar(false);
+              }}
+              className="relative cursor-pointer"
+            >
+              <i className="fa fa-calendar"></i>
+              <div className="absolute right-1">
+                {showCalendar && <input type="date" name="" id="" />}
+              </div>
+            </div>
+          </div>
+          <div className="px-2.5">
+            {games?.map((game, index) => {
+              return (
+                <div key={index} className="grid mb-2">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="grid">
+                        <p className="capitalize text-sm font-bold text-n-white">
+                          {game.tournament.name}
+                        </p>
+                        <p className="capitalize text-11px text-pry">
+                          {game.tournament.city +
+                            ", " +
+                            game.tournament.country}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  {game.matches?.map((match, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center"
+                      >
+                        <div
+                          onClick={() => goToGame(match.id)}
+                          className="flex flex-grow items-center gap-2"
+                        >
+                          {match?.status !== "finished" ? (
+                            <div className="flex justify-center items-center relative w-10">
+                              <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
+                              <p className="text-11px text-center capitalize font-thin text-n-orange">
+                                {match.status}
+                              </p>
+                            </div>
+                          ) : (
+                            <div className="flex justify-center items-center w-10">
+                              <p className="text-11px text-center font-thin capitalize">
+                                {match.status}
+                              </p>
+                            </div>
+                          )}
+                          {match.result ? (
+                            <div className="grid gap-1">
+                              <div
+                                onClick={() => goToGame(match.id)}
+                                className="flex items-center justify-between gap-2 cursor-pointer"
+                              >
+                                <p
+                                  className={
+                                    match.result &&
+                                    match.home_id === match.result.winner_id
+                                      ? "text-sm text-n-white"
+                                      : "text-sm"
+                                  }
+                                >
+                                  {match.home_player}
+                                </p>
+                                <div>
+                                  <span
+                                    className={
+                                      match.result &&
+                                      match.home_id === match.result.winner_id
+                                        ? "text-sm text-n-white ml-4"
+                                        : "text-sm ml-4"
+                                    }
+                                  >
+                                    {match.result.home_set1}
+                                  </span>
+                                  <span
+                                    className={
+                                      match.result &&
+                                      match.home_id === match.result.winner_id
+                                        ? "text-sm text-n-white ml-4"
+                                        : "text-sm ml-4"
+                                    }
+                                  >
+                                    {match.result.home_set2}
+                                  </span>
+                                  <span
+                                    className={
+                                      match.result &&
+                                      match.home_id === match.result.winner_id
+                                        ? "text-sm text-n-white ml-4"
+                                        : "text-sm ml-4"
+                                    }
+                                  >
+                                    {match.result.home_set3}
+                                  </span>
+                                  <span
+                                    className={
+                                      match.result &&
+                                      match.home_id === match.result.winner_id
+                                        ? "text-sm text-n-white ml-4"
+                                        : "text-sm ml-4"
+                                    }
+                                  >
+                                    {match.result.home_set4}
+                                  </span>
+                                </div>
+                              </div>
+                              <div
+                                onClick={() => goToGame(match.id)}
+                                className="flex items-center gap-2 cursor-pointer"
+                              >
+                                <p
+                                  className={
+                                    match.result &&
+                                    match.away_id === match.result.winner_id
+                                      ? "text-sm text-n-white "
+                                      : "text-sm"
+                                  }
+                                  style={{ marginRight: "2rem" }}
+                                >
+                                  {match.away_player}
+                                </p>
+                                <div>
+                                  <span
+                                    className={
+                                      match.result &&
+                                      match.away_id === match.result.winner_id
+                                        ? "text-sm text-n-white ml-4"
+                                        : "text-sm ml-4"
+                                    }
+                                  >
+                                    {match.result.away_set1}
+                                  </span>
+                                  <span
+                                    className={
+                                      match.result &&
+                                      match.away_id === match.result.winner_id
+                                        ? "text-sm text-n-white ml-4"
+                                        : "text-sm ml-4"
+                                    }
+                                  >
+                                    {match.result.away_set2}
+                                  </span>
+                                  <span
+                                    className={
+                                      match.result &&
+                                      match.away_id === match.result.winner_id
+                                        ? "text-sm text-n-white ml-4"
+                                        : "text-sm ml-4"
+                                    }
+                                  >
+                                    {match.result.away_set3}
+                                  </span>
+                                  <span
+                                    className={
+                                      match.result &&
+                                      match.away_id === match.result.winner_id
+                                        ? "text-sm text-n-white ml-4"
+                                        : "text-sm ml-4"
+                                    }
+                                  >
+                                    {match.result.away_set4}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="grid gap-1">
+                              <div
+                                onClick={() => goToGame(match.id)}
+                                className="flex items-center justify-between gap-2 cursor-pointer"
+                              >
+                                <p className="text-sm">{match.home_player}</p>
+                              </div>
+                              <div
+                                onClick={() => goToGame(match.id)}
+                                className="flex items-center justify-between gap-2 cursor-pointer"
+                              >
+                                <p className="text-sm">{match.away_player}</p>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Tennis;

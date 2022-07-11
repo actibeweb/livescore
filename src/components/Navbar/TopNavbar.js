@@ -8,7 +8,7 @@ const tabs = [
   { name: "Football", link: "/", linkName: "Home" },
   { name: "Hockey", link: "/", linkName: "Home" },
   { name: "Basketball", link: "/", linkName: "basketball" },
-  { name: "Tennis", link: "/", linkName: "Home" },
+  { name: "Tennis", link: "/", linkName: "tennis" },
   { name: "Cricket", link: "/", linkName: "cricket" },
 ];
 

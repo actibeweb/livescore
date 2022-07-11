@@ -10,6 +10,7 @@ import Cricket from "./components/Home/Cricket";
 import CricketDetails from "./components/GameDetails/CricketDetails";
 import Basketball from "./components/Home/BasketBall";
 import BasketballDetails from "./components/GameDetails/BasketballDetails";
+import Tennis from "./components/Home/Tennis";
 function App() {
   return (
     <>
@@ -19,6 +20,7 @@ function App() {
           <Route path="/Home" element={<Home />} />
           <Route path="/cricket" element={<Cricket />} />
           <Route path="/basketball" element={<Basketball />} />
+          <Route path="/tennis" element={<Tennis />} />
           <Route path="/football/:id" element={<FootballDetails />} />
           <Route path="/cricket/:id" element={<CricketDetails />} />
           <Route path="/basketball/:id" element={<BasketballDetails />} />
