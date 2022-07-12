@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { getFixtures } from "../../api/tennis";
 import Loader from "../Common/Loader";
+import { faCalendar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Tennis = () => {
   const navigate = useNavigate();
   const [gameDate, setGameDate] = useState(
     new Date().toISOString().split("T")[0]
   );
+  const [customDate, setCustomDate] = useState();
   const [twoDaysAgo, setTwoDaysAgo] = useState(
     new Date().getTime() - 48 * 60 * 60 * 1000
   );
@@ -39,7 +42,7 @@ const Tennis = () => {
   const goToGame = (id) => {
     navigate(`/tennis/${id}`);
   };
-  const getFixtureHandler = async (date) => {
+  const getFixturesHandler = async (date) => {
     try {
       setLoading(true);
       const data = await getFixtures(date);
@@ -55,11 +58,18 @@ const Tennis = () => {
 
   useEffect(() => {
     console.log(activeDateIndex);
-    const date = new Date(dates[activeDateIndex]);
-    const date1 = date.toISOString().split("T")[0];
-    console.log(date1);
-    getFixtureHandler(date1);
-  }, [activeDateIndex]);
+    console.log(customDate);
+
+    if (!showCalendar) {
+      const date = new Date(dates[activeDateIndex]);
+      const date1 = date.toISOString().split("T")[0];
+      console.log(date1);
+      getFixturesHandler(date1);
+    } else {
+      getFixturesHandler(customDate);
+      setShowCalendar(false);
+    }
+  }, [activeDateIndex, customDate]);
 
   return (
     <>
@@ -99,18 +109,22 @@ const Tennis = () => {
                 </div>
               );
             })}
-            <div
-              onMouseOver={() => {
-                setShowCalendar(true);
-              }}
-              onMouseOut={() => {
-                setShowCalendar(false);
-              }}
-              className="relative cursor-pointer"
-            >
-              <i className="fa fa-calendar"></i>
+            <div className="relative cursor-pointer">
+              {/* <i className="fa-solid fa-calendar" style={{fontSize:"10px"}} ></i> */}
+              <FontAwesomeIcon
+                icon={faCalendar}
+                size="lg"
+                onClick={() => setShowCalendar(!showCalendar)}
+              />
               <div className="absolute right-1">
-                {showCalendar && <input type="date" name="" id="" />}
+                {showCalendar && (
+                  <input
+                    type="date"
+                    name="calendar"
+                    id="calendar"
+                    onChange={(e) => setCustomDate(e.target.value)}
+                  />
+                )}
               </div>
             </div>
           </div>

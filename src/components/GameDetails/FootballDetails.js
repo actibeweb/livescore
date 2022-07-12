@@ -403,23 +403,20 @@ const FootballDetails = () => {
             </div>
           </div>
           <div className="mx-2.5 h-20 py-3 relative flex justify-center items-center bg-n-bg-gray rounded-lg">
-            {/* { fixtures && fixtures.fixtures.status.short !== "FT" && (
+          {fixtures.fixture.status.short !== "FT" ? (
               <div className="grid gap-[6px] mr-10 w-10">
-                <div className="flex items-center">
-                  <i className="fa fa-play border border-n-white rounded"></i>
-                  <p className="ml-1 text-11px">Bet</p>
-                </div>
-                <p className="text-11px text-center font-thin">16:30</p>
-              </div>
-            )} */}
-            {/* {fixtures.status.short !== "FT" ? ( */}
-            {/* <div className="flex justify-center items-center w-10 mr-10">
-                <div className="absolute top-[5px] bottom-[5px] left-0 rounded-tr-xl rounded-br-xl w-1 bg-n-orange"></div>
-                <p className="absolute left-5 text-11px text-center font-thin text-n-orange">
-                  {fixtures && fixtures.status.short}
+                <p className="text-11px text-center font-thin text-n-orange">
+                  {fixtures.fixture.status.long}
                 </p>
-              </div> */}
-            {/* ) : ( */}
+              </div>
+            ) : (
+              <div className="flex justify-center items-center w-10 mr-10">
+                <p className="absolute left-5 text-11px text-center font-thin ">
+                  {fixtures.fixture.status.long}
+                </p>
+              </div>
+            )}
+
             <div className="mr-10 flex justify-center items-center w-10">
               <p className="text-11px text-center font-thin">FT</p>
             </div>

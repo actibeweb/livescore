@@ -4,6 +4,8 @@ import { getRandomScore } from "../../utils/randomScore";
 import { useNavigate } from "react-router";
 import { getFixtures } from "../../api/basketball";
 import Loader from "../Common/Loader";
+import { faCalendar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Basketball = () => {
   const navigate = useNavigate();
@@ -12,6 +14,7 @@ const Basketball = () => {
   const [gameStatus, setGameStatus] = useState("NotStarted");
   const [showCalendar, setShowCalendar] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [customDate, setCustomDate] = useState();
   const [gameDate, setGameDate] = useState(
     new Date().toISOString().split("T")[0]
   );
@@ -157,12 +160,18 @@ const Basketball = () => {
 
   useEffect(() => {
     console.log(activeDateIndex);
-    const date = new Date(dates[activeDateIndex]);
-    const date1 = date.toISOString().split("T")[0];
-    console.log(date1);
-    getFixturesHandler(date1);
-  }, [activeDateIndex]);
+    console.log(customDate);
 
+    if (!showCalendar) {
+      const date = new Date(dates[activeDateIndex]);
+      const date1 = date.toISOString().split("T")[0];
+      console.log(date1);
+      getFixturesHandler(date1);
+    } else {
+      getFixturesHandler(customDate);
+      setShowCalendar(false);
+    }
+  }, [activeDateIndex, customDate]);
   const getFixturesHandler = async (date) => {
     try {
       setLoading(true);
@@ -254,18 +263,22 @@ const Basketball = () => {
                 </div>
               );
             })}
-            <div
-              onMouseOver={() => {
-                setShowCalendar(true);
-              }}
-              onMouseOut={() => {
-                setShowCalendar(false);
-              }}
-              className="relative cursor-pointer"
-            >
-              <i className="fa fa-calendar"></i>
+            <div className="relative cursor-pointer">
+              {/* <i className="fa-solid fa-calendar" style={{fontSize:"10px"}} ></i> */}
+              <FontAwesomeIcon
+                icon={faCalendar}
+                size="lg"
+                onClick={() => setShowCalendar(!showCalendar)}
+              />
               <div className="absolute right-1">
-                {showCalendar && <input type="date" name="" id="" />}
+                {showCalendar && (
+                  <input
+                    type="date"
+                    name="calendar"
+                    id="calendar"
+                    onChange={(e) => setCustomDate(e.target.value)}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -356,7 +369,6 @@ const Basketball = () => {
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
-                       
                         <div className="flex flex-col gap-1">
                           <p className="text-n-white text-sm">
                             {match.scores.home.total}

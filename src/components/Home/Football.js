@@ -4,7 +4,9 @@ import { getRandomScore } from "../../utils/randomScore";
 import { useNavigate } from "react-router";
 import { getFixtures } from "../../api/football";
 import Loader from "../Common/Loader";
-
+import Calendar from "./calendar.png";
+import { faCalendar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Home = () => {
   const navigate = useNavigate();
   const [homeScore, setHomeScore] = useState();
@@ -154,14 +156,22 @@ const Home = () => {
       ],
     },
   ]);
-
+  const [date, setDate] = useState();
   useEffect(() => {
+    console.log(date);
+
     console.log(activeDateIndex);
-    const date = new Date(dates[activeDateIndex]);
-    const date1 = date.toISOString().split("T")[0];
-    console.log(date1);
-    getFixturesHandler(date1);
-  }, [activeDateIndex]);
+    if(!showCalendar){
+
+      const date1 = new Date(dates[activeDateIndex]);
+      const date2 = date1.toISOString().split("T")[0];
+      console.log(date2);
+      getFixturesHandler(date2);
+    }else{
+      getFixturesHandler(date);
+      setShowCalendar(false);
+    }
+  }, [activeDateIndex,date]);
 
   const getFixturesHandler = async (date) => {
     try {
@@ -254,18 +264,22 @@ const Home = () => {
                 </div>
               );
             })}
-            <div
-              onMouseOver={() => {
-                setShowCalendar(true);
-              }}
-              onMouseOut={() => {
-                setShowCalendar(false);
-              }}
-              className="relative cursor-pointer"
-            >
-              <i className="fa fa-calendar"></i>
+            <div className="relative cursor-pointer">
+              {/* <i className="fa-solid fa-calendar" style={{fontSize:"10px"}} ></i> */}
+              <FontAwesomeIcon
+                icon={faCalendar}
+                size="lg"
+                onClick={() => setShowCalendar(!showCalendar)}
+              />
               <div className="absolute right-1">
-                {showCalendar && <input type="date" name="" id="" />}
+                {showCalendar && (
+                  <input
+                    type="date"
+                    name="calendar"
+                    id="calendar"
+                    onChange={(e) => setDate(e.target.value)}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -320,13 +334,13 @@ const Home = () => {
                           <div className="flex justify-center items-center relative w-10">
                             <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
                             <p className="text-11px text-center font-thin text-n-orange">
-                              {"Live"}
+                              {match.fixture.status.long}
                             </p>
                           </div>
                         ) : (
                           <div className="flex justify-center items-center w-10">
                             <p className="text-11px text-center font-thin">
-                              FT
+                              {match.fixture.status.long}
                             </p>
                           </div>
                         )}

@@ -1,13 +1,8 @@
-import React from 'react'
-import './style.css'
-
+import React from "react";
+import "./style.css";
+import Loading from "react-fullscreen-loading";
 const Loader = () => {
-  return (
-    <div style={{height:"100vh",width:"100vw"}} > 
+  return <Loading loading={true} background="#0B0B0B" loaderColor="#FF8A00" />;
+};
 
-    <div className="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-    </div>
-  )
-}
-
-export default Loader
+export default Loader;
