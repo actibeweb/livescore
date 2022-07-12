@@ -513,9 +513,7 @@ const FootballDetails = () => {
                 </div>
               </div>
 
-              <p className="mt-2 text-11px uppercase font-bold">
-                who will win?
-              </p>
+          
             </div>
           )}
           {activeTab === "Summary" && (
