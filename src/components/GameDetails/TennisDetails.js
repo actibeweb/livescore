@@ -37,6 +37,17 @@ const TennisDetails = () => {
       day: "numeric",
     });
   };
+  function formatTime(date) {
+    let d = new Date(date);
+    let hours = format_two_digits(d.getHours());
+    let minutes = format_two_digits(d.getMinutes());
+    let seconds = format_two_digits(d.getSeconds());
+    return hours + ":" + minutes;
+  }
+
+  function format_two_digits(n) {
+    return n < 10 ? "0" + n : n;
+  }
   return (
     <>
       {loading ? (
@@ -59,17 +70,24 @@ const TennisDetails = () => {
                   </div>
                 </div>
               </div>
-              <div className="mx-2.5 h-20 py-3 relative flex justify-center items-center bg-n-bg-gray rounded-lg">
+              <div className="mx- 2.5 h-20 py-3 relative flex justify-center items-center bg-n-bg-gray rounded-lg">
                 {game.status !== "finished" ? (
                   <div className="flex justify-center items-center w-10 mr-10">
                     <div className="absolute top-[5px] bottom-[5px] left-0 rounded-tr-xl rounded-br-xl w-1 bg-n-orange"></div>
-                    <p className="absolute left-5 text-11px text-center font-thin text-n-orange">
-                      {game.status}
-                    </p>
+                    {game.status === "notstarted" && (
+                      <p className="absolute left-5 text-14px text-center font-thin text-n-orange">
+                        {formatTime(game.date)}
+                      </p>
+                    )}
+                    {game.status === "inprogress" && (
+                      <p className="absolute left-5 text-14px text-center font-thin text-n-orange">
+                        Live
+                      </p>
+                    )}
                   </div>
                 ) : (
                   <div className="mr-10 flex justify-center items-center ">
-                    <p className="text-11px text-center font-thin">
+                    <p className="text-14px text-center font-thin">
                       {game.status}
                     </p>
                   </div>
@@ -210,7 +228,7 @@ const TennisDetails = () => {
                           <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
                             5
                           </th>
-                         
+
                           <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
                             SETS
                           </th>
@@ -236,7 +254,7 @@ const TennisDetails = () => {
                           <td className="hidden sm:table-cell text-center px-1 text-xs">
                             {game.result && game.result.home_set5}
                           </td>
-                          
+
                           <td className="hidden sm:table-cell text-center px-1 text-xs">
                             {game.result && game.result.home_sets}
                           </td>
@@ -260,7 +278,7 @@ const TennisDetails = () => {
                           <td className="hidden sm:table-cell text-center px-1 text-xs">
                             {game.result && game.result.away_set5}
                           </td>
-                          
+
                           <td className="hidden sm:table-cell text-center px-1 text-xs">
                             {game.result && game.result.away_sets}
                           </td>

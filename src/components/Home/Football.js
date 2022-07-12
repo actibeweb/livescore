@@ -161,17 +161,16 @@ const Home = () => {
     console.log(date);
 
     console.log(activeDateIndex);
-    if(!showCalendar){
-
+    if (!showCalendar) {
       const date1 = new Date(dates[activeDateIndex]);
       const date2 = date1.toISOString().split("T")[0];
       console.log(date2);
       getFixturesHandler(date2);
-    }else{
+    } else {
       getFixturesHandler(date);
       setShowCalendar(false);
     }
-  }, [activeDateIndex,date]);
+  }, [activeDateIndex, date]);
 
   const getFixturesHandler = async (date) => {
     try {
@@ -225,7 +224,13 @@ const Home = () => {
   const goToGame = (id) => {
     navigate(`/football/${id}`);
   };
-
+  function formatTime(t) {
+    var dt = new Date(t * 1000);
+    var hr = dt.getHours();
+    var m = "0" + dt.getMinutes();
+    var s = "0" + dt.getSeconds();
+    return hr + ":" + m.substr(-2);
+  }
   return (
     <>
       {loading ? (
@@ -333,14 +338,23 @@ const Home = () => {
                         {match.fixture.status.short !== "FT" ? (
                           <div className="flex justify-center items-center relative w-10">
                             <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
-                            <p className="text-11px text-center font-thin text-n-orange">
-                              {match.fixture.status.long}
-                            </p>
+                            {match.fixture.status.short === "NS" ? (
+                              <>
+                               
+                                <p className="text-11px text-center font-thin text-n-orange">
+                                  {formatTime(match.fixture.timestamp)}
+                                </p>
+                              </>
+                            ) : (
+                              <p className="text-11px text-center font-thin text-n-orange">
+                                {match.fixture.status.short}
+                              </p>
+                            )}
                           </div>
                         ) : (
                           <div className="flex justify-center items-center w-10">
                             <p className="text-11px text-center font-thin">
-                              {match.fixture.status.long}
+                              {match.fixture.status.short}
                             </p>
                           </div>
                         )}

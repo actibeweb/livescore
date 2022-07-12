@@ -27,6 +27,13 @@ const FootballDetails = () => {
     console.log(id);
     getFixtureHandler(id);
   }, []);
+  function formatTime(t) {
+    var dt = new Date(t * 1000);
+    var hr = dt.getHours();
+    var m = "0" + dt.getMinutes();
+    var s = "0" + dt.getSeconds();
+    return hr + ":" + m.substr(-2);
+  }
 
   const getFixtureHandler = async (id) => {
     try {
@@ -371,7 +378,7 @@ const FootballDetails = () => {
             <div className="flex items-center gap-2 mb-2">
               <img
                 src={fixtures && fixtures.league.flag}
-                alt={fixtures && fixtures.league.name}
+                alt=""
                 className="w-5 h-3"
               />
 
@@ -403,11 +410,19 @@ const FootballDetails = () => {
             </div>
           </div>
           <div className="mx-2.5 h-20 py-3 relative flex justify-center items-center bg-n-bg-gray rounded-lg">
-          {fixtures.fixture.status.short !== "FT" ? (
+            {fixtures.fixture.status.short !== "FT" ? (
               <div className="grid gap-[6px] mr-10 w-10">
-                <p className="text-11px text-center font-thin text-n-orange">
-                  {fixtures.fixture.status.long}
-                </p>
+                {fixtures.fixture.status.short === "NS" ? (
+                  <>
+                    <p className="text-14px text-center  text-n-orange">
+                      {formatTime(fixtures.fixture.timestamp)}
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-11px text-center font-thin text-n-orange">
+                    {fixtures.fixture.status.short}
+                  </p>
+                )}
               </div>
             ) : (
               <div className="flex justify-center items-center w-10 mr-10">
@@ -417,15 +432,13 @@ const FootballDetails = () => {
               </div>
             )}
 
-            <div className="mr-10 flex justify-center items-center w-10">
-              <p className="text-11px text-center font-thin">FT</p>
-            </div>
+          
             {/* )} */}
             <div className="flex justify-between items-center gap-10 w-64">
               <div className="flex flex-col justify-center gap-3">
                 <img
                   src={fixtures.teams.home.logo}
-                  alt={fixtures.teams.home.name}
+                  alt=""
                   className="w-6 h-6 mx-auto"
                 />
                 <p className="text-11px text-center">
@@ -441,7 +454,7 @@ const FootballDetails = () => {
               <div className="flex flex-col justify-center gap-3">
                 <img
                   src={fixtures.teams.away.logo}
-                  alt={fixtures.teams.away.name}
+                  alt=""
                   className="w-6 h-6 mx-auto"
                 />
 
@@ -960,7 +973,7 @@ const FootballDetails = () => {
               {h2hGames.map((game, index) => {
                 <div key={index} className="mt-2">
                   <div className="flex items-center gap-2 mb-2">
-                    <img src={game.leagueFlag} alt="game" className="w-5 h-3" />
+                    <img src={game.leagueFlag} alt="" className="w-5 h-3" />
                     <div className="grid">
                       <p className="capitalize text-sm font-bold">
                         {game.game}
@@ -982,19 +995,11 @@ const FootballDetails = () => {
                       </div>
                       <div class="grid gap-1">
                         <div class="flex items-center gap-2">
-                          <img
-                            src={game.homeFlag}
-                            alt="game"
-                            className="w-5 h-5"
-                          />
+                          <img src={game.homeFlag} alt="" className="w-5 h-5" />
                           <p class="text-sm text-pry">{game.homeTeam}</p>
                         </div>
                         <div class="flex items-center gap-2">
-                          <img
-                            src={game.awayFlag}
-                            alt="game"
-                            className="w-5 h-5"
-                          />
+                          <img src={game.awayFlag} alt="" className="w-5 h-5" />
                           <p class="text-sm text-pry">{game.awayTeam}</p>
                         </div>
                       </div>

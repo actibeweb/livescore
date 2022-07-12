@@ -225,7 +225,17 @@ const Cricket = () => {
   const goToGame = (id) => {
     navigate(`/cricket/${id}`);
   };
+  function formatTime(date) {
+    let d = new Date(date);
+    let hours = format_two_digits(d.getHours());
+    let minutes = format_two_digits(d.getMinutes());
+    let seconds = format_two_digits(d.getSeconds());
+    return hours + ":" + minutes;
+  }
 
+  function format_two_digits(n) {
+    return n < 10 ? "0" + n : n;
+  }
   return (
     <>
       {loading ? (
@@ -264,7 +274,7 @@ const Cricket = () => {
                 </div>
               );
             })}
-          <div className="relative cursor-pointer">
+            <div className="relative cursor-pointer">
               {/* <i className="fa-solid fa-calendar" style={{fontSize:"10px"}} ></i> */}
               <FontAwesomeIcon
                 icon={faCalendar}
@@ -327,9 +337,15 @@ const Cricket = () => {
                       {game.status !== "Complete" ? (
                         <div className="flex justify-center items-center relative w-10">
                           <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
-                          <p className="text-11px text-center font-thin text-n-orange">
-                            {game.status}
-                          </p>
+                          {game.status === "Fixture" ? (
+                            <p className="text-14px text-center text-n-orange">
+                              {formatTime(game.date)}
+                            </p>
+                          ) : (
+                            <p className="text-11px text-center font-thin text-n-orange">
+                              {game.status}
+                            </p>
+                          )}
                         </div>
                       ) : (
                         <div className="flex justify-center items-center w-10">

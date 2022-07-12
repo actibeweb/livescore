@@ -55,6 +55,17 @@ const Tennis = () => {
       setLoading(false);
     }
   };
+  function formatTime(date) {
+    let d = new Date(date);
+    let hours = format_two_digits(d.getHours());
+    let minutes = format_two_digits(d.getMinutes());
+    let seconds = format_two_digits(d.getSeconds());
+    return hours + ":" + minutes;
+  }
+
+  function format_two_digits(n) {
+    return n < 10 ? "0" + n : n;
+  }
 
   useEffect(() => {
     console.log(activeDateIndex);
@@ -76,243 +87,270 @@ const Tennis = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="text-pry lg:w-[50%] lg:mx-auto">
-          <div className="px-2.5 flex justify-between items-center">
-            <p className="font-bold w-10 py-[2px] flex justify-center bg-n-white text-n-black text-11px uppercase rounded">
-              Live
-            </p>
-            {dates.map((date, index) => {
-              return (
-                <div
-                  key={index}
-                  className="cursor-pointer"
-                  onClick={() => setActiveDateIndex(index)}
-                >
-                  <p
-                    className={
-                      index === activeDateIndex
-                        ? "text-n-orange font-bold flex justify-center text-11px uppercase"
-                        : "font-bold flex justify-center text-11px uppercase"
-                    }
-                  >
-                    {date === today ? "TODAY" : formatDate(date).slice(0, 3)}
-                  </p>
-                  <p
-                    className={
-                      index === activeDateIndex
-                        ? "text-n-orange font-bold flex justify-center text-11px uppercase"
-                        : "font-bold flex justify-center text-11px uppercase"
-                    }
-                  >
-                    {formatDate(date).slice(4)}
-                  </p>
-                </div>
-              );
-            })}
-            <div className="relative cursor-pointer">
-              {/* <i className="fa-solid fa-calendar" style={{fontSize:"10px"}} ></i> */}
-              <FontAwesomeIcon
-                icon={faCalendar}
-                size="lg"
-                onClick={() => setShowCalendar(!showCalendar)}
-              />
-              <div className="absolute right-1">
-                {showCalendar && (
-                  <input
-                    type="date"
-                    name="calendar"
-                    id="calendar"
-                    onChange={(e) => setCustomDate(e.target.value)}
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="px-2.5">
-            {games?.map((game, index) => {
-              return (
-                <div key={index} className="grid mb-2">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="grid">
-                        <p className="capitalize text-sm font-bold text-n-white">
-                          {game.tournament.name}
-                        </p>
-                        <p className="capitalize text-11px text-pry">
-                          {game.tournament.city +
-                            ", " +
-                            game.tournament.country}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  {game.matches?.map((match, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center"
+        <>
+          {games.length > 0 ? (
+            <div className="text-pry lg:w-[50%] lg:mx-auto">
+              <div className="px-2.5 flex justify-between items-center">
+                <p className="font-bold w-10 py-[2px] flex justify-center bg-n-white text-n-black text-11px uppercase rounded">
+                  Live
+                </p>
+                {dates.map((date, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="cursor-pointer"
+                      onClick={() => setActiveDateIndex(index)}
+                    >
+                      <p
+                        className={
+                          index === activeDateIndex
+                            ? "text-n-orange font-bold flex justify-center text-11px uppercase"
+                            : "font-bold flex justify-center text-11px uppercase"
+                        }
                       >
-                        <div
-                          onClick={() => goToGame(match.id)}
-                          className="flex flex-grow items-center gap-2"
-                        >
-                          {match?.status !== "finished" ? (
-                            <div className="flex justify-center items-center relative w-10">
-                              <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
-                              <p className="text-11px text-center capitalize font-thin text-n-orange">
-                                {match.status}
-                              </p>
-                            </div>
-                          ) : (
-                            <div className="flex justify-center items-center w-10">
-                              <p className="text-11px text-center font-thin capitalize">
-                                {match.status}
-                              </p>
-                            </div>
-                          )}
-                          {match.result ? (
-                            <div className="grid gap-1">
-                              <div
-                                onClick={() => goToGame(match.id)}
-                                className="flex items-center justify-between gap-2 cursor-pointer"
-                              >
-                                <p
-                                  className={
-                                    match.result &&
-                                    match.home_id === match.result.winner_id
-                                      ? "text-sm text-n-white"
-                                      : "text-sm"
-                                  }
-                                >
-                                  {match.home_player}
-                                </p>
-                                <div>
-                                  <span
-                                    className={
-                                      match.result &&
-                                      match.home_id === match.result.winner_id
-                                        ? "text-sm text-n-white ml-4"
-                                        : "text-sm ml-4"
-                                    }
-                                  >
-                                    {match.result.home_set1}
-                                  </span>
-                                  <span
-                                    className={
-                                      match.result &&
-                                      match.home_id === match.result.winner_id
-                                        ? "text-sm text-n-white ml-4"
-                                        : "text-sm ml-4"
-                                    }
-                                  >
-                                    {match.result.home_set2}
-                                  </span>
-                                  <span
-                                    className={
-                                      match.result &&
-                                      match.home_id === match.result.winner_id
-                                        ? "text-sm text-n-white ml-4"
-                                        : "text-sm ml-4"
-                                    }
-                                  >
-                                    {match.result.home_set3}
-                                  </span>
-                                  <span
-                                    className={
-                                      match.result &&
-                                      match.home_id === match.result.winner_id
-                                        ? "text-sm text-n-white ml-4"
-                                        : "text-sm ml-4"
-                                    }
-                                  >
-                                    {match.result.home_set4}
-                                  </span>
-                                </div>
-                              </div>
-                              <div
-                                onClick={() => goToGame(match.id)}
-                                className="flex items-center gap-2 cursor-pointer"
-                              >
-                                <p
-                                  className={
-                                    match.result &&
-                                    match.away_id === match.result.winner_id
-                                      ? "text-sm text-n-white "
-                                      : "text-sm"
-                                  }
-                                  style={{ marginRight: "2rem" }}
-                                >
-                                  {match.away_player}
-                                </p>
-                                <div>
-                                  <span
-                                    className={
-                                      match.result &&
-                                      match.away_id === match.result.winner_id
-                                        ? "text-sm text-n-white ml-4"
-                                        : "text-sm ml-4"
-                                    }
-                                  >
-                                    {match.result.away_set1}
-                                  </span>
-                                  <span
-                                    className={
-                                      match.result &&
-                                      match.away_id === match.result.winner_id
-                                        ? "text-sm text-n-white ml-4"
-                                        : "text-sm ml-4"
-                                    }
-                                  >
-                                    {match.result.away_set2}
-                                  </span>
-                                  <span
-                                    className={
-                                      match.result &&
-                                      match.away_id === match.result.winner_id
-                                        ? "text-sm text-n-white ml-4"
-                                        : "text-sm ml-4"
-                                    }
-                                  >
-                                    {match.result.away_set3}
-                                  </span>
-                                  <span
-                                    className={
-                                      match.result &&
-                                      match.away_id === match.result.winner_id
-                                        ? "text-sm text-n-white ml-4"
-                                        : "text-sm ml-4"
-                                    }
-                                  >
-                                    {match.result.away_set4}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="grid gap-1">
-                              <div
-                                onClick={() => goToGame(match.id)}
-                                className="flex items-center justify-between gap-2 cursor-pointer"
-                              >
-                                <p className="text-sm">{match.home_player}</p>
-                              </div>
-                              <div
-                                onClick={() => goToGame(match.id)}
-                                className="flex items-center justify-between gap-2 cursor-pointer"
-                              >
-                                <p className="text-sm">{match.away_player}</p>
-                              </div>
-                            </div>
-                          )}
+                        {date === today
+                          ? "TODAY"
+                          : formatDate(date).slice(0, 3)}
+                      </p>
+                      <p
+                        className={
+                          index === activeDateIndex
+                            ? "text-n-orange font-bold flex justify-center text-11px uppercase"
+                            : "font-bold flex justify-center text-11px uppercase"
+                        }
+                      >
+                        {formatDate(date).slice(4)}
+                      </p>
+                    </div>
+                  );
+                })}
+                <div className="relative cursor-pointer">
+                  {/* <i className="fa-solid fa-calendar" style={{fontSize:"10px"}} ></i> */}
+                  <FontAwesomeIcon
+                    icon={faCalendar}
+                    size="lg"
+                    onClick={() => setShowCalendar(!showCalendar)}
+                  />
+                  <div className="absolute right-1">
+                    {showCalendar && (
+                      <input
+                        type="date"
+                        name="calendar"
+                        id="calendar"
+                        onChange={(e) => setCustomDate(e.target.value)}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="px-2.5">
+                {games?.map((game, index) => {
+                  return (
+                    <div key={index} className="grid mb-2">
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="grid">
+                            <p className="capitalize text-sm font-bold text-n-white">
+                              {game.tournament.name}
+                            </p>
+                            <p className="capitalize text-11px text-pry">
+                              {game.tournament.city +
+                                ", " +
+                                game.tournament.country}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
-              );
-            })}
-          </div>
-        </div>
+                      {game.matches?.map((match, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center"
+                          >
+                            <div
+                              onClick={() => goToGame(match.id)}
+                              className="flex flex-grow items-center gap-2"
+                            >
+                              {match?.status !== "finished" ? (
+                                <div className="flex justify-center items-center relative w-10">
+                                  <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
+                                  {match.status === "notstarted" && (
+                                    <p className="text-13px text-center capitalize font-thin text-n-orange">
+                                      {formatTime(match.date)}
+                                    </p>
+                                  )}
+                                  {match.status === "inprogress" && (
+                                    <p className="text-11px text-center capitalize font-thin text-n-orange">
+                                      {"Live"}
+                                    </p>
+                                  )}
+                                </div>
+                              ) : (
+                                <div className="flex justify-center items-center w-10">
+                                  <p className="text-11px text-center font-thin capitalize">
+                                    {match.status}
+                                  </p>
+                                </div>
+                              )}
+                              {match.result ? (
+                                <div className="grid gap-1">
+                                  <div
+                                    onClick={() => goToGame(match.id)}
+                                    className="flex items-center justify-between gap-2 cursor-pointer"
+                                  >
+                                    <p
+                                      className={
+                                        match.result &&
+                                        match.home_id === match.result.winner_id
+                                          ? "text-sm text-n-white"
+                                          : "text-sm"
+                                      }
+                                    >
+                                      {match.home_player}
+                                    </p>
+                                    <div>
+                                      <span
+                                        className={
+                                          match.result &&
+                                          match.home_id ===
+                                            match.result.winner_id
+                                            ? "text-sm text-n-white ml-4"
+                                            : "text-sm ml-4"
+                                        }
+                                      >
+                                        {match.result.home_set1}
+                                      </span>
+                                      <span
+                                        className={
+                                          match.result &&
+                                          match.home_id ===
+                                            match.result.winner_id
+                                            ? "text-sm text-n-white ml-4"
+                                            : "text-sm ml-4"
+                                        }
+                                      >
+                                        {match.result.home_set2}
+                                      </span>
+                                      <span
+                                        className={
+                                          match.result &&
+                                          match.home_id ===
+                                            match.result.winner_id
+                                            ? "text-sm text-n-white ml-4"
+                                            : "text-sm ml-4"
+                                        }
+                                      >
+                                        {match.result.home_set3}
+                                      </span>
+                                      <span
+                                        className={
+                                          match.result &&
+                                          match.home_id ===
+                                            match.result.winner_id
+                                            ? "text-sm text-n-white ml-4"
+                                            : "text-sm ml-4"
+                                        }
+                                      >
+                                        {match.result.home_set4}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div
+                                    onClick={() => goToGame(match.id)}
+                                    className="flex items-center gap-2 cursor-pointer"
+                                  >
+                                    <p
+                                      className={
+                                        match.result &&
+                                        match.away_id === match.result.winner_id
+                                          ? "text-sm text-n-white "
+                                          : "text-sm"
+                                      }
+                                      style={{ marginRight: "2rem" }}
+                                    >
+                                      {match.away_player}
+                                    </p>
+                                    <div>
+                                      <span
+                                        className={
+                                          match.result &&
+                                          match.away_id ===
+                                            match.result.winner_id
+                                            ? "text-sm text-n-white ml-4"
+                                            : "text-sm ml-4"
+                                        }
+                                      >
+                                        {match.result.away_set1}
+                                      </span>
+                                      <span
+                                        className={
+                                          match.result &&
+                                          match.away_id ===
+                                            match.result.winner_id
+                                            ? "text-sm text-n-white ml-4"
+                                            : "text-sm ml-4"
+                                        }
+                                      >
+                                        {match.result.away_set2}
+                                      </span>
+                                      <span
+                                        className={
+                                          match.result &&
+                                          match.away_id ===
+                                            match.result.winner_id
+                                            ? "text-sm text-n-white ml-4"
+                                            : "text-sm ml-4"
+                                        }
+                                      >
+                                        {match.result.away_set3}
+                                      </span>
+                                      <span
+                                        className={
+                                          match.result &&
+                                          match.away_id ===
+                                            match.result.winner_id
+                                            ? "text-sm text-n-white ml-4"
+                                            : "text-sm ml-4"
+                                        }
+                                      >
+                                        {match.result.away_set4}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="grid gap-1">
+                                  <div
+                                    onClick={() => goToGame(match.id)}
+                                    className="flex items-center justify-between gap-2 cursor-pointer"
+                                  >
+                                    <p className="text-sm">
+                                      {match.home_player}
+                                    </p>
+                                  </div>
+                                  <div
+                                    onClick={() => goToGame(match.id)}
+                                    className="flex items-center justify-between gap-2 cursor-pointer"
+                                  >
+                                    <p className="text-sm">
+                                      {match.away_player}
+                                    </p>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            <p>There are no games available</p>
+          )}
+        </>
       )}
     </>
   );

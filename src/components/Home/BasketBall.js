@@ -184,7 +184,13 @@ const Basketball = () => {
       setLoading(false);
     }
   };
-
+  function formatTime(t) {
+    var dt = new Date(t * 1000);
+    var hr = dt.getHours();
+    var m = "0" + dt.getMinutes();
+    var s = "0" + dt.getSeconds();
+    return hr + ":" + m.substr(-2);
+  }
   const liveGame = () => {
     gameFixtures.forEach((fixture) => {
       fixture.fixtures.map((game) => {
@@ -332,14 +338,20 @@ const Basketball = () => {
                         {match.status.short !== "FT" ? (
                           <div className="flex justify-center items-center relative w-10">
                             <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
-                            <p className="text-11px text-center font-thin text-n-orange">
-                              {match.status.long}
-                            </p>
+                            {match.status.short === "NS" ? (
+                              <p className="text-13px text-center font-thin text-n-orange">
+                                {formatTime(match.timestamp)}
+                              </p>
+                            ) : (
+                              <p className="text-11px text-center font-thin text-n-orange">
+                                {match.status.short}
+                              </p>
+                            )}
                           </div>
                         ) : (
                           <div className="flex justify-center items-center w-10">
                             <p className="text-11px text-center font-thin">
-                              {match.status.long}
+                              {match.status.short}
                             </p>
                           </div>
                         )}
