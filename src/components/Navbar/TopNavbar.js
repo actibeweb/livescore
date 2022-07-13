@@ -10,10 +10,10 @@ const tabs = [
   { name: "Hockey", link: "/", linkName: "hockey" },
   { name: "Basketball", link: "/", linkName: "basketball" },
   { name: "Tennis", link: "/", linkName: "tennis" },
-  { name: "Motosports", link: "/", linkName: "/motosports" },
-  { name: "MMA Fight", link: "/", linkName: "mma" },
   { name: "Rugby", link: "/", linkName: "rugby" },
   { name: "Baseball", link: "/", linkName: "baseball" },
+  { name: "Motosports", link: "/", linkName: "/motosports" },
+  { name: "MMA Fight", link: "/", linkName: "mma" },
 ];
 
 const TopNavbar = () => {

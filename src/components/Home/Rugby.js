@@ -228,7 +228,7 @@ const Rugby = () => {
   const setDates = () => {};
 
   const goToGame = (id) => {
-    navigate(`/basketball/${id}`);
+    navigate(`/rugby/${id}`);
   };
 
   return (
