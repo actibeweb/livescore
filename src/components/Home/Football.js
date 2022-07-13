@@ -238,9 +238,9 @@ const Home = () => {
       ) : (
         <div className="text-pry lg:w-[50%] lg:mx-auto">
           <div className="px-2.5 flex justify-between items-center">
-            <p className="font-bold w-10 py-[2px] flex justify-center bg-n-white text-n-black text-11px uppercase rounded">
+            {/* <p className="font-bold w-10 py-[2px] flex justify-center bg-n-white text-n-black text-11px uppercase rounded">
               Live
-            </p>
+            </p> */}
             {dates.map((date, index) => {
               return (
                 <div

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { getRandomScore } from "../../utils/randomScore";
-import { getFixtureById } from "../../api/basketball";
+import { getFixtureById } from "../../api/baseball";
 import Loader from "../Common/Loader";
-const BasketballDetails = () => {
+const BaseballDetails = () => {
   const [markAsFavourite, setMarkAsFavourite] = useState(false);
   const [homeScore, setHomeScore] = useState(3);
   const [awayScore, setAwayScore] = useState(2);
@@ -206,9 +206,30 @@ const BasketballDetails = () => {
                             4
                           </th>
                           <th className=" h-7 text-center px-1 text-xxs uppercase">
-                            O
+                            5
                           </th>
 
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
+                            6
+                          </th>
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
+                            7
+                          </th>
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
+                            8
+                          </th>
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
+                            9
+                          </th>
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
+                            E
+                          </th>
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
+                            ERR
+                          </th>
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
+                            H
+                          </th>
                           <th className=" h-7 text-center px-1 text-xxs uppercase">
                             T
                           </th>
@@ -223,22 +244,43 @@ const BasketballDetails = () => {
                             {game.teams.home.name}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.home.quarter_1}
+                            {game.scores.home.innings[1]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.home.quarter_2}
+                          {game.scores.home.innings[2]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.home.quarter_3}
+                          {game.scores.home.innings[3]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.home.quarter_4}
+                          {game.scores.home.innings[4]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.home.over_time}
+                          {game.scores.home.innings[5]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.home.total}
+                          {game.scores.home.innings[6]}
+                          </td>
+                          <td className=" text-center px-1 text-xxs">
+                          {game.scores.home.innings[7]}
+                          </td>
+                          <td className=" text-center px-1 text-xxs">
+                          {game.scores.home.innings[8]}
+                          </td>
+                          <td className=" text-center px-1 text-xxs">
+                          {game.scores.home.innings[9]}
+                          </td>
+                          <td className=" text-center px-1 text-xxs">
+                          {game.scores.home.innings.extra}
+                          </td>
+                          <td className=" text-center px-1 text-xxs">
+                          {game.scores.home.errors}
+                          </td>
+                          <td className=" text-center px-1 text-xxs">
+                          {game.scores.home.hits}
+                          </td>
+                          <td className=" text-center px-1 text-xxs">
+                          {game.scores.home.total}
                           </td>
                         </tr>
                         <tr className="py-1 h-8 border-n-bg-gray border-b">
@@ -249,24 +291,46 @@ const BasketballDetails = () => {
                             {game.teams.away.name}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.away.quarter_1}
+                            {game.scores.away.innings[1]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.away.quarter_2}
+                          {game.scores.away.innings[2]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.away.quarter_3}
+                          {game.scores.away.innings[3]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.away.quarter_4}
+                          {game.scores.away.innings[4]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.away.over_time}
+                          {game.scores.away.innings[5]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.away.total}
+                          {game.scores.away.innings[6]}
+                          </td>
+                          <td className=" text-center px-1 text-xxs">
+                          {game.scores.away.innings[7]}
+                          </td>
+                          <td className=" text-center px-1 text-xxs">
+                          {game.scores.away.innings[8]}
+                          </td>
+                          <td className=" text-center px-1 text-xxs">
+                          {game.scores.away.innings[9]}
+                          </td>
+                          <td className=" text-center px-1 text-xxs">
+                          {game.scores.away.innings.extra}
+                          </td>
+                          <td className=" text-center px-1 text-xxs">
+                          {game.scores.away.errors}
+                          </td>
+                          <td className=" text-center px-1 text-xxs">
+                          {game.scores.away.hits}
+                          </td>
+                          <td className=" text-center px-1 text-xxs">
+                          {game.scores.away.total}
                           </td>
                         </tr>
+                      
                       </tbody>
                     </table>
                   </div>
@@ -389,4 +453,4 @@ const BasketballDetails = () => {
   );
 };
 
-export default BasketballDetails;
+export default BaseballDetails;

@@ -28,7 +28,7 @@ export const getFixturesById = async (id) => {
       'X-RapidAPI-Host': 'cricket-live-data.p.rapidapi.com'
     }
   };
-  try {
+try {
     const { data } = await axios(options);
     console.log(data);
     return data;

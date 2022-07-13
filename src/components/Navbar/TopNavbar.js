@@ -6,10 +6,14 @@ import { Link } from "react-router-dom";
 
 const tabs = [
   { name: "Football", link: "/", linkName: "" },
+  { name: "Cricket", link: "/", linkName: "cricket" },
   { name: "Hockey", link: "/", linkName: "hockey" },
   { name: "Basketball", link: "/", linkName: "basketball" },
   { name: "Tennis", link: "/", linkName: "tennis" },
-  { name: "Cricket", link: "/", linkName: "cricket" },
+  { name: "Motosports", link: "/", linkName: "/motosports" },
+  { name: "MMA Fight", link: "/", linkName: "mma" },
+  { name: "Rugby", link: "/", linkName: "rugby" },
+  { name: "Baseball", link: "/", linkName: "baseball" },
 ];
 
 const TopNavbar = () => {
@@ -22,12 +26,12 @@ const TopNavbar = () => {
   return (
     <>
       <nav className="px-2.5 text-n-white flex justify-between items-center ">
-        <div className="p-2 z-20 md:hidden" onClick={toggleMenu}>
+        {/* <div className="p-2 z-20 md:hidden" onClick={toggleMenu}>
           <button className={isToggled ? "hamburger active" : "hamburger"}>
             <span className="line"> </span> <span className="line"> </span>
             <span className="line"> </span>
           </button>
-        </div>
+        </div> */}
         <div>
           <p className="text-xl font-bold">LiveScore</p>
         </div>

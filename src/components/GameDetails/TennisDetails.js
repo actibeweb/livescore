@@ -213,23 +213,23 @@ const TennisDetails = () => {
                           <th className="h-7 text-left px-1 w-2/3 sm:w-[300px] text-xxs uppercase">
                             NAME
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             1
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             2
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             3
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             4
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             5
                           </th>
 
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             SETS
                           </th>
                         </tr>
@@ -239,23 +239,23 @@ const TennisDetails = () => {
                           <td className="text-left px-1 w-2/3 sm:w-[300px] text-sm capitalize flex flex-col">
                             {game.home_player}
                           </td>
-                          <td className="hidden sm:table-cell text-center px-1 text-xs">
+                          <td className=" text-center px-1 text-xs">
                             {game.result && game.result.home_set1}
                           </td>
-                          <td className="hidden sm:table-cell text-center px-1 text-xs">
+                          <td className=" text-center px-1 text-xs">
                             {game.result && game.result.home_set2}
                           </td>
-                          <td className="hidden sm:table-cell text-center px-1 text-xs">
+                          <td className=" text-center px-1 text-xs">
                             {game.result && game.result.home_set3}
                           </td>
-                          <td className="hidden sm:table-cell text-center px-1 text-xs">
+                          <td className=" text-center px-1 text-xs">
                             {game.result && game.result.home_set4}
                           </td>
-                          <td className="hidden sm:table-cell text-center px-1 text-xs">
+                          <td className=" text-center px-1 text-xs">
                             {game.result && game.result.home_set5}
                           </td>
 
-                          <td className="hidden sm:table-cell text-center px-1 text-xs">
+                          <td className=" text-center px-1 text-xs">
                             {game.result && game.result.home_sets}
                           </td>
                         </tr>
@@ -263,23 +263,23 @@ const TennisDetails = () => {
                           <td className="text-left px-1 w-2/3 sm:w-[300px] text-sm capitalize flex flex-col">
                             {game.away_player}
                           </td>
-                          <td className="hidden sm:table-cell text-center px-1 text-xs">
+                          <td className=" text-center px-1 text-xs">
                             {game.result && game.result.away_set1}
                           </td>
-                          <td className="hidden sm:table-cell text-center px-1 text-xs">
+                          <td className=" text-center px-1 text-xs">
                             {game.result && game.result.away_set2}
                           </td>
-                          <td className="hidden sm:table-cell text-center px-1 text-xs">
+                          <td className=" text-center px-1 text-xs">
                             {game.result && game.result.away_set3}
                           </td>
-                          <td className="hidden sm:table-cell text-center px-1 text-xs">
+                          <td className=" text-center px-1 text-xs">
                             {game.result && game.result.away_set4}
                           </td>
-                          <td className="hidden sm:table-cell text-center px-1 text-xs">
+                          <td className=" text-center px-1 text-xs">
                             {game.result && game.result.away_set5}
                           </td>
 
-                          <td className="hidden sm:table-cell text-center px-1 text-xs">
+                          <td className=" text-center px-1 text-xs">
                             {game.result && game.result.away_sets}
                           </td>
                         </tr>

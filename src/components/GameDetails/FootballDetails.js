@@ -816,19 +816,19 @@ const FootballDetails = () => {
                       <th className="h-7 text-center px-1 text-xxs uppercase">
                         p
                       </th>
-                      <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                      <th className=" h-7 text-center px-1 text-xxs uppercase">
                         w
                       </th>
-                      <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                      <th className=" h-7 text-center px-1 text-xxs uppercase">
                         d
                       </th>
-                      <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                      <th className=" h-7 text-center px-1 text-xxs uppercase">
                         l
                       </th>
-                      <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                      <th className=" h-7 text-center px-1 text-xxs uppercase">
                         f
                       </th>
-                      <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                      <th className=" h-7 text-center px-1 text-xxs uppercase">
                         a
                       </th>
                       <th className="h-7 text-center px-1 text-xxs uppercase">
@@ -891,19 +891,19 @@ const FootballDetails = () => {
                             <td className="text-center px-1 text-xxs">
                               {club.matchesPlayed}
                             </td>
-                            <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                            <td className=" text-center px-1 text-xxs">
                               {club.matchesWon}
                             </td>
-                            <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                            <td className=" text-center px-1 text-xxs">
                               {club.matchesDrawn}
                             </td>
-                            <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                            <td className=" text-center px-1 text-xxs">
                               {club.matchesLost}
                             </td>
-                            <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                            <td className=" text-center px-1 text-xxs">
                               {club.matchesF}
                             </td>
-                            <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                            <td className=" text-center px-1 text-xxs">
                               {club.matchesA}
                             </td>
                             <td className="text-center px-1 text-xxs">

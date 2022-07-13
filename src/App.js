@@ -14,6 +14,8 @@ import Tennis from "./components/Home/Tennis";
 import TennisDetails from "./components/GameDetails/TennisDetails";
 import Hockey from "./components/Home/Hockey";
 import HockeyDetails from "./components/GameDetails/HockeyDetails";
+import Baseball from "./components/Home/Baseball";
+import BaseballDetails from "./components/GameDetails/BaseballDetails";
 function App() {
   return (
     <>
@@ -25,11 +27,13 @@ function App() {
           <Route path="/basketball" element={<Basketball />} />
           <Route path="/tennis" element={<Tennis />} />
           <Route path="/hockey" element={<Hockey />} />
+          <Route path="/baseball" element={<Baseball />} />
           <Route path="/football/:id" element={<FootballDetails />} />
           <Route path="/cricket/:id" element={<CricketDetails />} />
           <Route path="/basketball/:id" element={<BasketballDetails />} />
           <Route path="/tennis/:id" element={<TennisDetails />} />    
           <Route path="/hockey/:id" element={<HockeyDetails />} />    
+          <Route path="/baseball/:id" element={<BaseballDetails />} />    
         </Routes>
         <BottomNavbar />
       </div>

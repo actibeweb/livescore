@@ -2,17 +2,19 @@ import React, { useState, useEffect } from "react";
 import { getRandomScore } from "../../utils/randomScore";
 
 import { useNavigate } from "react-router";
-import { getFixturesByDate } from "../../api/cricket";
+import { getFixtures } from "../../api/baseball";
 import Loader from "../Common/Loader";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Cricket = () => {
+const Baseball = () => {
   const navigate = useNavigate();
   const [homeScore, setHomeScore] = useState();
   const [awayScore, setAwayScore] = useState();
   const [gameStatus, setGameStatus] = useState("NotStarted");
   const [showCalendar, setShowCalendar] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [customDate, setCustomDate] = useState();
   const [gameDate, setGameDate] = useState(
     new Date().toISOString().split("T")[0]
   );
@@ -31,19 +33,18 @@ const Cricket = () => {
   );
   const dates = [twoDaysAgo, yesterday, today, tomorrow, twoDaysTime];
   const [activeDateIndex, setActiveDateIndex] = useState(2);
-  const [loading, setLoading] = useState(false);
+
   const [gameDates, setGameDates] = useState([]);
-  const [games, setGames] = useState([]);
-  const [customDate, setCustomDate] = useState();
   const formatDate = (date) => {
     const newDate = new Intl.DateTimeFormat("en-ng", {
       day: "2-digit",
       weekday: "short",
       month: "short",
     }).format(new Date(date));
+
     return newDate;
   };
-
+  const [fixtures, setFixtures] = useState([]);
   const [gameFixtures, setGameFixtures] = useState([
     {
       league: "Premier League",
@@ -157,20 +158,6 @@ const Cricket = () => {
     },
   ]);
 
-  const getFixtureHandler = async (date) => {
-    try {
-      setLoading(true);
-      const data = await getFixturesByDate(date);
-      console.log(data);
-      // setGameFixtures(data);
-      setLoading(false);
-      setGames(data.results);
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
     console.log(activeDateIndex);
     console.log(customDate);
@@ -179,13 +166,31 @@ const Cricket = () => {
       const date = new Date(dates[activeDateIndex]);
       const date1 = date.toISOString().split("T")[0];
       console.log(date1);
-      getFixtureHandler(date1);
+      getFixturesHandler(date1);
     } else {
-      getFixtureHandler(customDate);
+      getFixturesHandler(customDate);
       setShowCalendar(false);
     }
   }, [activeDateIndex, customDate]);
-
+  const getFixturesHandler = async (date) => {
+    try {
+      setLoading(true);
+      const data = await getFixtures(date);
+      console.log(data);
+      setFixtures(data.response);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+  function formatTime(t) {
+    var dt = new Date(t * 1000);
+    var hr = dt.getHours();
+    var m = "0" + dt.getMinutes();
+    var s = "0" + dt.getSeconds();
+    return hr + ":" + m.substr(-2);
+  }
   const liveGame = () => {
     gameFixtures.forEach((fixture) => {
       fixture.fixtures.map((game) => {
@@ -223,19 +228,9 @@ const Cricket = () => {
   const setDates = () => {};
 
   const goToGame = (id) => {
-    navigate(`/cricket/${id}`);
+    navigate(`/baseball/${id}`);
   };
-  function formatTime(date) {
-    let d = new Date(date);
-    let hours = format_two_digits(d.getHours());
-    let minutes = format_two_digits(d.getMinutes());
-    let seconds = format_two_digits(d.getSeconds());
-    return hours + ":" + minutes;
-  }
 
-  function format_two_digits(n) {
-    return n < 10 ? "0" + n : n;
-  }
   return (
     <>
       {loading ? (
@@ -294,34 +289,40 @@ const Cricket = () => {
             </div>
           </div>
           <div className="px-2.5">
-            {games?.map((game, index) => {
-              return (
-                <div key={index} className="grid mb-2">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="grid">
-                        <p className="capitalize text-sm font-bold text-n-white">
-                          {game.match_title}
-                        </p>
-                        <p className="capitalize text-11px text-pry">
-                          {game.match_subtitle}
-                        </p>
+            {fixtures &&
+              fixtures.map((match, index) => {
+                return (
+                  <div key={index} className="grid mb-2">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center gap-2 mb-2">
+                        <img
+                          src={match.league.logo}
+                          alt={match.league.name}
+                          className="w-5 h-3"
+                        />
+                        <div className="grid">
+                          <p className="capitalize text-sm font-bold text-n-white">
+                            {match.league.name}
+                          </p>
+                          <p className="capitalize text-11px text-pry">
+                            {match.league.season}
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        onClick={() => goToGame(match.id)}
+                        className="text-white cursor-pointer"
+                      >
+                        <i className="fa fa-chevron-right font-thin"></i>
                       </div>
                     </div>
-                    <div
-                      onClick={() => goToGame(game.id)}
-                      className="text-white cursor-pointer"
-                    >
-                      <i className="fa fa-chevron-right font-thin"></i>
-                    </div>
-                  </div>
 
-                  <div className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center">
-                    <div
-                      onClick={() => goToGame(game.id)}
-                      className="flex flex-grow items-center gap-2"
-                    >
-                      {/* {fixture.hasStarted === false &&
+                    <div className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center">
+                      <div
+                        onClick={() => goToGame(match.id)}
+                        className="flex flex-grow items-center gap-2"
+                      >
+                        {/* {fixture.hasStarted === false &&
                         fixture.hasEnded === false && (
                           <div className="grid gap-[6px] w-10">
                             <div className="grid gap-[6px] w-10">
@@ -334,50 +335,65 @@ const Cricket = () => {
                             </div>
                           </div>
                         )} */}
-                      {game.status !== "Complete" ? (
-                        <div className="flex justify-center items-center relative w-10">
-                          <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
-                          {game.status === "Fixture" ? (
-                            <p className="text-14px text-center text-n-orange">
-                              {formatTime(game.date)}
+                        {match.status.short !== "FT" ? (
+                          <div className="flex justify-center items-center relative w-10">
+                            <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
+                            {match.status.short === "NS" ? (
+                              <p className="text-13px text-center font-thin text-n-orange">
+                                {formatTime(match.timestamp)}
+                              </p>
+                            ) : (
+                              <p className="text-11px text-center font-thin text-n-orange">
+                                {match.status.short}
+                              </p>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="flex justify-center items-center w-10">
+                            <p className="text-11px text-center font-thin">
+                              {match.status.short}
                             </p>
-                          ) : (
-                            <p className="text-11px text-center font-thin text-n-orange">
-                              {game.status}
-                            </p>
-                          )}
-                        </div>
-                      ) : (
-                        <div className="flex justify-center items-center w-10">
-                          <p className="text-11px text-center font-thin">
-                            {game.status}
-                          </p>
-                        </div>
-                      )}
-                      <div className="grid gap-1">
-                        <div
-                          onClick={() => goToGame(game.id)}
-                          className="flex items-center gap-2 cursor-pointer"
-                        >
-                          <p className="text-sm">{game.home.name}</p>
-                        </div>
-                        <div
-                          onClick={() => goToGame(56)}
-                          className="flex items-center gap-2 cursor-pointer"
-                        >
-                          <p className="text-sm">{game.away.name}</p>
+                          </div>
+                        )}
+                        <div className="grid gap-1">
+                          <div
+                            onClick={() => goToGame(match.id)}
+                            className="flex items-center gap-2 cursor-pointer"
+                          >
+                            <img
+                              src={match.teams.home.logo}
+                              alt={match.teams.home.name}
+                              className="w-5 h-5"
+                            />
+                            <p className="text-sm">{match.teams.home.name}</p>
+                          </div>
+                          <div
+                            onClick={() => goToGame(match.fixture.id)}
+                            className="flex items-center gap-2 cursor-pointer"
+                          >
+                            <img
+                              src={match.teams.away.logo}
+                              alt={match.teams.away.name}
+                              className="w-5 h-5"
+                            />
+                            <p className="text-sm">{match.teams.away.name}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="flex flex-col gap-1">
-                        <p className="text-n-white text-sm">{game.result}</p>
+                      <div className="flex items-center gap-3">
+                        <div className="flex flex-col gap-1">
+                          <p className="text-n-white text-sm">
+                            {match.scores.home.total}
+                          </p>
+                          <p className="text-n-white text-sm">
+                            {match.scores.away.total}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
       )}
@@ -385,4 +401,4 @@ const Cricket = () => {
   );
 };
 
-export default Cricket;
+export default Baseball;

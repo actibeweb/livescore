@@ -531,19 +531,19 @@ const CricketDetails = () => {
                           <th className="h-7 text-left px-1 w-2/3 sm:w-[300px] text-xxs uppercase">
                             Name
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             R
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             B
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             4s
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             6s
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             S/R
                           </th>
                         </tr>
@@ -573,19 +573,19 @@ const CricketDetails = () => {
                                           </span>
                                           <span> {batsman.how_out}</span>
                                         </td>
-                                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                                        <td className=" text-center px-1 text-xxs">
                                           {batsman.runs}
                                         </td>
-                                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                                        <td className=" text-center px-1 text-xxs">
                                           {batsman.balls}
                                         </td>
-                                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                                        <td className=" text-center px-1 text-xxs">
                                           {batsman.fours}
                                         </td>
-                                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                                        <td className=" text-center px-1 text-xxs">
                                           {batsman.sixes}
                                         </td>
-                                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                                        <td className=" text-center px-1 text-xxs">
                                           {batsman.strike_rate}
                                         </td>
                                       </tr>
@@ -640,23 +640,23 @@ const CricketDetails = () => {
                           <th className="h-7 text-left px-1 w-2/3 sm:w-[300px] text-xxs uppercase">
                             Name
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             O
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             M
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             R
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             W
                           </th>
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             E
                           </th>
 
-                          <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                          <th className=" h-7 text-center px-1 text-xxs uppercase">
                             E/R
                           </th>
                         </tr>
@@ -685,22 +685,22 @@ const CricketDetails = () => {
                                             {bowler.player_name}{" "}
                                           </span>
                                         </td>
-                                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                                        <td className=" text-center px-1 text-xxs">
                                           {bowler.overs}
                                         </td>
-                                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                                        <td className=" text-center px-1 text-xxs">
                                           {bowler.maidens}
                                         </td>
-                                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                                        <td className=" text-center px-1 text-xxs">
                                           {bowler.runs_conceded}
                                         </td>
-                                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                                        <td className=" text-center px-1 text-xxs">
                                           {bowler.wickets}
                                         </td>
-                                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                                        <td className=" text-center px-1 text-xxs">
                                           {bowler.extras}
                                         </td>
-                                        <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                                        <td className=" text-center px-1 text-xxs">
                                           {bowler.economy}
                                         </td>
                                       </tr>
@@ -776,19 +776,19 @@ const CricketDetails = () => {
                       <th className="h-7 text-center px-1 text-xxs uppercase">
                         p
                       </th>
-                      <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                      <th className=" h-7 text-center px-1 text-xxs uppercase">
                         w
                       </th>
-                      <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                      <th className=" h-7 text-center px-1 text-xxs uppercase">
                         d
                       </th>
-                      <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                      <th className=" h-7 text-center px-1 text-xxs uppercase">
                         l
                       </th>
-                      <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                      <th className=" h-7 text-center px-1 text-xxs uppercase">
                         f
                       </th>
-                      <th className="hidden sm:table-cell h-7 text-center px-1 text-xxs uppercase">
+                      <th className=" h-7 text-center px-1 text-xxs uppercase">
                         a
                       </th>
                       <th className="h-7 text-center px-1 text-xxs uppercase">
@@ -851,19 +851,19 @@ const CricketDetails = () => {
                             <td className="text-center px-1 text-xxs">
                               {club.matchesPlayed}
                             </td>
-                            <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                            <td className=" text-center px-1 text-xxs">
                               {club.matchesWon}
                             </td>
-                            <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                            <td className=" text-center px-1 text-xxs">
                               {club.matchesDrawn}
                             </td>
-                            <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                            <td className=" text-center px-1 text-xxs">
                               {club.matchesLost}
                             </td>
-                            <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                            <td className=" text-center px-1 text-xxs">
                               {club.matchesF}
                             </td>
-                            <td className="hidden sm:table-cell text-center px-1 text-xxs">
+                            <td className=" text-center px-1 text-xxs">
                               {club.matchesA}
                             </td>
                             <td className="text-center px-1 text-xxs">
