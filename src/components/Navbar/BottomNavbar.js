@@ -21,6 +21,12 @@ const BottomNavbar = () => {
         <p className="text-xxs">About Us</p>
         </Link>
       </div>
+      <div className="flex flex-col gap-1 justify-center" style={{cursor:"pointer"}} >
+        <Link to="/contact" >
+        <i className="flex justify-center fa fa-file"></i>
+        <p className="text-xxs">Contact Us</p>
+        </Link>
+      </div>
       <div className="flex flex-col gap-1 justify-center">
         <i className="flex justify-center fa fa-file"></i>
         <p className="text-xxs">News</p>
