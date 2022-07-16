@@ -7,6 +7,7 @@ import Loader from "../Common/Loader";
 import Calendar from "./calendar.png";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Adsense from "../Common/Adsense";
 const Home = () => {
   const navigate = useNavigate();
   const [homeScore, setHomeScore] = useState();
@@ -288,6 +289,7 @@ const Home = () => {
               </div>
             </div>
           </div>
+       
           <div className="px-2.5">
             {fixtures &&
               fixtures.map((match, index) => {
@@ -340,7 +342,6 @@ const Home = () => {
                             <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
                             {match.fixture.status.short === "NS" ? (
                               <>
-                               
                                 <p className="text-11px text-center font-thin text-n-orange">
                                   {formatTime(match.fixture.timestamp)}
                                 </p>

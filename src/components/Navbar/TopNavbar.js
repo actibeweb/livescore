@@ -5,15 +5,15 @@ import { Link } from "react-router-dom";
 
 
 const tabs = [
-  { name: "Football", link: "/", linkName: "" },
-  { name: "Cricket", link: "/", linkName: "cricket" },
-  { name: "Hockey", link: "/", linkName: "hockey" },
+  { name: "Soccer", link: "/", linkName: "" },
+  // { name: "Cricket", link: "/", linkName: "cricket" },
+  // { name: "Hockey", link: "/", linkName: "hockey" },
   { name: "Basketball", link: "/", linkName: "basketball" },
   { name: "Tennis", link: "/", linkName: "tennis" },
   { name: "Rugby", link: "/", linkName: "rugby" },
-  { name: "Baseball", link: "/", linkName: "baseball" },
-  { name: "Motosports", link: "/", linkName: "/motosports" },
-  { name: "MMA Fight", link: "/", linkName: "mma" },
+  // { name: "Baseball", link: "/", linkName: "baseball" },
+  // { name: "Motosports", link: "/", linkName: "/motosports" },
+  // { name: "MMA Fight", link: "/", linkName: "mma" },
 ];
 
 const TopNavbar = () => {

@@ -18,6 +18,7 @@ import Baseball from "./components/Home/Baseball";
 import BaseballDetails from "./components/GameDetails/BaseballDetails";
 import Rugby from "./components/Home/Rugby";
 import RugbyDetails from "./components/GameDetails/RugbyDetails";
+import About from "./components/Common/About";
 function App() {
   return (
     <>
@@ -25,19 +26,20 @@ function App() {
         <TopNavbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/cricket" element={<Cricket />} />
+          {/* <Route path="/cricket" element={<Cricket />} /> */}
           <Route path="/basketball" element={<Basketball />} />
           <Route path="/tennis" element={<Tennis />} />
-          <Route path="/hockey" element={<Hockey />} />
-          <Route path="/baseball" element={<Baseball />} />
+          {/* <Route path="/hockey" element={<Hockey />} /> */}
+          {/* <Route path="/baseball" element={<Baseball />} /> */}
           <Route path="/rugby" element={<Rugby />} />
           <Route path="/football/:id" element={<FootballDetails />} />
-          <Route path="/cricket/:id" element={<CricketDetails />} />
+          {/* <Route path="/cricket/:id" element={<CricketDetails />} /> */}
           <Route path="/basketball/:id" element={<BasketballDetails />} />
           <Route path="/tennis/:id" element={<TennisDetails />} />    
-          <Route path="/hockey/:id" element={<HockeyDetails />} />    
-          <Route path="/baseball/:id" element={<BaseballDetails />} />    
+          {/* <Route path="/hockey/:id" element={<HockeyDetails />} />     */}
+          {/* <Route path="/baseball/:id" element={<BaseballDetails />} />     */}
           <Route path="/rugby/:id" element={<RugbyDetails />} />    
+          <Route path="/about" element={<About />} />    
         </Routes>
         <BottomNavbar />
       </div>
