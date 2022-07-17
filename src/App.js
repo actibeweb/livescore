@@ -20,6 +20,8 @@ import Rugby from "./components/Home/Rugby";
 import RugbyDetails from "./components/GameDetails/RugbyDetails";
 import About from "./components/Common/About";
 import Contact from "./components/Common/Contact";
+import Article from "./Article/Article";
+import ArticleDetail from "./Article/ArticleDetail";
 function App() {
   return (
     <>
@@ -42,6 +44,8 @@ function App() {
           <Route path="/rugby/:id" element={<RugbyDetails />} />    
           <Route path="/about" element={<About />} />    
           <Route path="/contact" element={<Contact />} />    
+          <Route path="/blog" element={<Article />} />    
+          <Route path="/blog/:id" element={<ArticleDetail />} />    
         </Routes>
         <BottomNavbar />
       </div>

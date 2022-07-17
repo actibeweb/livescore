@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getFixturesById } from "../../api/tennis";
 import Loader from "../Common/Loader";
 import { useParams } from "react-router";
+import Adsense from "../Common/Adsense";
 
 const TennisDetails = () => {
   const [activeTab, setActiveTab] = useState("Scorecard");
@@ -144,6 +145,9 @@ const TennisDetails = () => {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="mx-2.5">
+                <Adsense />
               </div>
               <div className="pb-1 mb-2 border-n-bg-gray border-b">
                 <div className="my-2 mx-2.5 flex gap-4 overflow-auto">
@@ -288,6 +292,9 @@ const TennisDetails = () => {
                   </div>
                 </div>
               )}
+              <div className="my-2.5">
+                <Adsense />
+              </div>
             </div>
           )}
         </>

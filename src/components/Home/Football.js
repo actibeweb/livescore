@@ -289,7 +289,10 @@ const Home = () => {
               </div>
             </div>
           </div>
-       
+          <div className="mx-2.5">
+            <Adsense />
+          </div>
+
           <div className="px-2.5">
             {fixtures &&
               fixtures.map((match, index) => {
@@ -400,6 +403,7 @@ const Home = () => {
                 );
               })}
           </div>
+         
         </div>
       )}
     </>

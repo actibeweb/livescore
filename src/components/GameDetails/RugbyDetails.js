@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { getRandomScore } from "../../utils/randomScore";
 import { getFixtureById } from "../../api/rugby";
 import Loader from "../Common/Loader";
+import Adsense from "../Common/Adsense";
 const RugbyDetails = () => {
   const [markAsFavourite, setMarkAsFavourite] = useState(false);
   const [homeScore, setHomeScore] = useState(3);
@@ -145,6 +146,9 @@ const RugbyDetails = () => {
                   </div>
                 </div>
               </div>
+              <div className="mx-2.5">
+            <Adsense />
+          </div>
               <div className="pb-1 mb-2 border-n-bg-gray border-b">
                 <div className="my-2 mx-2.5 flex gap-4 overflow-auto">
                   {tabs.map((tab, index) => {
@@ -270,7 +274,9 @@ const RugbyDetails = () => {
                   </div>
                 </div>
               )}
-            
+                <div className="my-2.5">
+            <Adsense />
+          </div>
             </div>
           )}
         </>
