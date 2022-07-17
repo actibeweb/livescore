@@ -3,10 +3,10 @@ import { getAllArticles } from "../api/article";
 import Loader from "../components/Common/Loader";
 import { Link } from "react-router-dom";
 const Article = () => {
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const getArticlesHandler = async () => {
-    try {
+    try { 
       setLoading(true);
       const data = await getAllArticles();
       console.log(data);
@@ -48,7 +48,7 @@ const Article = () => {
                     <h4>Recent Blogs</h4>
                   </div>
                   {/* Post Item */}
-                  {articles?.map((article, index) => {
+                  {articles &&  articles?.map((article, index) => {
                     return (
                       <div className="post-item" key={index}>
                         <div className="row">
