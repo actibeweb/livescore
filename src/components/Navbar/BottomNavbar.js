@@ -22,6 +22,12 @@ const BottomNavbar = () => {
         <p className="text-xxs">Blog</p>
         </Link>
       </div>
+      <div className="flex flex-col gap-1 justify-center" style={{cursor:"pointer"}} >
+        <Link to="/terms" >
+        <i className="flex justify-center fa fa-file"></i>
+        <p className="text-xxs">Terms and Conditions</p>
+        </Link>
+      </div>
      
     
     </div>

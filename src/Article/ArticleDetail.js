@@ -42,7 +42,7 @@ const ArticleDetail = () => {
                   <div className="titles no-margin">
                     <h4>{article.title}</h4>
                   </div>
-
+                  <img src={article.image.url} alt="" />
                   <div className="info-panel">
                    <p>{article.content}</p>
                   </div>

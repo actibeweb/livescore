@@ -22,6 +22,7 @@ import About from "./components/Common/About";
 import Contact from "./components/Common/Contact";
 import Article from "./Article/Article";
 import ArticleDetail from "./Article/ArticleDetail";
+import Terms from "./components/Common/Terms";
 function App() {
   return (
     <>
@@ -46,6 +47,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />    
           <Route path="/blog" element={<Article />} />    
           <Route path="/blog/:id" element={<ArticleDetail />} />    
+          <Route path="/terms" element={<Terms />} />    
         </Routes>
         <BottomNavbar />
       </div>

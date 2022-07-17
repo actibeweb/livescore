@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getContactPage } from "../../api/common";
 import { createContact } from "../../api/contact";
-import Loader from '../Common/Loader'
+import Loader from "../Common/Loader";
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -10,7 +11,7 @@ const Contact = () => {
   const [subject, setSubject] = useState("");
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [details, setDetails] = useState(undefined);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = { name, email, subject, comment };
@@ -36,6 +37,22 @@ const Contact = () => {
       toast.error("Error in sending message");
     }
   };
+
+  const getDetails = async () => {
+    try {
+      setLoading(true);
+      const data = await getContactPage();
+      console.log(data);
+      setDetails(data);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getDetails();
+  }, []);
 
   return (
     <>
@@ -65,16 +82,18 @@ const Contact = () => {
                   </div>
                   <div className="info-panel">
                     <address>
-                      <strong>Sports Cup, Inc.</strong>
                       <br />
-                      <i className="fa fa-map-marker" />
-                      <strong>Address: </strong> fa795 Folsom Ave, Suite 600
+                      <strong>Address: </strong> {details && details.address}
                       <br />
-                      <i className="fa fa-plane" />
-                      <strong>City: </strong>San Francisco, CA 94107
+                      <strong>City: </strong>
+                      {details && details.city}
                       <br />
-                      <i className="fa fa-phone" />{" "}
-                      <abbr title="Phone">P:</abbr> (123) 456-7890
+                      <strong>Pincode: </strong>
+                      {details && details.pincode}
+                      <br />
+                      <strong>Country: </strong>
+                      {details && details.country}
+                      <br />
                     </address>
                   </div>
                 </aside>
@@ -84,13 +103,12 @@ const Contact = () => {
                   </div>
                   <div className="info-panel">
                     <address>
-                      <i className="fa fa-envelope" />
                       <strong>Email:</strong>
-                      <a href="mailto:#"> sales@sportscup.com</a>
+                      <a href="mailto:#">{details && details.email}</a>
                       <br />
-                      <i className="fa fa-envelope" />
+
                       <strong>Phone:</strong>
-                      <a href="mailto:#"> 99999999999</a>
+                      <a href="mailto:#">{details && details.phone}</a>
                     </address>
                   </div>
                 </aside>

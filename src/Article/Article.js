@@ -6,7 +6,7 @@ const Article = () => {
   const [articles, setArticles] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const getArticlesHandler = async () => {
-    try { 
+    try {
       setLoading(true);
       const data = await getAllArticles();
       console.log(data);
@@ -48,28 +48,44 @@ const Article = () => {
                     <h4>Recent Blogs</h4>
                   </div>
                   {/* Post Item */}
-                  {articles &&  articles?.map((article, index) => {
-                    return (
-                      <div className="post-item" key={index}>
-                        <div className="row">
-                          <div className="col">
-                            <h5>
-                              <Link to={`/blog/${article._id}`}>
-                                {article.title}
-                              </Link>
-                            </h5>
+                  {articles &&
+                    articles?.map((article, index) => {
+                      return (
+                        <div className="post-item" key={index}>
+                          <div className="row">
+                            <div className="col-md-4">
+                              <div className="img">
+                                <Link to={`/blog/${article._id}`}>
+                                  <img
+                                    src={article.image.url}
+                                    alt=""
+                                    className="img-responsive"
+                                  />
+                                </Link>
+                                <div className="overlay">
+                                  <a href="single-news.html">+</a>
+                                </div>
+                              </div>
+                            </div>
 
-                            <p>
-                              {article.content.substring(0, 40)}
-                              <Link to={`/blog/${article._id}`}>
-                                Read More [+]
-                              </Link>
-                            </p>
+                            <div className="col">
+                              <h5>
+                                <Link to={`/blog/${article._id}`}>
+                                  {article.title}
+                                </Link>
+                              </h5>
+
+                              <p>
+                                {article.content.substring(0, 40)}
+                                <Link to={`/blog/${article._id}`}>
+                                  Read More [+]
+                                </Link>
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
                 </div>
                 {/* End Content Text*/}
               </div>
