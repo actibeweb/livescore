@@ -71,3 +71,15 @@ export const getAffiliate = async () => {
     return err;
   }
 };
+
+export const getAdSense = async () => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_API_URL}/adsense/get`
+    );
+    return data;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};

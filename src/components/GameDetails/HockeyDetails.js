@@ -4,6 +4,8 @@ import { getRandomScore } from "../../utils/randomScore";
 import { useParams } from "react-router";
 import { getFixtureById } from "../../api/hockey";
 import Loader from "../Common/Loader";
+import Adsense from "../Common/Adsense";
+import Adsense1 from "../Common/Adsense1";
 
 const HockeyDetails = () => {
   const [markAsFavourite, setMarkAsFavourite] = useState(false);
@@ -447,6 +449,9 @@ const HockeyDetails = () => {
               </div>
             </div>
           </div>
+          <div className="mx-2.5">
+            <Adsense1 />
+          </div>
           <div className="pb-1 mb-2 border-n-bg-gray border-b">
             <div className="my-2 mx-2.5 flex gap-4 overflow-auto">
               {tabs.map((tab, index) => {
@@ -523,6 +528,9 @@ const HockeyDetails = () => {
               </div>
             </>
           )}
+           <div className="my-2.5">
+            <Adsense />
+          </div>
         </div>
       )}
     </>

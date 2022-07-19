@@ -6,6 +6,8 @@ import { getFixtures } from "../../api/baseball";
 import Loader from "../Common/Loader";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Adsense from "../Common/Adsense";
+import Adsense1 from "../Common/Adsense1";
 
 const Baseball = () => {
   const navigate = useNavigate();
@@ -288,6 +290,9 @@ const Baseball = () => {
               </div>
             </div>
           </div>
+          <div className="mx-2.5">
+            <Adsense1 />
+          </div>
           <div className="px-2.5">
             {fixtures &&
               fixtures.map((match, index) => {
@@ -394,6 +399,9 @@ const Baseball = () => {
                   </div>
                 );
               })}
+          </div>
+          <div className="my-2.5">
+            <Adsense />
           </div>
         </div>
       )}

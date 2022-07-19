@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { getFixtureById } from "../../api/football";
 import Loader from "../Common/Loader";
 import Adsense from "../Common/Adsense";
+import Adsense1 from "../Common/Adsense1";
 
 const FootballDetails = () => {
   const [markAsFavourite, setMarkAsFavourite] = useState(false);
@@ -433,7 +434,6 @@ const FootballDetails = () => {
               </div>
             )}
 
-          
             {/* )} */}
             <div className="flex justify-between items-center gap-10 w-64">
               <div className="flex flex-col justify-center gap-3">
@@ -466,7 +466,7 @@ const FootballDetails = () => {
             </div>
           </div>
           <div className="mx-2.5">
-            <Adsense />
+            <Adsense1 />
           </div>
           <div className="pb-1 mb-2 border-n-bg-gray border-b">
             <div className="my-2 mx-2.5 flex gap-4 overflow-auto">
@@ -516,8 +516,6 @@ const FootballDetails = () => {
                   </div>
                 </div>
               </div>
-
-          
             </div>
           )}
           {activeTab === "Summary" && (
@@ -788,7 +786,7 @@ const FootballDetails = () => {
               )}
             </>
           )}
-              <div className="my-2.5">
+          <div className="my-2.5">
             <Adsense />
           </div>
         </div>

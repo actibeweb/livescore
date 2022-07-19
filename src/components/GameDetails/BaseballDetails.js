@@ -3,6 +3,8 @@ import { useParams } from "react-router";
 import { getRandomScore } from "../../utils/randomScore";
 import { getFixtureById } from "../../api/baseball";
 import Loader from "../Common/Loader";
+import Adsense from "../Common/Adsense";
+import Adsense1 from "../Common/Adsense1";
 const BaseballDetails = () => {
   const [markAsFavourite, setMarkAsFavourite] = useState(false);
   const [homeScore, setHomeScore] = useState(3);
@@ -145,6 +147,9 @@ const BaseballDetails = () => {
                   </div>
                 </div>
               </div>
+              <div className="mx-2.5">
+                <Adsense1 />
+              </div>
               <div className="pb-1 mb-2 border-n-bg-gray border-b">
                 <div className="my-2 mx-2.5 flex gap-4 overflow-auto">
                   {tabs.map((tab, index) => {
@@ -247,40 +252,40 @@ const BaseballDetails = () => {
                             {game.scores.home.innings[1]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.home.innings[2]}
+                            {game.scores.home.innings[2]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.home.innings[3]}
+                            {game.scores.home.innings[3]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.home.innings[4]}
+                            {game.scores.home.innings[4]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.home.innings[5]}
+                            {game.scores.home.innings[5]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.home.innings[6]}
+                            {game.scores.home.innings[6]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.home.innings[7]}
+                            {game.scores.home.innings[7]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.home.innings[8]}
+                            {game.scores.home.innings[8]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.home.innings[9]}
+                            {game.scores.home.innings[9]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.home.innings.extra}
+                            {game.scores.home.innings.extra}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.home.errors}
+                            {game.scores.home.errors}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.home.hits}
+                            {game.scores.home.hits}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.home.total}
+                            {game.scores.home.total}
                           </td>
                         </tr>
                         <tr className="py-1 h-8 border-n-bg-gray border-b">
@@ -294,43 +299,42 @@ const BaseballDetails = () => {
                             {game.scores.away.innings[1]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.away.innings[2]}
+                            {game.scores.away.innings[2]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.away.innings[3]}
+                            {game.scores.away.innings[3]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.away.innings[4]}
+                            {game.scores.away.innings[4]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.away.innings[5]}
+                            {game.scores.away.innings[5]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.away.innings[6]}
+                            {game.scores.away.innings[6]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.away.innings[7]}
+                            {game.scores.away.innings[7]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.away.innings[8]}
+                            {game.scores.away.innings[8]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.away.innings[9]}
+                            {game.scores.away.innings[9]}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.away.innings.extra}
+                            {game.scores.away.innings.extra}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.away.errors}
+                            {game.scores.away.errors}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.away.hits}
+                            {game.scores.away.hits}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                          {game.scores.away.total}
+                            {game.scores.away.total}
                           </td>
                         </tr>
-                      
                       </tbody>
                     </table>
                   </div>
@@ -404,47 +408,9 @@ const BaseballDetails = () => {
                   </div>
                 </div>
               )}
-              {activeTab === "Line-ups" && (
-                <div className="px-2.5 text-pry">
-                  <p className="uppercase text-11px">substitute players</p>
-                  <div className="mt-2 border-n-bg-gray border rounded-md">
-                    <div className="px-2 py-3 flex justify-around gap-3 border-n-bg-gray border-b">
-                      <p className="capitalize text-11px">Sub 1</p>
-                      <p className="capitalize text-11px">Sub 1</p>
-                    </div>
-                    <div className="px-2 py-3 flex justify-around gap-3 border-n-bg-gray border-b">
-                      <p className="capitalize text-11px">Sub 2</p>
-                      <p className="capitalize text-11px">Sub 2</p>
-                    </div>
-                    <div className="px-2 py-3 flex justify-around gap-3 border-n-bg-gray border-b">
-                      <p className="capitalize text-11px">Sub 3</p>
-                      <p className="capitalize text-11px">Sub 3</p>
-                    </div>
-
-                    <div className="px-2 py-3 flex justify-around gap-3 border-n-bg-gray border-b">
-                      <p className="capitalize text-11px">Sub 4</p>
-                      <p className="capitalize text-11px">Sub 4</p>
-                    </div>
-
-                    <div className="px-2 py-3 flex justify-around gap-3">
-                      <p className="capitalize text-11px">Sub 5</p>
-                      <p className="capitalize text-11px">Sub 5</p>
-                    </div>
-                  </div>
-                  <p className="mt-3 uppercase text-11px">Coaches</p>
-                  <div className="mt-2 border-n-bg-gray border rounded-md">
-                    <div className="px-2 py-3 flex justify-around gap-3">
-                      <p className="capitalize text-11px">Jurgen Klopp</p>
-                      <p className="capitalize text-11px">Pep Guadiola</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {activeTab === "Table" && (
-                <div className="px-2.5">
-                  <div class="px-1 pb-2 flex items-center gap-2"></div>
-                </div>
-              )}
+              <div className="my-2.5">
+                <Adsense />
+              </div>
             </div>
           )}
         </>

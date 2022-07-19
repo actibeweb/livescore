@@ -5,6 +5,7 @@ import Loader from "../Common/Loader";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Adsense from "../Common/Adsense";
+import Adsense1 from "../Common/Adsense1";
 
 const Tennis = () => {
   const navigate = useNavigate();
@@ -145,7 +146,7 @@ const Tennis = () => {
                 </div>
               </div>
               <div className="mx-2.5">
-            <Adsense />
+            <Adsense1 />
           </div>
               <div className="px-2.5">
                 {games?.map((game, index) => {
@@ -350,6 +351,9 @@ const Tennis = () => {
                   );
                 })}
               </div>
+              <div className="my-2.5">
+            <Adsense />
+          </div>
             </div>
           ) : (
             <p>There are no games available</p>

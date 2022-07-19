@@ -8,6 +8,7 @@ import Calendar from "./calendar.png";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Adsense from "../Common/Adsense";
+import Adsense1 from "../Common/Adsense1";
 const Home = () => {
   const navigate = useNavigate();
   const [homeScore, setHomeScore] = useState();
@@ -290,7 +291,7 @@ const Home = () => {
             </div>
           </div>
           <div className="mx-2.5">
-            <Adsense />
+            <Adsense1 />
           </div>
 
           <div className="px-2.5">
@@ -403,7 +404,9 @@ const Home = () => {
                 );
               })}
           </div>
-         
+          <div className="my-2.5">
+            <Adsense />
+          </div>
         </div>
       )}
     </>

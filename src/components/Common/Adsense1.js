@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getAffiliate } from "../../api/common";
+import { getAdSense } from "../../api/common";
 import Loader from "../Common/Loader";
-const Adsense = () => {
+const Adsense1 = () => {
   const [details, setDetails] = useState(undefined);
   const [loading, setLoading] = useState(false);
 
   const getDetails = async () => {
     try {
       setLoading(true);
-      const data = await getAffiliate();
+      const data = await getAdSense();
       console.log(data);
       setDetails(data);
       setLoading(false);
@@ -63,4 +63,4 @@ const Adsense = () => {
   );
 };
 
-export default Adsense;
+export default Adsense1;
