@@ -59,3 +59,15 @@ export const getTerms = async () => {
     return err;
   }
 }
+
+export const getAffiliate = async () => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_API_URL}/affiliate/get`
+    );
+    return data;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
