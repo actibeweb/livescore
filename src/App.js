@@ -23,6 +23,7 @@ import Contact from "./components/Common/Contact";
 import Article from "./Article/Article";
 import ArticleDetail from "./Article/ArticleDetail";
 import Terms from "./components/Common/Terms";
+import Custom from "./components/GameDetails/Custom";
 function App() {
   return (
     <>
@@ -49,6 +50,7 @@ function App() {
           <Route path="/blog" element={<Article />} />    
           <Route path="/blog/:id" element={<ArticleDetail />} />    
           <Route path="/terms" element={<Terms />} />    
+          <Route path="/custom/:id" element={<Custom />} />    
         </Routes>
         <BottomNavbar />
       </div>
