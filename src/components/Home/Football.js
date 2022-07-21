@@ -175,11 +175,12 @@ const Home = () => {
   }, [activeDateIndex, date]);
 
   const getFixturesHandler = async (date) => {
+    const formData = { date };
     try {
       setLoading(true);
-      const data = await getFixtures(date);
+      const data = await getFixtures(formData);
       console.log(data);
-      setFixtures(data.response);
+      setFixtures(data);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -301,22 +302,17 @@ const Home = () => {
                   <div key={index} className="grid mb-2">
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-2 mb-2">
-                        <img
-                          src={match.league.flag}
-                          alt={match.league.country}
-                          className="w-5 h-3"
-                        />
                         <div className="grid">
                           <p className="capitalize text-sm font-bold text-n-white">
-                            {match.league.name}
+                            {match.competition}
                           </p>
                           <p className="capitalize text-11px text-pry">
-                            {match.league.country}
+                            {match.season}
                           </p>
                         </div>
                       </div>
                       <div
-                        onClick={() => goToGame(match.fixture.id)}
+                        onClick={() => goToGame(match._id)}
                         className="text-white cursor-pointer"
                       >
                         <i className="fa fa-chevron-right font-thin"></i>
@@ -325,7 +321,7 @@ const Home = () => {
 
                     <div className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center">
                       <div
-                        onClick={() => goToGame(match.fixture.id)}
+                        onClick={() => goToGame(match._id)}
                         className="flex flex-grow items-center gap-2"
                       >
                         {/* {fixture.hasStarted === false &&
@@ -341,55 +337,28 @@ const Home = () => {
                             </div>
                           </div>
                         )} */}
-                        {match.fixture.status.short !== "FT" ? (
-                          <div className="flex justify-center items-center relative w-10">
-                            <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
-                            {match.fixture.status.short === "NS" ? (
-                              <>
-                                <p className="text-11px text-center font-thin text-n-orange">
-                                  {formatTime(match.fixture.timestamp)}
-                                </p>
-                              </>
-                            ) : (
-                              <p className="text-11px text-center font-thin text-n-orange">
-                                {match.fixture.status.short}
-                              </p>
-                            )}
-                          </div>
-                        ) : (
-                          <div className="flex justify-center items-center w-10">
-                            <p className="text-11px text-center font-thin">
-                              {match.fixture.status.short}
-                            </p>
-                          </div>
-                        )}
+                        <p className="text-11px text-center font-thin text-n-orange">
+                          {match.time}
+                        </p>
                         <div className="grid gap-1">
                           <div
-                            onClick={() => goToGame(match.fixture.id)}
+                            onClick={() => goToGame(match._id)}
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                            <img
-                              src={match.teams.home.logo}
-                              alt={match.teams.home.name}
-                              className="w-5 h-5"
-                            />
-                            <p className="text-sm">{match.teams.home.name}</p>
+                           
+                            <p className="text-sm">{match.home}</p>
                           </div>
                           <div
-                            onClick={() => goToGame(match.fixture.id)}
+                            onClick={() => goToGame(match._id)}
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                            <img
-                              src={match.teams.away.logo}
-                              alt={match.teams.away.name}
-                              className="w-5 h-5"
-                            />
-                            <p className="text-sm">{match.teams.away.name}</p>
+                           
+                            <p className="text-sm">{match.away}</p>
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
-                        {match.fixture.status.short !== "FT" && <div></div>}
+                      {/* <div className="flex items-center gap-3">
+                       
                         <div className="flex flex-col gap-1">
                           <p className="text-n-white text-sm">
                             {match.goals.home}
@@ -398,7 +367,7 @@ const Home = () => {
                             {match.goals.away}
                           </p>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 );

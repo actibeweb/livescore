@@ -42,8 +42,8 @@ const FootballDetails = () => {
       setLoading(true);
       const data = await getFixtureById(id);
       console.log(data);
-      console.log(data.response[0]);
-      setFixtures(data.response[0]);
+      console.log(data);
+      setFixtures(data);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -378,18 +378,14 @@ const FootballDetails = () => {
         <div className="text-n-white py-1 lg:w-[50%] lg:mx-auto">
           <div className="px-2.5 mb-2 flex justify-between items-center">
             <div className="flex items-center gap-2 mb-2">
-              <img
-                src={fixtures && fixtures.league.flag}
-                alt=""
-                className="w-5 h-3"
-              />
+             
 
               <div className="grid">
                 <p className="capitalize text-sm font-bold">
-                  {fixtures && fixtures.league.name}
+                  {fixtures && fixtures.competition}
                 </p>
                 <p className="capitalize text-11px text-pry">
-                  {fixtures && fixtures.league.country}
+                  {fixtures && fixtures.season}
                 </p>
               </div>
             </div>
@@ -412,55 +408,28 @@ const FootballDetails = () => {
             </div>
           </div>
           <div className="mx-2.5 h-20 py-3 relative flex justify-center items-center bg-n-bg-gray rounded-lg">
-            {fixtures.fixture.status.short !== "FT" ? (
-              <div className="grid gap-[6px] mr-10 w-10">
-                {fixtures.fixture.status.short === "NS" ? (
-                  <>
-                    <p className="text-14px text-center  text-n-orange">
-                      {formatTime(fixtures.fixture.timestamp)}
-                    </p>
-                  </>
-                ) : (
-                  <p className="text-11px text-center font-thin text-n-orange">
-                    {fixtures.fixture.status.short}
+          <p className="text-11px text-center font-thin text-n-orange">
+                    {fixtures.time}
                   </p>
-                )}
-              </div>
-            ) : (
-              <div className="flex justify-center items-center w-10 mr-10">
-                <p className="absolute left-5 text-11px text-center font-thin ">
-                  {fixtures.fixture.status.long}
-                </p>
-              </div>
-            )}
-
             {/* )} */}
             <div className="flex justify-between items-center gap-10 w-64">
               <div className="flex flex-col justify-center gap-3">
-                <img
-                  src={fixtures.teams.home.logo}
-                  alt=""
-                  className="w-6 h-6 mx-auto"
-                />
+              
                 <p className="text-11px text-center">
-                  {fixtures.teams.home.name}
+                  {fixtures.home}
                 </p>
               </div>
               <div>
                 <p className="text-[22px] flex items-center gap-1 font-bold">
-                  <span> {fixtures.score.fulltime.home}</span> -{" "}
-                  <span> {fixtures.score.fulltime.away}</span>
+                  <span> {"0"}</span> -{" "}
+                  <span> {"0"}</span>
                 </p>
               </div>
               <div className="flex flex-col justify-center gap-3">
-                <img
-                  src={fixtures.teams.away.logo}
-                  alt=""
-                  className="w-6 h-6 mx-auto"
-                />
+              
 
                 <p className="text-11px text-center">
-                  {fixtures.teams.away.name}
+                  {fixtures.away}
                 </p>
               </div>
             </div>
@@ -492,7 +461,7 @@ const FootballDetails = () => {
                   <i className="fa fa-calendar"></i>
                   <div>
                     <p className="capitalize text-11px">
-                      {fixtures.fixture.timestamp}
+                      {fixtures.date}
                     </p>
                     <p className="capitalize text-9px">Date</p>
                   </div>
@@ -501,7 +470,7 @@ const FootballDetails = () => {
                   <i className="fa fa-whistle"></i>
                   <div>
                     <p className="capitalize text-11px">
-                      {fixtures.fixture.referee}
+                      {fixtures.referee}
                     </p>
                     <p className="capitalize text-9px">referee</p>
                   </div>
@@ -510,7 +479,7 @@ const FootballDetails = () => {
                   <i className="fa fa-stadium"></i>
                   <div>
                     <p className="capitalize text-11px">
-                      {fixtures.fixture.venue.city}
+                      {fixtures.venue}
                     </p>
                     <p className="capitalize text-9px">venue</p>
                   </div>
@@ -647,7 +616,7 @@ const FootballDetails = () => {
               )}
             </div>
           )}
-          {activeTab === "Stats" && (
+          {/* {activeTab === "Stats" && (
             <>
               {fixtures.statistics.length > 0 ? (
                 <div className="px-2.5 text-pry">
@@ -698,8 +667,8 @@ const FootballDetails = () => {
                 <p className="text-lg">Match Starts Soon.</p>
               )}
             </>
-          )}
-          {activeTab === "Line-ups" && (
+          )} */}
+          {/* {activeTab === "Line-ups" && (
             <>
               {fixtures.lineups.length > 0 ? (
                 <div className="px-2.5 text-pry">
@@ -785,7 +754,7 @@ const FootballDetails = () => {
                 <p className="text-lg">Lineups Not Announced yet</p>
               )}
             </>
-          )}
+          )} */}
           <div className="my-2.5">
             <Adsense />
           </div>

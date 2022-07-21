@@ -30,7 +30,7 @@ const ArticleDetail = () => {
 
   return (
     <>
-      {loading ? (
+      {loading && !article ? (
         <Loader />
       ) : (
         <div className="content-info">
@@ -40,11 +40,11 @@ const ArticleDetail = () => {
                 {/* Content Text*/}
                 <div className="panel-box">
                   <div className="titles no-margin">
-                    <h4>{article.title}</h4>
+                    <h4>{ article && article.title}</h4>
                   </div>
-                  <img src={article.image.url} alt="" />
+                  <img src={ article.image && article.image.url} alt="" />
                   <div className="info-panel">
-                   <p>{article.content}</p>
+                   <p>{ article && article.content}</p>
                   </div>
                 </div>
               </div>
