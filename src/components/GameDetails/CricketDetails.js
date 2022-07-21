@@ -32,8 +32,8 @@ const CricketDetails = () => {
       const data = await getFixturesById(id);
       console.log(data);
       console.log(data.results);
-      setGame(data.results.fixture);
-      setDetails(data.results.live_details);
+      setGame(data);
+      setDetails(data);
       let tabs = [];
       if (data.results.live_details !== null) {
         for (let i = 0; i < data.results.live_details.scorecard.length; i++) {
@@ -383,10 +383,10 @@ const CricketDetails = () => {
             <div className="flex items-center gap-2 mb-2">
               <div className="grid">
                 <p className="capitalize text-sm font-bold">
-                  {game.match_title}
+                  {game.competition}
                 </p>
                 <p className="capitalize text-11px text-pry">
-                  {game.series.series_name + " " + game.series.season}
+                  {game.season}
                 </p>
               </div>
             </div>
@@ -409,30 +409,24 @@ const CricketDetails = () => {
             </div>
           </div>
           <div className="mx-2.5 h-20 py-3 relative flex justify-center items-center bg-n-bg-gray rounded-lg">
-            {details && details.match_summary.in_play !== "No" ? (
-              <div className="flex justify-center items-center w-10 mr-10">
+          <div className="flex justify-center items-center w-10 mr-10">
                 <div className="absolute top-[5px] bottom-[5px] left-0 rounded-tr-xl rounded-br-xl w-1 bg-n-orange"></div>
                 <p className="absolute left-5 text-11px text-center font-thin text-n-orange">
-                  Live
+                  {game.time}
                 </p>
               </div>
-            ) : (
-              <div className="mr-10 flex justify-center items-center ">
-                {/* <p className="text-11px text-center font-thin">FT</p> */}
-              </div>
-            )}
             <div className="flex justify-between items-center gap-10 w-64">
               <div className="flex flex-col justify-center gap-3">
-                <p className="text-18px text-center">{game.home.name}</p>
-                <p className="text-18px text-center">{game.away.name}</p>
+                <p className="text-18px text-center">{game.home}</p>
+                <p className="text-18px text-center">{game.away}</p>
               </div>
 
               <div className="flex flex-col justify-center gap-3">
                 <p className="text-11px text-center">
-                  {details && details.match_summary.home_scores}
+                  {""}
                 </p>
                 <p className="text-11px text-center">
-                  {details && details.match_summary.away_scores}
+                  {""}
                 </p>
               </div>
             </div>
@@ -464,7 +458,7 @@ const CricketDetails = () => {
                   <i className="fa fa-calendar"></i>
                   <div>
                     <p className="capitalize text-11px">
-                      {formatDate(game.start_date)}
+                      {formatDate(game.date)}
                     </p>
                     <p className="capitalize text-9px">Date</p>
                   </div>
@@ -473,22 +467,12 @@ const CricketDetails = () => {
                   <i className="fa fa-whistle"></i>
                   <div>
                     <p className="capitalize text-11px">
-                      {details.officials.referee}
+                      {game.referee}
                     </p>
                     <p className="capitalize text-9px">Referee</p>
                   </div>
                 </div>
-                <div className="px-2 py-3 flex gap-3 border-n-bg-gray border-b">
-                  <i className="fa fa-whistle"></i>
-                  <div>
-                    <p className="capitalize text-11px">
-                      {details.officials.umpire_1 +
-                        "," +
-                        details.officials.umpire_2}
-                    </p>
-                    <p className="capitalize text-9px">Umpires</p>
-                  </div>
-                </div>
+             
                 <div className="px-2 py-3 flex gap-3">
                   <i className="fa fa-stadium"></i>
                   <div>
@@ -499,7 +483,7 @@ const CricketDetails = () => {
               </div>
             </div>
           )}
-          {activeTab === "Scorecard" && (
+          {/* {activeTab === "Scorecard" && (
             <>
               {details === null ? (
                 <p>Match Starts Soon</p>
@@ -720,9 +704,9 @@ const CricketDetails = () => {
                 </div>
               )}
             </>
-          )}
+          )} */}
 
-          {activeTab === "Teams" && (
+          {/* {activeTab === "Teams" && (
             <>
               {details === null ? (
                 <p>Match Starts Soon</p>
@@ -746,7 +730,7 @@ const CricketDetails = () => {
                 </div>
               )}
             </>
-          )}
+          )} */}
           <div className="my-2.5">
             <Adsense />
           </div>

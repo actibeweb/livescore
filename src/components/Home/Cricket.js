@@ -160,13 +160,14 @@ const Cricket = () => {
   ]);
 
   const getFixtureHandler = async (date) => {
+    const formData = { date };
     try {
       setLoading(true);
-      const data = await getFixturesByDate(date);
+      const data = await getFixturesByDate(formData);
       console.log(data);
       // setGameFixtures(data);
       setLoading(false);
-      setGames(data.results);
+      setGames(data);
     } catch (err) {
       console.log(err);
       setLoading(false);
@@ -300,16 +301,17 @@ const Cricket = () => {
           </div>
           <div className="px-2.5">
             {games?.map((game, index) => {
+         
               return (
                 <div key={index} className="grid mb-2">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2 mb-2">
                       <div className="grid">
                         <p className="capitalize text-sm font-bold text-n-white">
-                          {game.match_title}
+                          {game.competition}
                         </p>
                         <p className="capitalize text-11px text-pry">
-                          {game.match_subtitle}
+                          {game.season}
                         </p>
                       </div>
                     </div>
@@ -323,60 +325,34 @@ const Cricket = () => {
 
                   <div className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center">
                     <div
-                      onClick={() => goToGame(game.id)}
+                      onClick={() => goToGame(game._id)}
                       className="flex flex-grow items-center gap-2"
                     >
-                      {/* {fixture.hasStarted === false &&
-                        fixture.hasEnded === false && (
-                          <div className="grid gap-[6px] w-10">
-                            <div className="grid gap-[6px] w-10">
-                              <div className="flex items-center">
-                                <i className="fa fa-play border border-white rounded"></i>
-                              </div>
-                              <p className="text-11px text-center font-thin">
-                                {fixture.time}
-                              </p>
-                            </div>
-                          </div>
-                        )} */}
-                      {game.status !== "Complete" ? (
-                        <div className="flex justify-center items-center relative w-10">
+                   
+                   <div className="flex justify-center items-center relative w-10">
                           <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
-                          {game.status === "Fixture" ? (
-                            <p className="text-14px text-center text-n-orange">
-                              {formatTime(game.date)}
+                          <p className="text-11px text-center font-thin text-n-orange">
+                              {game.time}
                             </p>
-                          ) : (
-                            <p className="text-11px text-center font-thin text-n-orange">
-                              {game.status}
-                            </p>
-                          )}
                         </div>
-                      ) : (
-                        <div className="flex justify-center items-center w-10">
-                          <p className="text-11px text-center font-thin">
-                            {game.status}
-                          </p>
-                        </div>
-                      )}
                       <div className="grid gap-1">
                         <div
-                          onClick={() => goToGame(game.id)}
+                          onClick={() => goToGame(game._id)}
                           className="flex items-center gap-2 cursor-pointer"
                         >
-                          <p className="text-sm">{game.home.name}</p>
+                          <p className="text-sm">{game.home}</p>
                         </div>
                         <div
-                          onClick={() => goToGame(56)}
+                          onClick={() => goToGame(game._id)}
                           className="flex items-center gap-2 cursor-pointer"
                         >
-                          <p className="text-sm">{game.away.name}</p>
+                          <p className="text-sm">{game.away}</p>
                         </div>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="flex flex-col gap-1">
-                        <p className="text-n-white text-sm">{game.result}</p>
+                        <p className="text-n-white text-sm">{""}</p>
                       </div>
                     </div>
                   </div>
