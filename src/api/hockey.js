@@ -42,7 +42,7 @@ export const getFixtureById = async (id) => {
 export const getCustomFixture= async (formData) => {
   try {
     const { data } = await axios.post(
-      `${process.env.REACT_APP_API_URL}/match/getByFilter/baseball`,
+      `${process.env.REACT_APP_API_URL}/match/getByFilter/hockey`,
       formData
     );
     console.log(data);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { getFixtures } from "../../api/tennis";
+import { getCustomFixture, getFixtures } from "../../api/tennis";
 import Loader from "../Common/Loader";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,7 +32,7 @@ const Tennis = () => {
   const [loading, setLoading] = useState(false);
   const [gameDates, setGameDates] = useState([]);
   const [games, setGames] = useState([]);
-
+  const [customFixtures, setCustomFixtures] = useState([]);
   const formatDate = (date) => {
     const newDate = new Intl.DateTimeFormat("en-ng", {
       day: "2-digit",
@@ -57,6 +57,20 @@ const Tennis = () => {
       setLoading(false);
     }
   };
+  const getCustomFixturesHandler = async (date) => {
+    const formData = { date: date };
+    try {
+      setLoading(true);
+      const data = await getCustomFixture(formData);
+      console.log(data);
+      setCustomFixtures(data);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
   function formatTime(date) {
     let d = new Date(date);
     let hours = format_two_digits(d.getHours());
@@ -77,13 +91,17 @@ const Tennis = () => {
       const date = new Date(dates[activeDateIndex]);
       const date1 = date.toISOString().split("T")[0];
       console.log(date1);
+      getCustomFixturesHandler(date1);
       getFixturesHandler(date1);
     } else {
+      getCustomFixturesHandler(customDate);
       getFixturesHandler(customDate);
       setShowCalendar(false);
     }
   }, [activeDateIndex, customDate]);
-
+  const goToGame1 = (id) => {
+    navigate(`/custom/${id}`);
+  };
   return (
     <>
       {loading ? (
@@ -146,8 +164,82 @@ const Tennis = () => {
                 </div>
               </div>
               <div className="mx-2.5">
-            <Adsense1 />
-          </div>
+                <Adsense1 />
+              </div>
+              <div className="px-2.5">
+                {customFixtures &&
+                  customFixtures.map((match, index) => {
+                    return (
+                      <div key={index} className="grid mb-2">
+                        <div className="flex justify-between items-center">
+                          <div className="flex items-center gap-2 mb-2">
+                            <div className="grid">
+                              <p className="capitalize text-sm font-bold text-n-white">
+                                {match.competition}
+                              </p>
+                              <p className="capitalize text-11px text-pry">
+                                {match.season}
+                              </p>
+                            </div>
+                          </div>
+                          <div
+                            onClick={() => goToGame1(match._id)}
+                            className="text-white cursor-pointer"
+                          >
+                            <i className="fa fa-chevron-right font-thin"></i>
+                          </div>
+                        </div>
+
+                        <div className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center">
+                          <div
+                            onClick={() => goToGame1(match._id)}
+                            className="flex flex-grow items-center gap-2"
+                          >
+                            {/* {fixture.hasStarted === false &&
+                        fixture.hasEnded === false && (
+                          <div className="grid gap-[6px] w-10">
+                            <div className="grid gap-[6px] w-10">
+                              <div className="flex items-center">
+                                <i className="fa fa-play border border-white rounded"></i>
+                              </div>
+                              <p className="text-11px text-center font-thin">
+                                {fixture.time}
+                              </p>
+                            </div>
+                          </div>
+                        )} */}
+                            <div className="flex justify-center items-center relative w-10">
+                              <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
+                              <p className="text-11px text-center font-thin text-n-orange">
+                                {match.time}
+                              </p>
+                            </div>
+                            <div className="grid gap-1">
+                              <div
+                                onClick={() => goToGame1(match._id)}
+                                className="flex items-center gap-2 cursor-pointer"
+                              >
+                                <p className="text-sm">{match.home}</p>
+                              </div>
+                              <div
+                                onClick={() => goToGame1(match._.id)}
+                                className="flex items-center gap-2 cursor-pointer"
+                              >
+                                <p className="text-sm">{match.away}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <div className="flex flex-col gap-1">
+                              <p className="text-n-white text-sm">{""}</p>
+                              <p className="text-n-white text-sm">{""}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
               <div className="px-2.5">
                 {games?.map((game, index) => {
                   return (
@@ -352,8 +444,8 @@ const Tennis = () => {
                 })}
               </div>
               <div className="my-2.5">
-            <Adsense />
-          </div>
+                <Adsense />
+              </div>
             </div>
           ) : (
             <p>There are no games available</p>
