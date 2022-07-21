@@ -7,6 +7,7 @@ import Loader from "../Common/Loader";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Adsense from "../Common/Adsense";
+import Adsense1 from "../Common/Adsense1";
 
 const Hockey = () => {
   const navigate = useNavigate();
@@ -172,11 +173,12 @@ const Hockey = () => {
   }, [activeDateIndex, customDate]);
 
   const getFixturesHandler = async (date) => {
+    const formData = { date }
     try {
       setLoading(true);
-      const data = await getFixtures(date);
+      const data = await getFixtures(formData);
       console.log(data);
-      setFixtures(data.response);
+      setFixtures(data);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -226,169 +228,151 @@ const Hockey = () => {
 
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
-        <div className="text-pry lg:w-[50%] lg:mx-auto">
-          <div className="px-2.5 flex justify-between items-center">
-            {/* <p className="font-bold w-10 py-[2px] flex justify-center bg-n-white text-n-black text-11px uppercase rounded">
-              Live
-            </p> */}
-            {dates.map((date, index) => {
-              return (
-                <div
-                  key={index}
-                  className="cursor-pointer"
-                  onClick={() => setActiveDateIndex(index)}
+    {loading ? (
+      <Loader />
+    ) : (
+      <div className="text-pry lg:w-[50%] lg:mx-auto">
+        <div className="px-2.5 flex justify-between items-center">
+          {/* <p className="font-bold w-10 py-[2px] flex justify-center bg-n-white text-n-black text-11px uppercase rounded">
+            Live
+          </p> */}
+          {dates.map((date, index) => {
+            return (
+              <div
+                key={index}
+                className="cursor-pointer"
+                onClick={() => setActiveDateIndex(index)}
+              >
+                <p
+                  className={
+                    index === activeDateIndex
+                      ? "text-n-orange font-bold flex justify-center text-11px uppercase"
+                      : "font-bold flex justify-center text-11px uppercase"
+                  }
                 >
-                  <p
-                    className={
-                      index === activeDateIndex
-                        ? "text-n-orange font-bold flex justify-center text-11px uppercase"
-                        : "font-bold flex justify-center text-11px uppercase"
-                    }
-                  >
-                    {date === today ? "TODAY" : formatDate(date).slice(0, 3)}
-                  </p>
-                  <p
-                    className={
-                      index === activeDateIndex
-                        ? "text-n-orange font-bold flex justify-center text-11px uppercase"
-                        : "font-bold flex justify-center text-11px uppercase"
-                    }
-                  >
-                    {formatDate(date).slice(4)}
-                  </p>
-                </div>
-              );
-            })}
-            <div className="relative cursor-pointer">
-              {/* <i className="fa-solid fa-calendar" style={{fontSize:"10px"}} ></i> */}
-              <FontAwesomeIcon
-                icon={faCalendar}
-                size="lg"
-                onClick={() => setShowCalendar(!showCalendar)}
-              />
-              <div className="absolute right-1">
-                {showCalendar && (
-                  <input
-                    type="date"
-                    name="calendar"
-                    id="calendar"
-                    onChange={(e) => setCustomDate(e.target.value)}
-                  />
-                )}
+                  {date === today ? "TODAY" : formatDate(date).slice(0, 3)}
+                </p>
+                <p
+                  className={
+                    index === activeDateIndex
+                      ? "text-n-orange font-bold flex justify-center text-11px uppercase"
+                      : "font-bold flex justify-center text-11px uppercase"
+                  }
+                >
+                  {formatDate(date).slice(4)}
+                </p>
               </div>
+            );
+          })}
+          <div className="relative cursor-pointer">
+            {/* <i className="fa-solid fa-calendar" style={{fontSize:"10px"}} ></i> */}
+            <FontAwesomeIcon
+              icon={faCalendar}
+              size="lg"
+              onClick={() => setShowCalendar(!showCalendar)}
+            />
+            <div className="absolute right-1">
+              {showCalendar && (
+                <input
+                  type="date"
+                  name="calendar"
+                  id="calendar"
+                  onChange={(e) => setCustomDate(e.target.value)}
+                />
+              )}
             </div>
           </div>
-          <div className="mx-2.5">
-            <Adsense />
-          </div>
-          <div className="px-2.5">
-            {fixtures &&
-              fixtures.map((match, index) => {
-                return (
-                  <div key={index} className="grid mb-2">
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center gap-2 mb-2">
-                        <img
-                          src={match.league.logo}
-                          alt={match.league.name}
-                          className="w-5 h-3"
-                        />
-                        <div className="grid">
-                          <p className="capitalize text-sm font-bold text-n-white">
-                            {match.league.name}
-                          </p>
-                          <p className="capitalize text-11px text-pry">
-                            {match.league.season}
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        onClick={() => goToGame(match.id)}
-                        className="text-white cursor-pointer"
-                      >
-                        <i className="fa fa-chevron-right font-thin"></i>
+        </div>
+        <div className="mx-2.5">
+          <Adsense1 />
+        </div>
+        <div className="px-2.5">
+          {fixtures &&
+            fixtures.map((match, index) => {
+              return (
+                <div key={index} className="grid mb-2">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2 mb-2">
+                    
+                      <div className="grid">
+                        <p className="capitalize text-sm font-bold text-n-white">
+                          {match.competition}
+                        </p>
+                        <p className="capitalize text-11px text-pry">
+                          {match.season}
+                        </p>
                       </div>
                     </div>
+                    <div
+                      onClick={() => goToGame(match._id)}
+                      className="text-white cursor-pointer"
+                    >
+                      <i className="fa fa-chevron-right font-thin"></i>
+                    </div>
+                  </div>
 
-                    <div className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center">
-                      <div
-                        onClick={() => goToGame(match.id)}
-                        className="flex flex-grow items-center gap-2"
-                      >
-                        {/* {fixture.hasStarted === false &&
-                        fixture.hasEnded === false && (
+                  <div className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center">
+                    <div
+                      onClick={() => goToGame(match._id)}
+                      className="flex flex-grow items-center gap-2"
+                    >
+                      {/* {fixture.hasStarted === false &&
+                      fixture.hasEnded === false && (
+                        <div className="grid gap-[6px] w-10">
                           <div className="grid gap-[6px] w-10">
-                            <div className="grid gap-[6px] w-10">
-                              <div className="flex items-center">
-                                <i className="fa fa-play border border-white rounded"></i>
-                              </div>
-                              <p className="text-11px text-center font-thin">
-                                {fixture.time}
-                              </p>
+                            <div className="flex items-center">
+                              <i className="fa fa-play border border-white rounded"></i>
                             </div>
-                          </div>
-                        )} */}
-                        {match.status.short !== "FT" ? (
-                          <div className="flex justify-center items-center relative w-10">
-                            <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
-                            <p className="text-11px text-center font-thin text-n-orange">
-                              {match.status.long}
-                            </p>
-                          </div>
-                        ) : (
-                          <div className="flex justify-center items-center w-10">
                             <p className="text-11px text-center font-thin">
-                              {match.status.long}
+                              {fixture.time}
                             </p>
                           </div>
-                        )}
-                        <div className="grid gap-1">
-                          <div
-                            onClick={() => goToGame(match.fixture.id)}
-                            className="flex items-center gap-2 cursor-pointer"
-                          >
-                            <img
-                              src={match.teams.home.logo}
-                              alt={match.teams.home.name}
-                              className="w-5 h-5"
-                            />
-                            <p className="text-sm">{match.teams.home.name}</p>
-                          </div>
-                          <div
-                            onClick={() => goToGame(match.id)}
-                            className="flex items-center gap-2 cursor-pointer"
-                          >
-                            <img
-                              src={match.teams.away.logo}
-                              alt={match.teams.away.name}
-                              className="w-5 h-5"
-                            />
-                            <p className="text-sm">{match.teams.away.name}</p>
-                          </div>
+                        </div>
+                      )} */}
+                    <div className="flex justify-center items-center relative w-10">
+                          <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
+                          <p className="text-11px text-center font-thin text-n-orange">
+                              {match.time}
+                            </p>
+                        </div>
+                      <div className="grid gap-1">
+                        <div
+                          onClick={() => goToGame(match._id)}
+                          className="flex items-center gap-2 cursor-pointer"
+                        >
+                         
+                          <p className="text-sm">{match.home}</p>
+                        </div>
+                        <div
+                          onClick={() => goToGame(match._.id)}
+                          className="flex items-center gap-2 cursor-pointer"
+                        >
+                        
+                          <p className="text-sm">{match.away}</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
-                        {match.status.short !== "FT" && <div></div>}
-                        <div className="flex flex-col gap-1">
-                          <p className="text-n-white text-sm">
-                            {match.scores.home}
-                          </p>
-                          <p className="text-n-white text-sm">
-                            {match.scores.away}
-                          </p>
-                        </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="flex flex-col gap-1">
+                        <p className="text-n-white text-sm">
+                          {""}
+                        </p>
+                        <p className="text-n-white text-sm">
+                          {""}
+                        </p>
                       </div>
                     </div>
                   </div>
-                );
-              })}
-          </div>
+                </div>
+              );
+            })}
         </div>
-      )}
-    </>
+        <div className="my-2.5">
+          <Adsense />
+        </div>
+      </div>
+    )}
+  </>
   );
 };
 
