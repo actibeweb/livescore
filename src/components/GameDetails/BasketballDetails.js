@@ -30,8 +30,8 @@ const BasketballDetails = () => {
       setLoading(true);
       const data = await getFixtureById(id);
       console.log(data);
-      console.log(data.response[0]);
-      setGame(data.response[0]);
+     
+      setGame(data);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -65,14 +65,13 @@ const BasketballDetails = () => {
             <div className="text-n-white py-1 lg:w-[50%] lg:mx-auto">
               <div className="px-2.5 mb-2 flex justify-between items-center">
                 <div className="flex items-center gap-2 mb-2">
-                  <img src={game.league.logo} alt="" className="w-5 h-3" />
-
+                 
                   <div className="grid">
                     <p className="capitalize text-sm font-bold">
-                      {game.league.name}
+                      {game.competition}
                     </p>
                     <p className="capitalize text-11px text-pry">
-                      {game.country.name}
+                      {game.season}
                     </p>
                   </div>
                 </div>
@@ -97,52 +96,30 @@ const BasketballDetails = () => {
                 </div>
               </div>
               <div className="mx-2.5 h-20 py-3 relative flex justify-center items-center bg-n-bg-gray rounded-lg">
-                {game.status.short !== "FT" ? (
-                  <div className="grid gap-[6px] mr-10 w-10">
-                    {game.status.short === "NS" ? (
-                      <p className="text-14px text-center font-thin text-n-orange">
-                        {formatTime(game.timestamp)}
+              <div className="grid gap-[6px] mr-10 w-10">
+              <p className="text-11px text-center font-thin text-n-orange">
+                        {game.time}
                       </p>
-                    ) : (
-                      <p className="text-11px text-center font-thin text-n-orange">
-                        {game.status.long}
-                      </p>
-                    )}
                   </div>
-                ) : (
-                  <div className="flex justify-center items-center w-10 mr-10">
-                    <p className="absolute left-5 text-11px text-center font-thin ">
-                      {game.status.long}
-                    </p>
-                  </div>
-                )}
 
                 <div className="flex justify-between items-center gap-10 w-64">
                   <div className="flex flex-col justify-center gap-3">
-                    <img
-                      src={game.teams.home.logo}
-                      alt=""
-                      className="w-6 h-6 mx-auto"
-                    />
+                 
                     <p className="text-11px text-center">
-                      {game.teams.home.name}
+                      {game.home}
                     </p>
                   </div>
                   <div>
                     <p className="text-[22px] flex items-center gap-1 font-bold">
-                      <span> {game.scores.home.total}</span> -{" "}
-                      <span> {game.scores.away.total}</span>
+                      <span> {"0"}</span> -{" "}
+                      <span> {"0"}</span>
                     </p>
                   </div>
                   <div className="flex flex-col justify-center gap-3">
-                    <img
-                      src={game.teams.away.logo}
-                      alt=""
-                      className="w-6 h-6 mx-auto"
-                    />
+                  
 
                     <p className="text-11px text-center">
-                      {game.teams.away.name}
+                      {game.away}
                     </p>
                   </div>
                 </div>
@@ -182,12 +159,30 @@ const BasketballDetails = () => {
                       </div>
                     </div>
                     <div className="px-2 py-3 flex gap-3 border-n-bg-gray border-b">
+                      <i className="fa fa-calendar"></i>
+                      <div>
+                        <p className="capitalize text-11px">
+                          {game.referee}
+                        </p>
+                        <p className="capitalize text-9px">Referee</p>
+                      </div>
+                    </div>
+                    <div className="px-2 py-3 flex gap-3 border-n-bg-gray border-b">
+                      <i className="fa fa-calendar"></i>
+                      <div>
+                        <p className="capitalize text-11px">
+                          {game.venue}
+                        </p>
+                        <p className="capitalize text-9px">Venue</p>
+                      </div>
+                    </div>
+                    <div className="px-2 py-3 flex gap-3 border-n-bg-gray border-b">
                       <i className="fa fa-whistle"></i>
                     </div>
                   </div>
                 </div>
               )}
-              {activeTab === "Scorecard" && (
+              {/* {activeTab === "Scorecard" && (
                 <div className="mx-2.5 text-pry">
                   <div className="mt-3 border-n-bg-gray border rounded-xl">
                     <h4 className="m-2">Scorecard</h4>
@@ -276,7 +271,7 @@ const BasketballDetails = () => {
                     </table>
                   </div>
                 </div>
-              )}
+              )} */}
               <div className="my-2.5">
                 <Adsense />
               </div>
