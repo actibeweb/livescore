@@ -9,6 +9,7 @@ import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Adsense from "../Common/Adsense";
 import Adsense1 from "../Common/Adsense1";
+import GoogleAds from "../Common/GoogleAds";
 const Home = () => {
   const navigate = useNavigate();
   const [homeScore, setHomeScore] = useState();
@@ -45,7 +46,7 @@ const Home = () => {
 
     return newDate;
   };
-  const [customFixtures, setCustomFixtures] = useState([])
+  const [customFixtures, setCustomFixtures] = useState([]);
   const [fixtures, setFixtures] = useState([]);
   const [gameFixtures, setGameFixtures] = useState([
     {
@@ -190,7 +191,7 @@ const Home = () => {
     }
   };
   const getCustomFixturesHandler = async (date) => {
-    const formData = {date:date}
+    const formData = { date: date };
     try {
       setLoading(true);
       const data = await getCustomFixture(formData);
@@ -201,7 +202,7 @@ const Home = () => {
       console.log(err);
       setLoading(false);
     }
-  }
+  };
 
   const liveGame = () => {
     gameFixtures.forEach((fixture) => {
@@ -311,7 +312,7 @@ const Home = () => {
             </div>
           </div>
           <div className="mx-2.5">
-            <Adsense1 />
+           <GoogleAds />
           </div>
           <div className="px-2.5">
             {customFixtures &&
@@ -320,7 +321,6 @@ const Home = () => {
                   <div key={index} className="grid mb-2">
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-2 mb-2">
-                      
                         <div className="grid">
                           <p className="capitalize text-sm font-bold text-n-white">
                             {match.competition}
@@ -356,37 +356,41 @@ const Home = () => {
                             </div>
                           </div>
                         )} */}
-                      <div className="flex justify-center items-center relative w-10">
-                            <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
-                            <p className="text-11px text-center font-thin text-n-orange">
-                                {match.time}
-                              </p>
-                          </div>
+                        <div className="flex justify-center items-center relative w-10">
+                          <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
+                          <p className="text-11px text-center font-thin text-n-orange">
+                            {match.time}
+                          </p>
+                        </div>
                         <div className="grid gap-1">
                           <div
                             onClick={() => goToGame1(match._id)}
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                           
+                             <img
+                              src={match?.homeLogo?.url}
+                              alt=""
+                              className="w-5 h-5"
+                            />
                             <p className="text-sm">{match.home}</p>
                           </div>
                           <div
                             onClick={() => goToGame1(match._.id)}
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                          
+                             <img
+                              src={match?.awayLogo?.url}
+                              alt=""
+                              className="w-5 h-5"
+                            />
                             <p className="text-sm">{match.away}</p>
                           </div>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="flex flex-col gap-1">
-                          <p className="text-n-white text-sm">
-                            {""}
-                          </p>
-                          <p className="text-n-white text-sm">
-                            {""}
-                          </p>
+                          <p className="text-n-white text-sm">{""}</p>
+                          <p className="text-n-white text-sm">{""}</p>
                         </div>
                       </div>
                     </div>

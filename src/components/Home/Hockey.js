@@ -353,19 +353,27 @@ const Hockey = () => {
                                 {match.time}
                               </p>
                           </div>
-                        <div className="grid gap-1">
+                          <div className="grid gap-1">
                           <div
                             onClick={() => goToGame1(match._id)}
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                           
+                             <img
+                              src={match?.homeLogo?.url}
+                              alt=""
+                              className="w-5 h-5"
+                            />
                             <p className="text-sm">{match.home}</p>
                           </div>
                           <div
                             onClick={() => goToGame1(match._.id)}
                             className="flex items-center gap-2 cursor-pointer"
                           >
-                          
+                             <img
+                              src={match?.awayLogo?.url}
+                              alt=""
+                              className="w-5 h-5"
+                            />
                             <p className="text-sm">{match.away}</p>
                           </div>
                         </div>

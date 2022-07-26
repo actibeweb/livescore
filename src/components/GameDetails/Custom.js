@@ -104,7 +104,11 @@ const Custom = () => {
 
                 <div className="flex justify-between items-center gap-10 w-64">
                   <div className="flex flex-col justify-center gap-3">
-                 
+                  <img
+                      src={ game.homeLogo && game.homeLogo.url}
+                      alt=""
+                      className="w-6 h-6 mx-auto"
+                    />
                     <p className="text-11px text-center">
                       {game.home}
                     </p>
@@ -117,7 +121,11 @@ const Custom = () => {
                   </div>
                   <div className="flex flex-col justify-center gap-3">
                   
-
+                  <img
+                      src={ game.awayLogo && game.awayLogo.url}
+                      alt=""
+                      className="w-6 h-6 mx-auto"
+                    />
                     <p className="text-11px text-center">
                       {game.away}
                     </p>
