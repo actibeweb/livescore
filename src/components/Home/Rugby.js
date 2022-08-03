@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getRandomScore } from "../../utils/randomScore";
 
 import { useNavigate } from "react-router";
-import { getFixtures } from "../../api/rugby";
+import { getCustomFixture, getFixtures } from "../../api/rugby";
 import Loader from "../Common/Loader";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,7 +35,7 @@ const Rugby = () => {
   );
   const dates = [twoDaysAgo, yesterday, today, tomorrow, twoDaysTime];
   const [activeDateIndex, setActiveDateIndex] = useState(2);
-
+  const [customFixtures, setCustomFixtures] = useState([])
   const [gameDates, setGameDates] = useState([]);
   const formatDate = (date) => {
     const newDate = new Intl.DateTimeFormat("en-ng", {
@@ -168,8 +168,10 @@ const Rugby = () => {
       const date = new Date(dates[activeDateIndex]);
       const date1 = date.toISOString().split("T")[0];
       console.log(date1);
+      getCustomFixturesHandler(date1);
       getFixturesHandler(date1);
     } else {
+      getCustomFixturesHandler(customDate);
       getFixturesHandler(customDate);
       setShowCalendar(false);
     }
@@ -187,6 +189,20 @@ const Rugby = () => {
       setLoading(false);
     }
   };
+  const getCustomFixturesHandler = async (date) => {
+    const formData = {date:date}
+    try {
+      setLoading(true);
+      const data = await getCustomFixture(formData);
+      console.log(data);
+      setCustomFixtures(data);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  }
+
   function formatTime(t) {
     var dt = new Date(t * 1000);
     var hr = dt.getHours();
@@ -233,7 +249,9 @@ const Rugby = () => {
   const goToGame = (id) => {
     navigate(`/rugby/${id}`);
   };
-
+  const goToGame1 = (id) => {
+    navigate(`/custom/${id}`);
+  };
   return (
     <>
     {loading ? (

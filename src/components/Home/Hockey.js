@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getRandomScore } from "../../utils/randomScore";
 
 import { useNavigate } from "react-router";
-import { getFixtures } from "../../api/hockey";
+import { getCustomFixture, getFixtures } from "../../api/hockey";
 import Loader from "../Common/Loader";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -47,6 +47,7 @@ const Hockey = () => {
     return newDate;
   };
   const [fixtures, setFixtures] = useState([]);
+  const [customFixtures, setCustomFixtures] = useState([])
   const [gameFixtures, setGameFixtures] = useState([
     {
       league: "Premier League",
@@ -165,8 +166,10 @@ const Hockey = () => {
       const date = new Date(dates[activeDateIndex]);
       const date1 = date.toISOString().split("T")[0];
       console.log(date1);
+      getCustomFixturesHandler(date1);
       getFixturesHandler(date1);
     } else {
+      getCustomFixturesHandler(customDate);
       getFixturesHandler(customDate);
       setShowCalendar(false);
     }
@@ -185,6 +188,19 @@ const Hockey = () => {
       setLoading(false);
     }
   };
+  const getCustomFixturesHandler = async (date) => {
+    const formData = {date:date}
+    try {
+      setLoading(true);
+      const data = await getCustomFixture(formData);
+      console.log(data);
+      setCustomFixtures(data);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  }
 
   const liveGame = () => {
     gameFixtures.forEach((fixture) => {
@@ -224,6 +240,9 @@ const Hockey = () => {
 
   const goToGame = (id) => {
     navigate(`/hockey/${id}`);
+  };
+  const goToGame1 = (id) => {
+    navigate(`/custom/${id}`);
   };
 
   return (

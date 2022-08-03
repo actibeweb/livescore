@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import { getRandomScore } from "../../utils/randomScore";
 
 import { useNavigate } from "react-router";
-import { getCustomFixture, getFixtures } from "../../api/basketball";
+import { getFixtures } from "../../api/basketball";
 import Loader from "../Common/Loader";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Adsense from "../Common/Adsense";
 import Adsense1 from "../Common/Adsense1";
+import { getCustomFixture } from "../../api/motoSports";
 
-const Basketball = () => {
+const MotoSports = () => {
   const navigate = useNavigate();
   const [homeScore, setHomeScore] = useState();
   const [awayScore, setAwayScore] = useState();
@@ -86,79 +87,7 @@ const Basketball = () => {
         },
       ],
     },
-    {
-      league: "La Liga Santander",
-      country: "Spain",
-      flagUrl: "https://static.livescore.com/i2/fh/spain.jpg",
-      fixtures: [
-        {
-          homeTeam: "Barcelona",
-          awayTeam: "Real Madrid",
-          homeFlag:
-            "https://lsm-static-prod.livescore.com/medium/enet/8634.png",
-          awayFlag:
-            "https://lsm-static-prod.livescore.com/medium/enet/8633.png",
-          game: "El Classico",
-          homeScore: 2,
-          awayScore: 2,
-          time: "88'",
-          hasStarted: false,
-          hasEnded: true,
-        },
-        {
-          homeTeam: "Athletico Madrid",
-          awayTeam: "Villareal",
-          homeFlag:
-            "https://lsm-static-prod.livescore.com/medium/enet/9906.png",
-          awayFlag:
-            "https://lsm-static-prod.livescore.com/medium/enet/10205.png",
-          game: "La Liga",
-          homeScore: 1,
-          awayScore: 2,
-          time: "21:30",
-          hasStarted: false,
-          hasEnded: false,
-          markAsFavourite: false,
-        },
-      ],
-    },
-    {
-      league: "Seria A",
-      country: "Italy",
-      flagUrl: "https://static.livescore.com/i2/fh/italy.jpg",
-      fixtures: [
-        {
-          homeTeam: "Juventus",
-          awayTeam: "AC Milan",
-          homeFlag:
-            "https://lsm-static-prod.livescore.com/medium/enet/9885.png",
-          awayFlag:
-            "https://lsm-static-prod.livescore.com/medium/enet/8564.png",
-          game: "League",
-          homeScore: 1,
-          awayScore: 2,
-          time: "16:30",
-          hasStarted: false,
-          hasEnded: false,
-          markAsFavourite: false,
-        },
-        {
-          homeTeam: "Inter Milan",
-          awayTeam: "Napoli",
-          homeFlag:
-            "https://lsm-static-prod.livescore.com/medium/enet/8636.png",
-          awayFlag:
-            "https://lsm-static-prod.livescore.com/medium/enet/9875.png",
-          game: "Ligue Cup",
-          homeScore: 0,
-          awayScore: 0,
-          time: 5,
-          hasStarted: true,
-          hasEnded: false,
-          markAsFavourite: false,
-        },
-      ],
-    },
+  
   ]);
 
   useEffect(() => {
@@ -178,12 +107,11 @@ const Basketball = () => {
     }
   }, [activeDateIndex, customDate]);
   const getFixturesHandler = async (date) => {
-    const formData = { date }
     try {
       setLoading(true);
-      const data = await getFixtures(formData);
+      const data = await getFixtures(date);
       console.log(data);
-      setFixtures(data);
+      setFixtures(data.response);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -403,87 +331,7 @@ const Basketball = () => {
                 );
               })}
           </div>
-          <div className="px-2.5">
-            {fixtures &&
-              fixtures.map((match, index) => {
-                return (
-                  <div key={index} className="grid mb-2">
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center gap-2 mb-2">
-                      
-                        <div className="grid">
-                          <p className="capitalize text-sm font-bold text-n-white">
-                            {match.competition}
-                          </p>
-                          <p className="capitalize text-11px text-pry">
-                            {match.season}
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        onClick={() => goToGame(match._id)}
-                        className="text-white cursor-pointer"
-                      >
-                        <i className="fa fa-chevron-right font-thin"></i>
-                      </div>
-                    </div>
-
-                    <div className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center">
-                      <div
-                        onClick={() => goToGame(match._id)}
-                        className="flex flex-grow items-center gap-2"
-                      >
-                        {/* {fixture.hasStarted === false &&
-                        fixture.hasEnded === false && (
-                          <div className="grid gap-[6px] w-10">
-                            <div className="grid gap-[6px] w-10">
-                              <div className="flex items-center">
-                                <i className="fa fa-play border border-white rounded"></i>
-                              </div>
-                              <p className="text-11px text-center font-thin">
-                                {fixture.time}
-                              </p>
-                            </div>
-                          </div>
-                        )} */}
-                      <div className="flex justify-center items-center relative w-10">
-                            <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
-                            <p className="text-11px text-center font-thin text-n-orange">
-                                {match.time}
-                              </p>
-                          </div>
-                        <div className="grid gap-1">
-                          <div
-                            onClick={() => goToGame(match._id)}
-                            className="flex items-center gap-2 cursor-pointer"
-                          >
-                           
-                            <p className="text-sm">{match.home}</p>
-                          </div>
-                          <div
-                            onClick={() => goToGame(match._.id)}
-                            className="flex items-center gap-2 cursor-pointer"
-                          >
-                          
-                            <p className="text-sm">{match.away}</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="flex flex-col gap-1">
-                          <p className="text-n-white text-sm">
-                            {""}
-                          </p>
-                          <p className="text-n-white text-sm">
-                            {""}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
+      
           <div className="my-2.5">
             <Adsense />
           </div>
@@ -493,4 +341,4 @@ const Basketball = () => {
   );
 };
 
-export default Basketball;
+export default MotoSports;

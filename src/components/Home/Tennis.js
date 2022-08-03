@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { getFixtures } from "../../api/tennis";
+import { getCustomFixture, getFixtures } from "../../api/tennis";
 import Loader from "../Common/Loader";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,8 +31,8 @@ const Tennis = () => {
   const [activeDateIndex, setActiveDateIndex] = useState(2);
   const [loading, setLoading] = useState(false);
   const [gameDates, setGameDates] = useState([]);
-  const [fixtures, setFixtures] = useState([]);
-
+  const [games, setGames] = useState([]);
+  const [customFixtures, setCustomFixtures] = useState([]);
   const formatDate = (date) => {
     const newDate = new Intl.DateTimeFormat("en-ng", {
       day: "2-digit",
@@ -58,6 +58,20 @@ const Tennis = () => {
       setLoading(false);
     }
   };
+  const getCustomFixturesHandler = async (date) => {
+    const formData = { date: date };
+    try {
+      setLoading(true);
+      const data = await getCustomFixture(formData);
+      console.log(data);
+      setCustomFixtures(data);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
   function formatTime(date) {
     let d = new Date(date);
     let hours = format_two_digits(d.getHours());
@@ -78,13 +92,17 @@ const Tennis = () => {
       const date = new Date(dates[activeDateIndex]);
       const date1 = date.toISOString().split("T")[0];
       console.log(date1);
+      getCustomFixturesHandler(date1);
       getFixturesHandler(date1);
     } else {
+      getCustomFixturesHandler(customDate);
       getFixturesHandler(customDate);
       setShowCalendar(false);
     }
   }, [activeDateIndex, customDate]);
-
+  const goToGame1 = (id) => {
+    navigate(`/custom/${id}`);
+  };
   return (
     <>
     {loading ? (

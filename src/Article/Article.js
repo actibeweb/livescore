@@ -10,7 +10,7 @@ const Article = () => {
       setLoading(true);
       const data = await getAllArticles();
       console.log(data);
-      if (data.err) {
+      if (data.err) { 
         setLoading(false);
 
         return;
