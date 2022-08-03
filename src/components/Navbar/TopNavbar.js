@@ -47,7 +47,7 @@ const TopNavbar = () => {
       let categoryData = [];
       for (let i = 0; i < data.categories.length; i++) {
         categoryData.push({
-          name: data.categories[i].charAt(0).toUpperCase() + data.categories[i].slice(1),
+          name: data.categories[i].toUpperCase(),
           link: `/`,
           linkName: data.categories[i],
         });
@@ -72,15 +72,15 @@ const TopNavbar = () => {
         <Loader />
       ) : (
         <>
-          <nav className="px-2.5 text-n-white flex justify-between items-center ">
+          <nav className="px-2.5 text-n-white flex justify-between items-center mt-4  "  >
             {/* <div className="p-2 z-20 md:hidden" onClick={toggleMenu}>
           <button className={isToggled ? "hamburger active" : "hamburger"}>
             <span className="line"> </span> <span className="line"> </span>
             <span className="line"> </span>
           </button>
         </div> */}
-            <div>
-              {logo && <img src={logo.url} alt="" width={100} height={50} />}
+            <div className="mt-2" style={{margin:"0.8rem"}}  >
+              {logo && <img src={logo.url} alt="" width={150} height={75}  className="mt-2" />}
             </div>
             <div>
               <i className="fa fa-search"></i>
