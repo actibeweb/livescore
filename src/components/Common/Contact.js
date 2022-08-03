@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { getContactPage } from "../../api/common";
 import { createContact } from "../../api/contact";
 import Loader from "../Common/Loader";
-
+import { Helmet } from 'react-helmet';
 const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -71,6 +71,9 @@ const Contact = () => {
         <Loader />
       ) : (
         <section className="content-info">
+           <Helmet>
+            <title>Clockscore | Contact</title>
+          </Helmet>
           <div className="container">
             <h2 style={{ color: "white", fontSize: "3rem" }}>Contact Us</h2>
             <div className="row paddings-mini">

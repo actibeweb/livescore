@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getAllArticles } from "../api/article";
 import Loader from "../components/Common/Loader";
 import { Link } from "react-router-dom";
+import { Helmet } from 'react-helmet';
 const Article = () => {
   const [articles, setArticles] = useState(undefined);
   const [loading, setLoading] = useState(false);
@@ -29,6 +30,9 @@ const Article = () => {
   }, []);
   return (
     <>
+     <Helmet>
+            <title>Clockscore | Blogs</title>
+          </Helmet>
       {loading ? (
         <Loader />
       ) : (

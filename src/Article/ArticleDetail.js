@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { useNavigate } from "react-router";
 import { getArticleById } from "../api/article";
 import Loader from "../components/Common/Loader";
+import { Helmet } from 'react-helmet';
 const ArticleDetail = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -35,7 +36,10 @@ const ArticleDetail = () => {
       ) : (
         <>
         {article && (
-
+          <>
+            <Helmet>
+            <title>{article.title}</title>
+          </Helmet>
         <div className="content-info">
           <div className="container paddings-mini">
             <div className="row">
@@ -54,6 +58,8 @@ const ArticleDetail = () => {
             </div>
           </div>
         </div>
+        </>
+
         )}
 
 </>

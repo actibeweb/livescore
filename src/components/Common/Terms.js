@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getTerms } from "../../api/common";
 import Loader from "../Common/Loader";
-
+import { Helmet } from 'react-helmet';
 const Terms = () => {
   const [loading, setLoading] = useState(false);
     const [details, setDetails] = useState(undefined);
@@ -36,6 +36,9 @@ useEffect(() => {
             flexDirection: "column",
           }}
         >
+           <Helmet>
+            <title>Clockscore | Terms</title>
+          </Helmet>
           <div className="row">
             <h2 style={{ color: "white", fontSize: "2rem" }}>
               Terms and Conditions
