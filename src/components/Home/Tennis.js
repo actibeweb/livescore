@@ -41,9 +41,7 @@ const Tennis = () => {
     }).format(new Date(date));
     return newDate;
   };
-  const goToGame = (id) => {
-    navigate(`/tennis/${id}`);
-  };
+
   const getFixturesHandler = async (date) => {
     try {
       setLoading(true);
@@ -99,9 +97,13 @@ const Tennis = () => {
       setShowCalendar(false);
     }
   }, [activeDateIndex, customDate]);
-  const goToGame1 = (id) => {
-    navigate(`/custom/${id}`);
+  const goToGame = (id,league,home,away) => {
+    navigate(`/tennis/${league.split(" ").join("-")}/${home.split(" ").join("")}-vs-${away.split(" ").join("")}/${id}`);
   };
+  const goToGame1 = (id,league,home,away) => {
+    navigate(`/custom/${league.split(" ").join("-")}/${home.split(" ").join("")}-vs-${away.split(" ").join("")}/${id}`);
+  };
+
   return (
     <>
       <Helmet>
@@ -186,7 +188,7 @@ const Tennis = () => {
                             </div>
                           </div>
                           <div
-                            onClick={() => goToGame1(match._id)}
+                            onClick={() => goToGame1(match._id,match.competition,match.home,match.away)}
                             className="text-white cursor-pointer"
                           >
                             <i className="fa fa-chevron-right font-thin"></i>
@@ -195,7 +197,7 @@ const Tennis = () => {
 
                         <div className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center">
                           <div
-                            onClick={() => goToGame1(match._id)}
+                            onClick={() => goToGame1(match._id,match.competition,match.home,match.away)}
                             className="flex flex-grow items-center gap-2"
                           >
                             {/* {fixture.hasStarted === false &&
@@ -219,7 +221,7 @@ const Tennis = () => {
                             </div>
                             <div className="grid gap-1">
                           <div
-                            onClick={() => goToGame1(match._id)}
+                            onClick={() => goToGame1(match._id,match.competition,match.home,match.away)}
                             className="flex items-center gap-2 cursor-pointer"
                           >
                              <img
@@ -230,7 +232,7 @@ const Tennis = () => {
                             <p className="text-sm">{match.home}</p>
                           </div>
                           <div
-                            onClick={() => goToGame1(match._.id)}
+                            onClick={() => goToGame1(match._.id,match.competition,match.home,match.away)}
                             className="flex items-center gap-2 cursor-pointer"
                           >
                              <img
@@ -278,7 +280,7 @@ const Tennis = () => {
                             className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center"
                           >
                             <div
-                              onClick={() => goToGame(match.id)}
+                              onClick={() => goToGame(match.id,game.tournament.name,match.home_player,match.away_player)}
                               className="flex flex-grow items-center gap-2"
                             >
                               {match?.status !== "finished" ? (
@@ -305,7 +307,7 @@ const Tennis = () => {
                               {match.result ? (
                                 <div className="grid gap-1">
                                   <div
-                                    onClick={() => goToGame(match.id)}
+                                    onClick={() => goToGame(match.id,game.tournament.name,match.home_player,match.away_player)}
                                     className="flex items-center justify-between gap-2 cursor-pointer"
                                   >
                                     <p
@@ -366,7 +368,7 @@ const Tennis = () => {
                                     </div>
                                   </div>
                                   <div
-                                    onClick={() => goToGame(match.id)}
+                                    onClick={() => goToGame(match.id,game.tournament.name,match.home_player,match.away_player)}
                                     className="flex items-center gap-2 cursor-pointer"
                                   >
                                     <p
@@ -431,7 +433,7 @@ const Tennis = () => {
                               ) : (
                                 <div className="grid gap-1">
                                   <div
-                                    onClick={() => goToGame(match.id)}
+                                    onClick={() => goToGame(match.id,game.tournament.name,match.home_player,match.away_player)}
                                     className="flex items-center justify-between gap-2 cursor-pointer"
                                   >
                                     <p className="text-sm">
@@ -439,7 +441,7 @@ const Tennis = () => {
                                     </p>
                                   </div>
                                   <div
-                                    onClick={() => goToGame(match.id)}
+                                    onClick={() => goToGame(match.id,game.tournament.name,match.home_player,match.away_player)}
                                     className="flex items-center justify-between gap-2 cursor-pointer"
                                   >
                                     <p className="text-sm">

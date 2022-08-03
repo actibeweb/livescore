@@ -242,11 +242,11 @@ const Cricket = () => {
 
   const setDates = () => {};
 
-  const goToGame = (id) => {
-    navigate(`/cricket/${id}`);
+  const goToGame = (id,league,home,away) => {
+    navigate(`/cricket/${league.split(" ").join("-")}/${home.split(" ").join("")}-vs-${away.split(" ").join("")}/${id}`);
   };
-  const goToGame1 = (id) => {
-    navigate(`/custom/${id}`);
+  const goToGame1 = (id,league,home,away) => {
+    navigate(`/custom/${league.split(" ").join("-")}/${home.split(" ").join("")}-vs-${away.split(" ").join("")}/${id}`);
   };
 
   function formatTime(date) {
@@ -341,7 +341,7 @@ const Cricket = () => {
                         </div>
                       </div>
                       <div
-                        onClick={() => goToGame1(match._id)}
+                        onClick={() => goToGame1(match._id,match.competition,match.home,match.away)}
                         className="text-white cursor-pointer"
                       >
                         <i className="fa fa-chevron-right font-thin"></i>
@@ -350,7 +350,7 @@ const Cricket = () => {
 
                     <div className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center">
                       <div
-                        onClick={() => goToGame1(match._id)}
+                        onClick={() => goToGame1(match._id,match.competition,match.home,match.away)}
                         className="flex flex-grow items-center gap-2"
                       >
                         {/* {fixture.hasStarted === false &&
@@ -374,7 +374,7 @@ const Cricket = () => {
                           </div>
                           <div className="grid gap-1">
                           <div
-                            onClick={() => goToGame1(match._id)}
+                            onClick={() => goToGame1(match._id,match.competition,match.home,match.away)}
                             className="flex items-center gap-2 cursor-pointer"
                           >
                              <img
@@ -385,7 +385,7 @@ const Cricket = () => {
                             <p className="text-sm">{match.home}</p>
                           </div>
                           <div
-                            onClick={() => goToGame1(match._.id)}
+                            onClick={() => goToGame1(match._.id,match.competition,match.home,match.away)}
                             className="flex items-center gap-2 cursor-pointer"
                           >
                              <img
@@ -428,7 +428,7 @@ const Cricket = () => {
                       </div>
                     </div>
                     <div
-                      onClick={() => goToGame(game.id)}
+                      onClick={() => goToGame(game.id,game.match_title,game.home.name,game.away.name)}
                       className="text-white cursor-pointer"
                     >
                       <i className="fa fa-chevron-right font-thin"></i>
@@ -437,7 +437,7 @@ const Cricket = () => {
 
                   <div className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center">
                     <div
-                      onClick={() => goToGame(game.id)}
+                      onClick={() => goToGame(game.id,game.match_title,game.home.name,game.away.name)}
                       className="flex flex-grow items-center gap-2"
                     >
                       {/* {fixture.hasStarted === false &&
@@ -458,7 +458,7 @@ const Cricket = () => {
                           <div className="absolute -left-[10px] rounded-tr-xl rounded-br-xl w-1 h-14 bg-n-orange"></div>
                           {game.status === "Fixture" ? (
                             <p className="text-14px text-center text-n-orange">
-                              {formatTime(game.date)}
+                              {formatTime(game.date,game.match_title,game.home.name,game.away.name)}
                             </p>
                           ) : (
                             <p className="text-11px text-center font-thin text-n-orange">
@@ -475,13 +475,13 @@ const Cricket = () => {
                       )}
                       <div className="grid gap-1">
                         <div
-                          onClick={() => goToGame(game.id)}
+                          onClick={() => goToGame(game.id,game.match_title,game.home.name,game.away.name)}
                           className="flex items-center gap-2 cursor-pointer"
                         >
                           <p className="text-sm">{game.home.name}</p>
                         </div>
                         <div
-                          onClick={() => goToGame(56)}
+                          onClick={() => goToGame(game.id,game.match_title,game.home.name,game.away.name)}
                           className="flex items-center gap-2 cursor-pointer"
                         >
                           <p className="text-sm">{game.away.name}</p>

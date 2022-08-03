@@ -47,7 +47,7 @@ const TopNavbar = () => {
       let categoryData = [];
       for (let i = 0; i < data.categories.length; i++) {
         categoryData.push({
-          name: data.categories[i],
+          name: data.categories[i].charAt(0).toUpperCase() + data.categories[i].slice(1),
           link: `/`,
           linkName: data.categories[i],
         });

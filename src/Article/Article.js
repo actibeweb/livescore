@@ -59,29 +59,27 @@ const Article = () => {
                           <div className="row">
                             <div className="col-md-4">
                               <div className="img">
-                                <Link to={`/blog/${article._id}`}>
+                                <Link to={`/blog/${article.title.split(" ").join("-")}/${article._id}`}>
                                   <img
                                     src={article.image.url}
                                     alt=""
                                     className="img-responsive"
                                   />
                                 </Link>
-                                <div className="overlay">
-                                  <a href="single-news.html">+</a>
-                                </div>
+                               
                               </div>
                             </div>
 
                             <div className="col">
                               <h5>
-                                <Link to={`/blog/${article._id}`}>
+                                <Link to={`/blog/${article.title.split(" ").join("-")}/${article._id}`}>
                                   {article.title}
                                 </Link>
                               </h5>
 
                               <p>
                                 {article.content.substring(0, 40)}
-                                <Link to={`/blog/${article._id}`}>
+                                <Link to={`/blog/${article.title.split(" ").join("-")}/${article._id}`}>
                                   Read More [+]
                                 </Link>
                               </p>

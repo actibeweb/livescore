@@ -42,19 +42,19 @@ function App() {
           <Route path="/rugby" element={<Rugby />} />
           <Route path="/motoSports" element={<MotoSports />} />
           <Route path="/mmaFight" element={<MmaFight />} />
-          <Route path="/football/:id" element={<FootballDetails />} />
-          <Route path="/cricket/:id" element={<CricketDetails />} />
-          <Route path="/basketball/:id" element={<BasketballDetails />} />
-          <Route path="/tennis/:id" element={<TennisDetails />} />    
-          <Route path="/hockey/:id" element={<HockeyDetails />} />    
-          <Route path="/baseball/:id" element={<BaseballDetails />} />    
-          <Route path="/rugby/:id" element={<RugbyDetails />} />    
+          <Route path="/football/:league/:match/:id" element={<FootballDetails />} />
+          <Route path="/cricket/:league/:match/:id" element={<CricketDetails />} />
+          <Route path="/basketball/:league/:match/:id" element={<BasketballDetails />} />
+          <Route path="/tennis/:league/:match/:id" element={<TennisDetails />} />    
+          <Route path="/hockey/:league/:match/:id" element={<HockeyDetails />} />    
+          <Route path="/baseball/:league/:match/:id" element={<BaseballDetails />} />    
+          <Route path="/rugby/:league/:match/:id" element={<RugbyDetails />} />    
           <Route path="/about" element={<About />} />    
           <Route path="/contact" element={<Contact />} />    
           <Route path="/blog" element={<Article />} />    
-          <Route path="/blog/:id" element={<ArticleDetail />} />    
+          <Route path="/blog/:name/:id" element={<ArticleDetail />} />    
           <Route path="/terms" element={<Terms />} />    
-          <Route path="/custom/:id" element={<Custom />} />    
+          <Route path="/custom/:league/:match/:id" element={<Custom />} />    
         </Routes>
         <BottomNavbar />
       </div>

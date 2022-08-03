@@ -62,10 +62,12 @@ const BaseballDetails = () => {
         <Loader />
       ) : (
         <>
-          <Helmet>
+        
+          {game && (
+            <>
+              <Helmet>
             <title>{`${game.teams.home.name} vs ${game.teams.away.name}`}</title>
           </Helmet>
-          {game && (
             <div className="text-n-white py-1 lg:w-[50%] lg:mx-auto">
               <div className="px-2.5 mb-2 flex justify-between items-center">
                 <div className="flex items-center gap-2 mb-2">
@@ -416,6 +418,8 @@ const BaseballDetails = () => {
                 <Adsense />
               </div>
             </div>
+            </>
+
           )}
         </>
       )}

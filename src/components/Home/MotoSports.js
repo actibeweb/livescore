@@ -175,11 +175,12 @@ const MotoSports = () => {
 
   const setDates = () => {};
 
-  const goToGame = (id) => {
-    navigate(`/basketball/${id}`);
+ 
+  const goToGame = (id,league,home,away) => {
+    navigate(`/baseball/${league.split(" ").join("-")}/${home.split(" ").join("")}-vs-${away.split(" ").join("")}/${id}`);
   };
-  const goToGame1 = (id) => {
-    navigate(`/custom/${id}`);
+  const goToGame1 = (id,league,home,away) => {
+    navigate(`/custom/${league.split(" ").join("-")}/${home.split(" ").join("")}-vs-${away.split(" ").join("")}/${id}`);
   };
 
   return (
@@ -263,7 +264,7 @@ const MotoSports = () => {
                         </div>
                       </div>
                       <div
-                        onClick={() => goToGame1(match._id)}
+                        onClick={() => goToGame1(match._id,match.competition,match.home,match.away)}
                         className="text-white cursor-pointer"
                       >
                         <i className="fa fa-chevron-right font-thin"></i>
@@ -272,7 +273,7 @@ const MotoSports = () => {
 
                     <div className="mb-3 bg-n-bg-gray cursor-pointer rounded-lg p-3 flex justify-between items-center">
                       <div
-                        onClick={() => goToGame1(match._id)}
+                        onClick={() => goToGame1(match._id,match.competition,match.home,match.away)}
                         className="flex flex-grow items-center gap-2"
                       >
                         {/* {fixture.hasStarted === false &&
@@ -296,7 +297,7 @@ const MotoSports = () => {
                           </div>
                         <div className="grid gap-1">
                           <div
-                            onClick={() => goToGame1(match._id)}
+                            onClick={() => goToGame1(match._id,match.competition,match.home,match.away)}
                             className="flex items-center gap-2 cursor-pointer"
                           >
                             <img
@@ -307,7 +308,7 @@ const MotoSports = () => {
                             <p className="text-sm">{match.home}</p>
                           </div>
                           <div
-                            onClick={() => goToGame1(match._.id)}
+                            onClick={() => goToGame1(match._.id,match.competition,match.home,match.away)}
                             className="flex items-center gap-2 cursor-pointer"
                           >
                            <img
