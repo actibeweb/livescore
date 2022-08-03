@@ -6,7 +6,7 @@ import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Adsense from "../Common/Adsense";
 import Adsense1 from "../Common/Adsense1";
-
+import { Helmet } from 'react-helmet';
 const Tennis = () => {
   const navigate = useNavigate();
   const [gameDate, setGameDate] = useState(
@@ -104,11 +104,14 @@ const Tennis = () => {
   };
   return (
     <>
+      <Helmet>
+        <title>Tennis Live Score</title>
+      </Helmet>
       {loading ? (
         <Loader />
       ) : (
         <>
-          {games.length > 0 ? (
+          
             <div className="text-pry lg:w-[50%] lg:mx-auto">
               <div className="px-2.5 flex justify-between items-center">
                 {/* <p className="font-bold w-10 py-[2px] flex justify-center bg-n-white text-n-black text-11px uppercase rounded">
@@ -457,9 +460,7 @@ const Tennis = () => {
                 <Adsense />
               </div>
             </div>
-          ) : (
-            <p>There are no games available</p>
-          )}
+      \
         </>
       )}
     </>

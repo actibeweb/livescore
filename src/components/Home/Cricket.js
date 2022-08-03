@@ -8,7 +8,7 @@ import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Adsense from "../Common/Adsense";
 import Adsense1 from "../Common/Adsense1";
-
+import { Helmet } from 'react-helmet';
 const Cricket = () => {
   const navigate = useNavigate();
   const [homeScore, setHomeScore] = useState();
@@ -262,6 +262,9 @@ const Cricket = () => {
   }
   return (
     <>
+      <Helmet>
+        <title>Cricket Live Score</title>
+      </Helmet>
       {loading ? (
         <Loader />
       ) : (

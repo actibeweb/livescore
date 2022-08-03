@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Adsense from "../Common/Adsense";
 import Adsense1 from "../Common/Adsense1";
 import { getCustomFixture } from "../../api/mmaFight";
-
+import { Helmet } from 'react-helmet';
 const MmaFight = () => {
   const navigate = useNavigate();
   const [homeScore, setHomeScore] = useState();
@@ -184,6 +184,9 @@ const MmaFight = () => {
 
   return (
     <>
+      <Helmet>
+        <title>MMA Live Score</title>
+      </Helmet>
       {loading ? (
         <Loader />
       ) : (

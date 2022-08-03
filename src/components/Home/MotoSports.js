@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Adsense from "../Common/Adsense";
 import Adsense1 from "../Common/Adsense1";
 import { getCustomFixture } from "../../api/motoSports";
-
+import { Helmet } from 'react-helmet';
 const MotoSports = () => {
   const navigate = useNavigate();
   const [homeScore, setHomeScore] = useState();
@@ -184,6 +184,9 @@ const MotoSports = () => {
 
   return (
     <>
+      <Helmet>
+        <title>MotoSports Live Score</title>
+      </Helmet>
       {loading ? (
         <Loader />
       ) : (

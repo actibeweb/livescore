@@ -5,6 +5,7 @@ import { getCustomFixtureById, getFixtureById } from "../../api/basketball";
 import Loader from "../Common/Loader";
 import Adsense from "../Common/Adsense";
 import Adsense1 from "../Common/Adsense1";
+import { Helmet } from 'react-helmet';
 const Custom = () => {
   const [markAsFavourite, setMarkAsFavourite] = useState(false);
   const [homeScore, setHomeScore] = useState(3);
@@ -62,6 +63,10 @@ const Custom = () => {
       ) : (
         <>
           {game && (
+            <>
+              <Helmet>
+                <title>{`${game.home} vs ${game.away}`}</title>
+              </Helmet>
             <div className="text-n-white py-1 lg:w-[50%] lg:mx-auto">
               <div className="px-2.5 mb-2 flex justify-between items-center">
                 <div className="flex items-center gap-2 mb-2">
@@ -284,6 +289,8 @@ const Custom = () => {
                 <Adsense />
               </div>
             </div>
+            </>
+
           )}
         </>
       )}

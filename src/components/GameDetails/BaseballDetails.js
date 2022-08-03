@@ -5,6 +5,7 @@ import { getFixtureById } from "../../api/baseball";
 import Loader from "../Common/Loader";
 import Adsense from "../Common/Adsense";
 import Adsense1 from "../Common/Adsense1";
+import { Helmet } from "react-helmet";
 const BaseballDetails = () => {
   const [markAsFavourite, setMarkAsFavourite] = useState(false);
   const [homeScore, setHomeScore] = useState(3);
@@ -61,6 +62,9 @@ const BaseballDetails = () => {
         <Loader />
       ) : (
         <>
+          <Helmet>
+            <title>{`${game.teams.home.name} vs ${game.teams.away.name}`}</title>
+          </Helmet>
           {game && (
             <div className="text-n-white py-1 lg:w-[50%] lg:mx-auto">
               <div className="px-2.5 mb-2 flex justify-between items-center">

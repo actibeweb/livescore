@@ -5,6 +5,7 @@ import { getFixtureById } from "../../api/rugby";
 import Loader from "../Common/Loader";
 import Adsense from "../Common/Adsense";
 import Adsense1 from "../Common/Adsense1";
+import { Helmet } from 'react-helmet';
 const RugbyDetails = () => {
   const [markAsFavourite, setMarkAsFavourite] = useState(false);
   const [homeScore, setHomeScore] = useState(3);
@@ -62,6 +63,10 @@ const RugbyDetails = () => {
       ) : (
         <>
           {game && (
+            <>
+            <Helmet>
+                <title>{`${game.teams.home.name} vs ${game.teams.away.name}`}</title>
+              </Helmet>
             <div className="text-n-white py-1 lg:w-[50%] lg:mx-auto">
               <div className="px-2.5 mb-2 flex justify-between items-center">
                 <div className="flex items-center gap-2 mb-2">
@@ -240,7 +245,7 @@ const RugbyDetails = () => {
                             {game.scores.home}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.home.total}
+                            {game?.scores?.home?.total}
                           </td>
                         </tr>
                         <tr className="py-1 h-8 border-n-bg-gray border-b">
@@ -263,10 +268,10 @@ const RugbyDetails = () => {
                             {game.periods.second_overtime.away}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.away}
+                            {game?.scores.away}
                           </td>
                           <td className=" text-center px-1 text-xxs">
-                            {game.scores.home.total}
+                            {game?.scores?.home?.total}
                           </td>
                         </tr>
                       
@@ -279,6 +284,8 @@ const RugbyDetails = () => {
             <Adsense />
           </div>
             </div>
+            </>
+
           )}
         </>
       )}

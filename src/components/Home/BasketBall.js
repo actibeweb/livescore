@@ -8,6 +8,7 @@ import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Adsense from "../Common/Adsense";
 import Adsense1 from "../Common/Adsense1";
+import { Helmet } from 'react-helmet';
 
 const Basketball = () => {
   const navigate = useNavigate();
@@ -255,6 +256,9 @@ const Basketball = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Basketball Live Score</title>
+      </Helmet>
       {loading ? (
         <Loader />
       ) : (

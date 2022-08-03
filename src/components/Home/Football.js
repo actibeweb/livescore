@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Adsense from "../Common/Adsense";
 import Adsense1 from "../Common/Adsense1";
 import GoogleAds from "../Common/GoogleAds";
+import { Helmet } from 'react-helmet';
 const Home = () => {
   const navigate = useNavigate();
   const [homeScore, setHomeScore] = useState();
@@ -256,6 +257,9 @@ const Home = () => {
   }
   return (
     <>
+      <Helmet>
+        <title>Soccer Live Score</title>
+      </Helmet>
       {loading ? (
         <Loader />
       ) : (

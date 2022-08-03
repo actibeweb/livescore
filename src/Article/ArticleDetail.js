@@ -6,7 +6,7 @@ import Loader from "../components/Common/Loader";
 const ArticleDetail = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [article, setArticle] = useState({});
+  const [article, setArticle] = useState(undefined);
   const { id } = useParams();
   const getArticleHandler = async (id) => {
     try {
@@ -33,6 +33,9 @@ const ArticleDetail = () => {
       {loading ? (
         <Loader />
       ) : (
+        <>
+        {article && (
+
         <div className="content-info">
           <div className="container paddings-mini">
             <div className="row">
@@ -51,6 +54,10 @@ const ArticleDetail = () => {
             </div>
           </div>
         </div>
+        )}
+
+</>
+
       )}
     </>
   );
